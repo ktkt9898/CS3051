@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY TITLE</title> <!-- Put your own title here -->
+    <link href="style.css" rel="stylesheet">
+    <style>
+        /* Class selector */
+        .myClass {
+            border: 5px solid red;
+            width: 100px;
+        }
+
+        /* ID selector */
+        #myID {
+            border: 5px solid blue;
+            width: 100px;
+        }
+
+        /* Element selector */
+        [myimage] {
+            border: 5px solid orange;
+            width: 100px;
+        }
+
+        #container {
+            border: 5px solid green;
+            font-size: 20px;
+            width: 50vw; /* 50% of the viewport width */
+        }
+
+    </style>
+</head>
+ 
+<body>
+    <!-- Your web page content goes here -->
+     <div id="container">
+        <img id="myID" class="myClass" src="wikipedia.png">
+     </div>
+    <script src="script.js" async defer></script>
+</body>
+ 
+</html>
