@@ -1,5 +1,16 @@
-.buttonContainer {
+.mainContainer {
     width: 100%;
+    margin: 10px auto;
+    padding: 10px;
+    border: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.buttonHolderContainer {
+    width: 50px;
     margin: 10px auto;
     padding: 10px;
     border: 5px;

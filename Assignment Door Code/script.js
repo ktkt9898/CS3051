@@ -1,7 +1,6 @@
 function buttonClick(button) {
     let startCount = 0;
-    if (button.textContent === "1" || button.textContent === "2"
-        || button.textContent === "3") {
+    if (button) {
         button.style.backgroundColor = "green";
     }
     /* Verify if true for the checkButtons method, which will change the message */
