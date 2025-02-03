@@ -9,7 +9,7 @@ function buttonClick(button) {
 
 function checkButtons() {
     const buttons = document.querySelectorAll(".codeButton button");
-    /* querySelectorAll stores all values of class .codeButton with the elements of type buttonm
+    /* querySelectorAll stores all values of class .codeButton with the elements of type button
     in the constant variable called buttons */
     function isButtonGreen(button) {
         /* Return true if the background color is equal to green */

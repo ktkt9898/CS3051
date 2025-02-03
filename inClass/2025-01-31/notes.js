@@ -58,3 +58,7 @@ function myFunc() {
     return y;
 }
 console.log(u + myFunc());
+
+/**
+ * === checks for value and type, == checks for value only
+ */
