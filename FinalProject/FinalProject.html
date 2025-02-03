@@ -43,17 +43,15 @@
           <div class="dropdownOption" data-value="Z">Z</div>
       </div>
   </div>
-    <div class="myContainer">
-        <div class="guitarTab">
-            <h2>Smoke on the Water</h2>
-            <button class="tabButton" onclick="toggleIframe('iframeSmoke')">Show/Hide</button>
-            <iframe id="iframeSmoke" class="customIFrame" src="tabs/Smoke.html" alt="Tab Is Not Available"></iframe>
-          </div>
-        <div class="guitarTab">
-            <h2>Stairway to Heaven</h2>
-            <button class="tabButton" onclick="toggleIframe('iframeStairway')">Show/Hide</button>
-            <iframe id="iframeStairway" class="customIFrame" src="tabs/Stairway.png" alt="Tab Is Not Available"></iframe>
-          </div>
+  <div class="myContainer">
+    <div class="guitarTab">
+        <h2>Smoke on the Water</h2>
+        <button class="tabButton" onclick="toggleIframe('iframeSmoke')">Show/Hide</button>
+        <button class="scrollButton" onclick="startScrolling('iframeSmoke')">Start Scrolling</button>
+        <button class="scrollButton" onclick="stopScrolling()">Stop Scrolling</button>
+        <button class="scrollButton" onclick="restartScrolling('iframeSmoke')">Restart Scrolling</button>
+        <iframe id="iframeSmoke" class="customIFrame" src="tabs/Smoke.html" alt="Tab Is Not Available"></iframe>
+    </div>
     <script src="script.js" async defer></script>
 </body>
 
