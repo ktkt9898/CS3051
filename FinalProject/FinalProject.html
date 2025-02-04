@@ -44,27 +44,11 @@
   </div>
   <div class="tabContainer">
     <div class="guitarTab">
-        <h2>Smoke on the Water</h2>
+        <h3>Stairway to Heaven</h3>
         <style>
-            .albumCoverSmoke {
-                
-            }
-        </style>
-        <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeSmoke', 'innerButtonContainerSmoke')">Show/Hide</button>
-        <div id="innerButtonContainerSmoke" class="innerButtonContainer" style="display: none;">
-            <button class="scrollButton commonButton" onclick="startScrolling('iframeSmoke', 1.5)">Start Scrolling</button>
-            <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
-            <button class="scrollButton commonButton" onclick="restartScrolling('iframeSmoke')">Restart</button>
-            <iframe id="iframeSmoke" class="customIFrame" src="tabs/Smoke.html" alt="Tab Is Not Available"></iframe>
-        </div>
-    </div>
-    
-    <div class="guitarTab">
-        <h2>Stairway to Heaven</h2>
-        <style>
-            .albumCoverStairway {
+            #albumCoverStairway {
                 width: 100px;
-                border: 1px solid black;
+                border: 5px solid black;
                 box-sizing: border-box;
                 float: left
             }
@@ -74,10 +58,32 @@
         </div>
         <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeStairway', 'innerButtonContainerStairway')">Show/Hide</button>
         <div id="innerButtonContainerStairway" class="innerButtonContainer" style="display: none;">
-            <button class="scrollButton commonButton" onclick="startScrolling('iframeStairway', 1.2)">Start Scrolling</button>
+            <button class="scrollButton commonButton" onclick="startScrolling('iframeStairway', 1.5)">Start Scrolling</button>
             <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
             <button class="scrollButton commonButton" onclick="restartScrolling('iframeStairway')">Restart</button>
             <iframe id="iframeStairway" class="customIFrame" src="tabs/Stairway.html" alt="Tab Is Not Available"></iframe>
+        </div>
+    </div>
+
+    <div class="guitarTab">
+        <h3>One</h3>
+        <style>
+            #albumCoverOne {
+                width: 100px;
+                border: 5px solid black;
+                box-sizing: border-box;
+                float: left
+            }
+        </style>
+        <div class="albumContainer">
+            <img id="albumCoverOne" class="albumCoverOne" src="albumCovers/Metallica_-_...And_Justice_for_All_cover.jpg" alt="Album Cover"></img>
+        </div>
+        <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeOne', 'innerButtonContainerOne')">Show/Hide</button>
+        <div id="innerButtonContainerOne" class="innerButtonContainer" style="display: none;">
+            <button class="scrollButton commonButton" onclick="startScrolling('iframeOne', 5)">Start Scrolling</button>
+            <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
+            <button class="scrollButton commonButton" onclick="restartScrolling('iframeOne')">Restart</button>
+            <iframe id="iframeOne" class="customIFrame" src="tabs/One.html" alt="Tab Is Not Available"></iframe>
         </div>
     </div>
     <script src="script.js" async defer></script>
