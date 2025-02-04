@@ -1,7 +1,6 @@
 let scrollInterval;
 
 function toggleIframeAndButtons(iframeId, containerId) {
-    stopScrolling(); // Stop any ongoing scrolling when show/hide button is clicked
     const iframe = document.getElementById(iframeId);
     const container = document.getElementById(containerId);
     if (iframe.style.display === "none" || iframe.style.display === "") {
@@ -13,7 +12,7 @@ function toggleIframeAndButtons(iframeId, containerId) {
     }
 }
 
-function startScrolling(iframeId) {
+function startScrolling(iframeId, scrollSpeed) {
     stopScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
     const iframe = document.getElementById(iframeId);
@@ -21,7 +20,7 @@ function startScrolling(iframeId) {
     let scrollPosition = iframeDocument.documentElement.scrollTop || iframeDocument.body.scrollTop;
 
     scrollInterval = setInterval(() => {
-        scrollPosition += 1; // Adjust the scroll speed by changing this value
+        scrollPosition += (scrollSpeed); // Adjust the scroll speed by changing this value
         iframeDocument.documentElement.scrollTop = scrollPosition;
         iframeDocument.body.scrollTop = scrollPosition;
     }, 50); // Adjust the interval time to control the speed

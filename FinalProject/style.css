@@ -51,15 +51,7 @@
     display: block;
 }
 
-.myContainer {
-    width: 100%;
-    margin: 10px auto;
-    padding: 10px;
-    border: 5px;
-    box-sizing: border-box;
-}
-
-.myContainer img { /* Make images responsive only in myContainer */
+.tabContainer img { /* Make images responsive only in myContainer */
     max-width: 100%;
     border: 5px solid black;
     height: auto;
@@ -83,6 +75,11 @@
     padding: 20px;
     background-color: blanchedalmond;
     box-sizing: border-box 
+}
+
+.albumContainer {
+    /* Ensures the contents, the album image, does not overflow the container */
+    overflow: auto;
 }
 
 .customIFrame {
