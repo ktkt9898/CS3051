@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyle's Door Code</title> <!-- Change MY TITLE to your own page title -->
+    <link href="style.css" rel="stylesheet">
+    <style>
+        .red {
+            color:red
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="buttonHolderContainer">
+            <div class="codeButton">
+                <button onclick="buttonClick(this)">1</button>
+            </div>
+            <div class="codeButton">
+                <button onclick="buttonClick(this)">2</button>
+            </div>
+            <div class="codeButton">
+                <button onclick="buttonClick(this)">3</button>
+            </div>
+        </div>
+    </div>
+    <div class="headerCorrect red">
+        <h3 id="threeButtons">Click the three buttons</h3>
+    </div>
+    <div class="doorImageContainer">
+        <img id="doorImage" src="doorClosed.png" alt="Door Closed">
+    </div>
+    <script src="script.js" async defer>
+        let a = document.querySelector(".codeButton");
+    </script>
+</body>
+
+</html>

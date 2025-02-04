@@ -1,11 +1,15 @@
 let scrollInterval;
 
-function toggleIframe(id) {
-    const iframe = document.getElementById(id);
+function toggleIframeAndButtons(iframeId, containerId) {
+    stopScrolling(); // Stop any ongoing scrolling when show/hide button is clicked
+    const iframe = document.getElementById(iframeId);
+    const container = document.getElementById(containerId);
     if (iframe.style.display === "none" || iframe.style.display === "") {
         iframe.style.display = "block";
+        container.style.display = "block";
     } else {
         iframe.style.display = "none";
+        container.style.display = "none";
     }
 }
 
