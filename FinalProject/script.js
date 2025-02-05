@@ -42,7 +42,7 @@ function startScrolling(iframeId, initialScrollSpeed) {
     }, 10); // Set the interval time to control the refresh rate
 }
 
-function startScrolling(iframeId, initialScrollSpeed, speedChangeTime = 10000, newScrollSpeed = 7, intervalTime = 10) {
+function startScrolling(iframeId, initialScrollSpeed, speedChangeTime = 10000, newScrollSpeed = 7) {
     stopScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
     const iframe = document.getElementById(iframeId);
@@ -56,7 +56,7 @@ function startScrolling(iframeId, initialScrollSpeed, speedChangeTime = 10000, n
         iframeDocument.documentElement.scrollTop = scrollPosition;
         iframeDocument.body.scrollTop = scrollPosition;
         currentScrollPosition = scrollPosition; // Update the current scroll position
-    }, intervalTime); // Set the interval time to control the refresh rate
+    }, 10); // Set the interval time to control the refresh rate
 
     // Change the scroll speed after a specified time
     speedTimeout = setTimeout(() => {
