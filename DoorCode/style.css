@@ -28,7 +28,7 @@
     border: none;
 }
 
-.headerCorrect  {
+.mainHeader  {
     display: block; /* Ensure the element is a block-level element */
     width: 100%; /* Set the desired width */
     margin: 0 auto; /* Center the element horizontally */

@@ -45,6 +45,8 @@
   <div class="tabContainer">
     <div class="guitarTab">
         <h3>Stairway to Heaven</h3>
+        <h4>Led Zeppelin</h4>
+        <h4>1971</h4>
         <style>
             #albumCoverStairway {
                 width: 100px;
@@ -56,9 +58,9 @@
         <div class="albumContainer">
             <img id="albumCoverStairway" class="albumCoverStairway" src="albumCovers/Led_Zeppelin_IV.jpg" alt="Album Cover"></img>
         </div>
-        <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeStairway', 'innerButtonContainerStairway')">Show/Hide</button>
+        <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeStairway', 'innerButtonContainerStairway', this)">Show</button>
         <div id="innerButtonContainerStairway" class="innerButtonContainer" style="display: none;">
-            <button class="scrollButton commonButton" onclick="startScrolling('iframeStairway', 1.5)">Start Scrolling</button>
+            <button class="scrollButton commonButton" onclick="startScrolling('iframeStairway', 1.5, 30)">Start Scrolling</button>
             <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
             <button class="scrollButton commonButton" onclick="restartScrolling('iframeStairway')">Restart</button>
             <iframe id="iframeStairway" class="customIFrame" src="tabs/Stairway.html" alt="Tab Is Not Available"></iframe>
@@ -67,6 +69,8 @@
 
     <div class="guitarTab">
         <h3>One</h3>
+        <h4>Metallica</h4>
+        <h4>1988</h4>
         <style>
             #albumCoverOne {
                 width: 100px;
@@ -78,9 +82,9 @@
         <div class="albumContainer">
             <img id="albumCoverOne" class="albumCoverOne" src="albumCovers/Metallica_-_...And_Justice_for_All_cover.jpg" alt="Album Cover"></img>
         </div>
-        <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeOne', 'innerButtonContainerOne')">Show/Hide</button>
+        <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeOne', 'innerButtonContainerOne', this)">Show</button>
         <div id="innerButtonContainerOne" class="innerButtonContainer" style="display: none;">
-            <button class="scrollButton commonButton" onclick="startScrolling('iframeOne', 5)">Start Scrolling</button>
+            <button class="scrollButton commonButton" onclick="startScrolling('iframeOne', 5, 30, 2000, 10)">Start Scrolling</button>
             <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
             <button class="scrollButton commonButton" onclick="restartScrolling('iframeOne')">Restart</button>
             <iframe id="iframeOne" class="customIFrame" src="tabs/One.html" alt="Tab Is Not Available"></iframe>
