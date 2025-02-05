@@ -12,36 +12,36 @@
     <!-- Your web page content goes here -->
     <h1 class="customHeader"> Guitar Tabs </h1>
     <div class="customDropdown">
-      <div class="dropdownButtonHeader">Search By Letter</div>
-      <div class="dropdownContent">
-          <div class="dropdownOption" data-value="A">A</div>
-          <div class="dropdownOption" data-value="B">B</div>
-          <div class="dropdownOption" data-value="C">C</div>
-          <div class="dropdownOption" data-value="D">D</div>
-          <div class="dropdownOption" data-value="E">E</div>
-          <div class="dropdownOption" data-value="F">F</div>
-          <div class="dropdownOption" data-value="G">G</div>
-          <div class="dropdownOption" data-value="H">H</div>
-          <div class="dropdownOption" data-value="I">I</div>
-          <div class="dropdownOption" data-value="J">J</div>
-          <div class="dropdownOption" data-value="K">K</div>
-          <div class="dropdownOption" data-value="L">L</div>
-          <div class="dropdownOption" data-value="M">M</div>
-          <div class="dropdownOption" data-value="N">N</div>
-          <div class="dropdownOption" data-value="O">O</div>
-          <div class="dropdownOption" data-value="P">P</div>
-          <div class="dropdownOption" data-value="Q">Q</div>
-          <div class="dropdownOption" data-value="R">R</div>
-          <div class="dropdownOption" data-value="S">S</div>
-          <div class="dropdownOption" data-value="T">T</div>
-          <div class="dropdownOption" data-value="U">U</div>
-          <div class="dropdownOption" data-value="V">V</div>
-          <div class="dropdownOption" data-value="W">W</div>
-          <div class="dropdownOption" data-value="X">X</div>
-          <div class="dropdownOption" data-value="Y">Y</div>
-          <div class="dropdownOption" data-value="Z">Z</div>
-      </div>
-  </div>
+        <div class="dropdownButtonHeader">Search By Letter</div>
+        <div class="dropdownContent">
+            <div class="dropdownOption" data-value="A">A</div>
+            <div class="dropdownOption" data-value="B">B</div>
+            <div class="dropdownOption" data-value="C">C</div>
+            <div class="dropdownOption" data-value="D">D</div>
+            <div class="dropdownOption" data-value="E">E</div>
+            <div class="dropdownOption" data-value="F">F</div>
+            <div class="dropdownOption" data-value="G">G</div>
+            <div class="dropdownOption" data-value="H">H</div>
+            <div class="dropdownOption" data-value="I">I</div>
+            <div class="dropdownOption" data-value="J">J</div>
+            <div class="dropdownOption" data-value="K">K</div>
+            <div class="dropdownOption" data-value="L">L</div>
+            <div class="dropdownOption" data-value="M">M</div>
+            <div class="dropdownOption" data-value="N">N</div>
+            <div class="dropdownOption" data-value="O">O</div>
+            <div class="dropdownOption" data-value="P">P</div>
+            <div class="dropdownOption" data-value="Q">Q</div>
+            <div class="dropdownOption" data-value="R">R</div>
+            <div class="dropdownOption" data-value="S">S</div>
+            <div class="dropdownOption" data-value="T">T</div>
+            <div class="dropdownOption" data-value="U">U</div>
+            <div class="dropdownOption" data-value="V">V</div>
+            <div class="dropdownOption" data-value="W">W</div>
+            <div class="dropdownOption" data-value="X">X</div>
+            <div class="dropdownOption" data-value="Y">Y</div>
+            <div class="dropdownOption" data-value="Z">Z</div>
+        </div>
+    </div>
   <div class="tabContainer">
     <div class="guitarTab">
         <h3>Stairway to Heaven</h3>
@@ -60,7 +60,7 @@
         </div>
         <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeStairway', 'innerButtonContainerStairway', this)">Show</button>
         <div id="innerButtonContainerStairway" class="innerButtonContainer" style="display: none;">
-            <button class="scrollButton commonButton" onclick="startScrolling('iframeStairway', 1.5, 30)">Start Scrolling</button>
+            <button class="scrollButton commonButton" onclick="startScrolling('iframeStairway', 1.5, 10)">Start Scrolling</button>
             <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
             <button class="scrollButton commonButton" onclick="restartScrolling('iframeStairway')">Restart</button>
             <iframe id="iframeStairway" class="customIFrame" src="tabs/Stairway.html" alt="Tab Is Not Available"></iframe>
@@ -84,7 +84,7 @@
         </div>
         <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeOne', 'innerButtonContainerOne', this)">Show</button>
         <div id="innerButtonContainerOne" class="innerButtonContainer" style="display: none;">
-            <button class="scrollButton commonButton" onclick="startScrolling('iframeOne', 5, 30, 2000, 10)">Start Scrolling</button>
+            <button class="scrollButton commonButton" onclick="startScrolling('iframeOne', 2, 45000, 4)">Start Scrolling</button>
             <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
             <button class="scrollButton commonButton" onclick="restartScrolling('iframeOne')">Restart</button>
             <iframe id="iframeOne" class="customIFrame" src="tabs/One.html" alt="Tab Is Not Available"></iframe>

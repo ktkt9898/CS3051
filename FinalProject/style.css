@@ -8,13 +8,11 @@
 }
 
 .customDropdown {
-    position: relative;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 10px;
+    position: relative; /* Ensure the dropdown content is positioned relative to this container */
 }
 
 .dropdownButtonHeader {
+    width: 125px;
     background-color: #4CAF50;
     color: white;
     padding: 10px;
@@ -24,22 +22,20 @@
 }
 
 .dropdownContent {
-    display: none;
-    position: absolute;
+    display: none; /* Hide the dropdown content by default */
+    position: absolute; /* Position the dropdown content absolutely */
     background-color: #f9f9f9;
-    min-width: 160px;
+    width: 50px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    white-space: nowrap;
+    z-index: 1; /* Ensure the dropdown content is above other elements */
+    top: 100%; /* Position the dropdown content below the button */
 }
 
 .dropdownContent .dropdownOption {
-    /* .dropdownContent is the parent class 
-    .dropdownOption is a child class that inherits the values of the parent*/
     color: black;
     padding: 12px 16px;
     text-decoration: none;
-    display: inline-block;
+    display: block;
 }
 
 .dropdownContent .dropdownOption:hover {
@@ -47,7 +43,7 @@
 }
 
 .customDropdown:hover .dropdownContent {
-    display: block;
+    display: block; /* Show the dropdown content on hover */
 }
 
 .tabContainer img { /* Make images responsive only in myContainer */
@@ -81,7 +77,7 @@
 
 .customIFrame {
     width: 100%;
-    height: 500px;
+    height: 600px;
     margin: auto;
     display: none;
     border: 5px solid black;
