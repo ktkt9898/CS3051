@@ -10,6 +10,7 @@ function toggleIframeAndButtons(iframeId, containerId, button) {
         iframe.style.display = "block";
         container.style.display = "block";
         button.textContent = "Hide";
+        iframe.scrollIntoView({ behavior: 'smooth' }); // Scroll to the iframe smoothly
     } else {
         iframe.style.display = "none";
         container.style.display = "none";
