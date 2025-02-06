@@ -14,6 +14,7 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
         button.textContent = "Hide";
         buttonContainer.scrollIntoView({ behavior: 'smooth' }); // Scroll to the iframe smoothly
     } else {
+        resetScrolling(iframeId, 0); // Reset scrolling when the iframe is hidden
         iframe.style.display = "none";
         buttonContainer.style.display = "none";
         button.textContent = "Show";
@@ -23,18 +24,12 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
 
 // Scroll function without tempo change in song
 function startScrolling(iframeId, initialScrollSpeed) {
-    stopScrolling(); // Ensure any existing scrolling is stopped before starting a new one
+    pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
     const iframe = document.getElementById(iframeId);
     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
     let scrollPosition = iframeDocument.documentElement.scrollTop || iframeDocument.body.scrollTop;
     let scrollSpeed = initialScrollSpeed || currentScrollSpeed;
-
-    // Enable the "Increase" button
-    document.getElementById('increaseScrollSpeedButton').disabled = false;
-
-    // Enable the "Decrease" button
-    document.getElementById('decreaseScrollSpeedButton').disabled = false;
 
     // Set the interval for scrolling
     scrollInterval = setInterval(() => {
@@ -45,7 +40,7 @@ function startScrolling(iframeId, initialScrollSpeed) {
 }
 
 // function startScrollingWithTempoChange(iframeId, initialScrollSpeed, speedChangeTime = 10000, newScrollSpeed = 7) {
-//     stopScrolling(); // Ensure any existing scrolling is stopped before starting a new one
+//     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
 //     const iframe = document.getElementById(iframeId);
 //     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
@@ -67,21 +62,13 @@ function startScrolling(iframeId, initialScrollSpeed) {
 //     }, speedChangeTime); // Time in milliseconds after which the scroll speed changes
 // }
 
-function stopScrolling() {
+function pauseScrolling() {
     clearInterval(scrollInterval);
     clearTimeout(speedTimeout);
 }
 
-document.getElementById('increaseScrollSpeedButton').addEventListener('click', () => {
-    currentScrollSpeed += 1; // Increase the scroll speed by 1
-});
-
-document.getElementById('decreaseScrollSpeedButton').addEventListener('click', () => {
-    currentScrollSpeed -= 1; // Decrease the scroll speed by 1
-});
-
-function restartScrolling(iframeId, initialScrollSpeed, speedChangeTime, newScrollSpeed, intervalTime) {
-    stopScrolling(); // Stop any ongoing scrolling
+function resetScrolling(iframeId, initialScrollSpeed) {
+    pauseScrolling(); // Stop any ongoing scrolling
     const iframe = document.getElementById(iframeId);
     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
     iframeDocument.documentElement.scrollTop = 0; // Scroll to the top
