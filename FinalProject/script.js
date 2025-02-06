@@ -39,6 +39,21 @@ function startScrolling(iframeId, initialScrollSpeed) {
     }, 10); // Set the interval time to control the refresh rate
 }
 
+function pauseScrolling() {
+    clearInterval(scrollInterval);
+    clearTimeout(speedTimeout);
+}
+
+function resetScrolling(iframeId, initialScrollSpeed) {
+    pauseScrolling(); // Stop any ongoing scrolling
+    const iframe = document.getElementById(iframeId);
+    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    iframeDocument.documentElement.scrollTop = 0; // Scroll to the top
+    iframeDocument.body.scrollTop = 0; // Scroll to the top
+    currentScrollPosition = 0; // Reset the current scroll position
+    currentScrollSpeed = initialScrollSpeed; // Reset the current scroll speed
+}
+
 // function startScrollingWithTempoChange(iframeId, initialScrollSpeed, speedChangeTime = 10000, newScrollSpeed = 7) {
 //     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
@@ -61,18 +76,3 @@ function startScrolling(iframeId, initialScrollSpeed) {
 //         currentScrollSpeed = newScrollSpeed; // Update the current scroll speed
 //     }, speedChangeTime); // Time in milliseconds after which the scroll speed changes
 // }
-
-function pauseScrolling() {
-    clearInterval(scrollInterval);
-    clearTimeout(speedTimeout);
-}
-
-function resetScrolling(iframeId, initialScrollSpeed) {
-    pauseScrolling(); // Stop any ongoing scrolling
-    const iframe = document.getElementById(iframeId);
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    iframeDocument.documentElement.scrollTop = 0; // Scroll to the top
-    iframeDocument.body.scrollTop = 0; // Scroll to the top
-    currentScrollPosition = 0; // Reset the current scroll position
-    currentScrollSpeed = initialScrollSpeed; // Reset the current scroll speed
-}

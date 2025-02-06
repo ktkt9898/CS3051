@@ -1,3 +1,9 @@
+/* Reset margin and padding for body and html */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 .mainHeader {
     background-color: burlywood;
     display: block; /* Ensure the element is a block-level element */
@@ -10,7 +16,6 @@
 /* Container for the music track that holds title, artist, year, album cover, and the score. */
 .containerMusicTrack {
     margin-top: 20px;
-    margin-right: 20px;
     margin-bottom: 20px;
     padding: 20px;
     background-color: blanchedalmond;
@@ -60,7 +65,7 @@
     for the scroll buttons. */
 .containerIFrame {
     width: 100%;
-    height: 750px;
+    height: 725px;
     margin: auto;
     display: none;
     border: 5px solid black;
