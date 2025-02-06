@@ -1,33 +1,14 @@
-.customHeader {
+.mainHeader {
     background-color: burlywood;
     display: block; /* Ensure the element is a block-level element */
     width: 100%; /* Set the desired width */
-    margin: 0 auto; /* Center the element horizontally */
+    margin: auto; /* Center the element horizontally */
     text-align: center; /* Center the text horizontally */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-.tabContainer img { /* Make images responsive only in myContainer */
-    max-width: 100%;
-    border: 5px solid black;
-    height: auto;
-    display: block;
-    margin-bottom: 10px auto;
-    box-sizing: border-box;
-}
-
-.buttonContainer {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.innerButtonContainer {
-    display: flex;
-    gap: 10px;
-}
-
-.guitarTab {
+/* Container for the music track that holds title, artist, year, album cover, and the score. */
+.containerMusicTrack {
     margin-top: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
@@ -36,12 +17,48 @@
     box-sizing: border-box 
 }
 
-.albumContainer {
-    /* Ensures the contents, the album image, does not overflow the container */
+/* Container for the album cover */
+.containerAlbumCover {
     overflow: auto;
 }
 
-.customIFrame {
+/* Container for the Show/Hide button */
+.containerButton {
+    display: flex;
+    align-items: center;
+}
+
+/* Container for the inner buttons Start Scrolling, Stop Scrolling, Restart. They appear after the Show button is clicked */
+.containerInnerButtons {
+    display: flex;
+}
+
+/* Button for the Show/Hide button and the inner buttons */
+.buttonShow {
+    width: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* Buttons for Start, Stop, and Restart */
+.buttonsInner {
+    width: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Container for the music score. Creates a window that can be scrolled and allows functionality
+    for the scroll buttons. */
+.containerIFrame {
     width: 100%;
     height: 600px;
     margin: auto;
@@ -49,12 +66,4 @@
     border: 5px solid black;
     box-sizing: border-box;
     overflow: auto; /* Ensure scroll bars appear */
-}
-
-.tabButton, .scrollButton {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
 }
