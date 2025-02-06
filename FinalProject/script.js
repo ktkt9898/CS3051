@@ -3,17 +3,17 @@ let speedTimeout;
 let currentScrollPosition = 0;
 let currentScrollSpeed = 0;
 
-function toggleIframeAndButtons(iframeId, containerId, button) {
+function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
     const iframe = document.getElementById(iframeId);
-    const container = document.getElementById(containerId);
+    const buttonContainer = document.getElementById(buttonContainerId);
     if (iframe.style.display === "none" || iframe.style.display === "") {
         iframe.style.display = "block";
-        container.style.display = "block";
+        buttonContainer.style.display = "block";
         button.textContent = "Hide";
-        iframe.scrollIntoView({ behavior: 'smooth' }); // Scroll to the iframe smoothly
+        buttonContainer.scrollIntoView({ behavior: 'smooth' }); // Scroll to the iframe smoothly
     } else {
         iframe.style.display = "none";
-        container.style.display = "none";
+        buttonContainer.style.display = "none";
         button.textContent = "Show";
     }
 }

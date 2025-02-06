@@ -11,85 +11,59 @@
 <body>
     <!-- Your web page content goes here -->
     <h1 class="customHeader"> Guitar Tabs </h1>
-    <div class="customDropdown">
-        <div class="dropdownButtonHeader">Search By Letter</div>
-        <div class="dropdownContent">
-            <div class="dropdownOption" data-value="A">A</div>
-            <div class="dropdownOption" data-value="B">B</div>
-            <div class="dropdownOption" data-value="C">C</div>
-            <div class="dropdownOption" data-value="D">D</div>
-            <div class="dropdownOption" data-value="E">E</div>
-            <div class="dropdownOption" data-value="F">F</div>
-            <div class="dropdownOption" data-value="G">G</div>
-            <div class="dropdownOption" data-value="H">H</div>
-            <div class="dropdownOption" data-value="I">I</div>
-            <div class="dropdownOption" data-value="J">J</div>
-            <div class="dropdownOption" data-value="K">K</div>
-            <div class="dropdownOption" data-value="L">L</div>
-            <div class="dropdownOption" data-value="M">M</div>
-            <div class="dropdownOption" data-value="N">N</div>
-            <div class="dropdownOption" data-value="O">O</div>
-            <div class="dropdownOption" data-value="P">P</div>
-            <div class="dropdownOption" data-value="Q">Q</div>
-            <div class="dropdownOption" data-value="R">R</div>
-            <div class="dropdownOption" data-value="S">S</div>
-            <div class="dropdownOption" data-value="T">T</div>
-            <div class="dropdownOption" data-value="U">U</div>
-            <div class="dropdownOption" data-value="V">V</div>
-            <div class="dropdownOption" data-value="W">W</div>
-            <div class="dropdownOption" data-value="X">X</div>
-            <div class="dropdownOption" data-value="Y">Y</div>
-            <div class="dropdownOption" data-value="Z">Z</div>
-        </div>
-    </div>
-  <div class="tabContainer">
-    <div class="guitarTab">
-        <h3>Stairway to Heaven</h3>
-        <h4>Led Zeppelin</h4>
-        <h4>1971</h4>
-        <style>
-            #albumCoverStairway {
-                width: 100px;
-                border: 5px solid black;
-                box-sizing: border-box;
-                float: left
-            }
-        </style>
-        <div class="albumContainer">
-            <img id="albumCoverStairway" class="albumCoverStairway" src="albumCovers/Led_Zeppelin_IV.jpg" alt="Album Cover"></img>
-        </div>
-        <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeStairway', 'innerButtonContainerStairway', this)">Show</button>
-        <div id="innerButtonContainerStairway" class="innerButtonContainer" style="display: none;">
-            <button class="scrollButton commonButton" onclick="startScrolling('iframeStairway', 1.5)">Start Scrolling</button>
-            <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
-            <button class="scrollButton commonButton" onclick="restartScrolling('iframeStairway')">Restart</button>
+
+    <div class="tabContainer">
+        <div class="guitarTab">
+            <h3>Stairway to Heaven</h3>
+            <h4>Led Zeppelin</h4>
+            <h4>1971</h4>
+            <style>
+                #albumCoverStairway {
+                    width: 100px;
+                    border: 5px solid black;
+                    box-sizing: border-box;
+                    float: left
+                }
+            </style>
+            <div class="albumContainer">
+                <img id="albumCoverStairway" src="albumCovers/Led_Zeppelin_IV.jpg" alt="Album Cover"></img>
+            </div>
+            <div class="buttonContainer">
+                <button class="tabButton" onclick="toggleIframeAndButtons('iframeStairway', 'innerButtonContainerStairway', this)">Show</button>
+                <div id="innerButtonContainerStairway" class="innerButtonContainer" style="display: none;">
+                    <button class="scrollButton" onclick="startScrolling('iframeStairway', 1.5)">Start Scrolling</button>
+                    <button class="scrollButton" onclick="stopScrolling()">Stop Scrolling</button>
+                    <button class="scrollButton" onclick="restartScrolling('iframeStairway')">Restart</button>
+                </div>
+            </div>
             <iframe id="iframeStairway" class="customIFrame" src="tabs/Stairway.html" alt="Tab Is Not Available"></iframe>
         </div>
     </div>
+</body>
 
-    <div class="guitarTab">
-        <h3>One</h3>
-        <h4>Metallica</h4>
-        <h4>1988</h4>
-        <style>
-            #albumCoverOne {
-                width: 100px;
-                border: 5px solid black;
-                box-sizing: border-box;
-                float: left
-            }
-        </style>
-        <div class="albumContainer">
-            <img id="albumCoverOne" class="albumCoverOne" src="albumCovers/Metallica_-_...And_Justice_for_All_cover.jpg" alt="Album Cover"></img>
-        </div>
-        <button class="tabButton commonButton" onclick="toggleIframeAndButtons('iframeOne', 'innerButtonContainerOne', this)">Show</button>
-        <div id="innerButtonContainerOne" class="innerButtonContainer" style="display: none;">
-            <button class="scrollButton commonButton" onclick="startScrolling('iframeOne', 2, 47000, 4)">Start Scrolling</button>
-            <button class="scrollButton commonButton" onclick="stopScrolling()">Stop Scrolling</button>
-            <button class="scrollButton commonButton" onclick="restartScrolling('iframeOne')">Restart</button>
-            <iframe id="iframeOne" class="customIFrame" src="tabs/One.html" alt="Tab Is Not Available"></iframe>
-        </div>
-    </div>
+        <!-- <div class="guitarTab">
+            <h3>One</h3>
+            <h4>Metallica</h4>
+            <h4>1988</h4>
+            <style>
+                #albumCoverOne {
+                    width: 100px;
+                    border: 5px solid black;
+                    box-sizing: border-box;
+                    float: left
+                }
+            </style>
+            <div class="albumContainer">
+                <img id="albumCoverOne" src="albumCovers/Metallica_-_...And_Justice_for_All_cover.jpg" alt="Album Cover"></img>
+            </div>
+            <button class="tabButton" onclick="toggleIframeAndButtons('iframeOne', 'innerButtonContainerOne', this)">Show</button>
+            <div id="innerButtonContainerOne" class="innerButtonContainer" style="display: none;">
+                <button class="scrollButton" onclick="startScrolling('iframeOne', 2, 47000, 4)">Start Scrolling</button>
+                <button class="scrollButton" onclick="stopScrolling()">Stop Scrolling</button>
+                <button class="scrollButton" onclick="restartScrolling('iframeOne')">Restart</button>
+                <iframe id="iframeOne" class="customIFrame" src="tabs/One.html" alt="Tab Is Not Available"></iframe>
+            </div>
+        </div> -->
     <script src="script.js" async defer></script>
 </body>
 
