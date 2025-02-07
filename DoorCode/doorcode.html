@@ -10,10 +10,9 @@
 
 <body>
     <div class="mainContainer">
-        <div class="buttonHolderWrapper">
-            <h2 id="panelMessage" class="mainHeader">Input 9898</h2> <!-- Add your header here -->
-            <div id="entryBox" class="entryBox"></div> <!-- Entry box to display the button sequence -->
-            <div class="buttonHolderContainer">
+        <div class="containerButtonsAndKeypad">
+            <div id="entryBox" class="entryBox"></div>
+            <div class="containerButtons">
                 <button class="codeButton" onclick="buttonClick(this)">1</button>
                 <button class="codeButton" onclick="buttonClick(this)">2</button>
                 <button class="codeButton" onclick="buttonClick(this)">3</button>
@@ -24,11 +23,16 @@
                 <button class="codeButton" onclick="buttonClick(this)">8</button>
                 <button class="codeButton" onclick="buttonClick(this)">9</button>
             </div>
-            <button class="enterButton" onclick="checkButtons()">Enter</button>
-            <button class="clearButton" onclick="resetButtons()">Reset</button>
+            <div class="containerResetEnter">
+                <button class="enterButton" onclick="checkButtons()">Enter</button>
+                <button class="resetButton" onclick="resetButtons()">Reset</button>
+            </div>
         </div>
-        <div class="doorImageContainer">
-            <img id="doorImage" src="doorClosed.png" alt="Door Image">
+        <div class="containerDoorAndHeader">
+            <h2 id="panelMessage" class="mainHeader">Input 9898</h2>
+            <div class="containerDoorImage">
+                <img id="doorImage" src="doorClosed.png" alt="Door Image">
+            </div>
         </div>
     </div>
     <script src="script.js" async defer></script>

@@ -1,3 +1,4 @@
+/* Entire container, that ensures the keypad and door image are aligned horizontally */
 .mainContainer {
     width: 100%;
     margin: 10px auto;
@@ -10,14 +11,16 @@
     align-items: flex-start; /* Align items to the top */
 }
 
-.buttonHolderWrapper {
+/* Container for the buttons and the box surrounding the keypad */
+.containerButtonsAndKeypad {
     display: flex;
     flex-direction: column; /* Stack header and button container vertically */
     align-items: center; /* Center items horizontally */
     margin-right: 20px; /* Add some space between the button holder and the door image */
 }
 
-.buttonHolderContainer {
+/* Container for the buttons, to ensure they are in a 3x3 grid */
+.containerButtons {
     width: auto;
     margin: 10px;
     padding: 10px;
@@ -29,21 +32,48 @@
     background-color: teal;
 }
 
+/* Container for the reset and enter buttons, to ensure they are left to right */
+.containerResetEnter {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Distribute space between the buttons */
+    margin-top: 10px; /* Add some space above the container */
+}
+
+/* Style for all numbered input buttons */
 .codeButton {
     width: 100%; /* Make buttons take full width of their grid cell */
     padding: 10px;
     border: none;
 }
 
+/* Reset and enter button styles */
+.enterButton, .resetButton {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Container to allow the header to be above the door image */
+.containerDoorAndHeader {
+    display: flex;
+    flex-direction: column; /* Stack header and door image vertically */
+    align-items: center; /* Center items horizontally */
+}
+
+/* Contains the header text, Input 9898, and either Try Again or The door is open! */
 .mainHeader {
     display: block; /* Ensure the element is a block-level element */
     width: 100%; /* Set the desired width */
     margin: 0 auto; /* Center the element horizontally */
     text-align: center; /* Center the text horizontally */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
-.doorImageContainer {
+/* Contains the src, doorClosed.png and doorOpen.png */
+.containerDoorImage {
     width: auto;
     margin: 10px;
     padding: 10px;
