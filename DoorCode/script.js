@@ -1,27 +1,39 @@
+
+let buttonSequence = ""; // String variable to keep track of the button sequence
+
 function buttonClick(button) {
-    let startCount = 0;
     if (button) {
         button.style.backgroundColor = "green";
+        buttonSequence += button.textContent; // Append the button's text content (1, 2, or 3)
     }
-    /* Verify if true for the checkButtons method, which will change the message */
+    // Verify if true for the checkButtons method, which will change the message */
     checkButtons();
 }
 
 function checkButtons() {
-    const buttons = document.querySelectorAll(".codeButton button");
-    /* querySelectorAll stores all values of class .codeButton with the elements of type button
-    in the constant variable called buttons */
-    function isButtonGreen(button) {
-        /* Return true if the background color is equal to green */
-        return button.style.backgroundColor === "green";
-    }
-    /* create an Array from the buttons ONLY if every button is green and the
-    function isButtonGreen returned true */
-    const allGreen = Array.from(buttons).every(isButtonGreen);
+    const correctSequence = "321"; // The correct sequence to open the door
 
-    /* Similarly, if allGreen was successfully created, change the message */
-    if (allGreen) {
+    // Check if the sequence matches the correct sequence */
+    // If the buttonSequence is exactly "321", the function will return true */
+    if (buttonSequence === correctSequence) {
         document.getElementById("threeButtons").textContent = "The door is open!";
-        document.getElementById("doorImage").src="doorOpen.png";
+        document.getElementById("doorImage").src = "doorOpen.png";
+        disableButtons(); // Disable the buttons after the door is open
+    } else if (buttonSequence.length >= correctSequence.length) {
+        // Reset the sequence if the length exceeds the correct sequence length
+        buttonSequence = "";
+        // Reset button colors
+        const buttons = document.querySelectorAll(".codeButton button");
+        // If the else condition is checked, reset to a blank background color
+        buttons.forEach(button => button.style.backgroundColor = "");
     }
+}
+
+function disableButtons() {
+    // Store each of the buttons in the buttons variable, regardless of the correct choice
+    const buttons = document.querySelectorAll(".codeButton button");
+    // Disable each button in the buttons variable
+    buttons.forEach(function(button) {
+        button.disabled = true;
+    });
 }
