@@ -5,30 +5,37 @@
     border: 5px;
     box-sizing: border-box;
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Set the direction to row to align children horizontally */
     justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+}
+
+.buttonHolderWrapper {
+    display: flex;
+    flex-direction: column; /* Stack header and button container vertically */
+    align-items: center; /* Center items horizontally */
+    margin-right: 20px; /* Add some space between the button holder and the door image */
 }
 
 .buttonHolderContainer {
     width: auto;
-    margin: 10px auto;
-    padding: 10px auto;
+    margin: 10px;
+    padding: 10px;
     border: 5px solid black;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create 3 equal columns */
+    gap: 10px; /* Add some space between the buttons */
     background-color: teal;
 }
 
 .codeButton {
-    width: auto;
+    width: 100%; /* Make buttons take full width of their grid cell */
     padding: 10px;
-    margin: 10px auto;
     border: none;
 }
 
-.mainHeader  {
+.mainHeader {
     display: block; /* Ensure the element is a block-level element */
     width: 100%; /* Set the desired width */
     margin: 0 auto; /* Center the element horizontally */
@@ -37,12 +44,12 @@
 }
 
 .doorImageContainer {
-    width: 100%;
-    margin: 10px auto;
+    width: auto;
+    margin: 10px;
     padding: 10px;
     border: 5px;
     box-sizing: border-box;
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    align-items: center; /* Center the image vertically */
 }

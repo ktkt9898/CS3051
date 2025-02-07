@@ -2,37 +2,65 @@
 let buttonSequence = ""; // String variable to keep track of the button sequence
 
 function buttonClick(button) {
-    if (button) {
+    if (button && buttonSequence.length < 4) {
         button.style.backgroundColor = "green";
         buttonSequence += button.textContent; // Append the button's text content (1, 2, or 3)
+        
+        // Reset the button's background color after a short delay (e.g., 500ms)
+        setTimeout(function() {
+            button.style.backgroundColor = "";
+        }, 500);
+
+        // Update the entry box with the current button sequence
+        document.getElementById("entryBox").textContent = buttonSequence;
     }
-    // Verify if true for the checkButtons method, which will change the message */
-    checkButtons();
 }
 
 function checkButtons() {
-    const correctSequence = "321"; // The correct sequence to open the door
+    const correctSequence = "9898"; // The correct sequence to open the door
 
-    // Check if the sequence matches the correct sequence */
-    // If the buttonSequence is exactly "321", the function will return true */
+    // Check if the sequence matches the correct sequence
     if (buttonSequence === correctSequence) {
-        document.getElementById("threeButtons").textContent = "The door is open!";
+        document.getElementById("panelMessage").textContent = "The door is open!";
         document.getElementById("doorImage").src = "doorOpen.png";
-        disableButtons(); // Disable the buttons after the door is open
-    } else if (buttonSequence.length >= correctSequence.length) {
-        // Reset the sequence if the length exceeds the correct sequence length
+        disableButtons();
+    } else {
+        // Reset the sequence if the sequence is incorrect
         buttonSequence = "";
         // Reset button colors
         const buttons = document.querySelectorAll(".codeButton button");
-        // If the else condition is checked, reset to a blank background color
-        buttons.forEach(button => button.style.backgroundColor = "");
+        buttons.forEach(function(button) {
+            button.style.backgroundColor = "";
+        });
+        // Reset the entry box
+        document.getElementById("entryBox").textContent = buttonSequence;
+        // Update the panel message to indicate the sequence was incorrect
+        document.getElementById("panelMessage").textContent = "Incorrect. Input 9898";
     }
 }
 
+function resetButtons() {
+    // Clear the button sequence
+    buttonSequence = "";
+    // Reset button colors
+    const buttons = document.querySelectorAll(".codeButton");
+    buttons.forEach(function(button) {
+        button.style.backgroundColor = "";
+        button.disabled = false; // Enable the buttons
+    });
+    // Reset the entry box
+    document.getElementById("entryBox").textContent = buttonSequence;
+    // Reset the door image if it is currently doorOpen.png
+    const doorImage = document.getElementById("doorImage");
+    if (doorImage.src.includes("doorOpen.png")) {
+        doorImage.src = "doorClosed.png";
+    }
+    // Reset the panel message
+    document.getElementById("panelMessage").textContent = "Enter 9898";
+}
+
 function disableButtons() {
-    // Store each of the buttons in the buttons variable, regardless of the correct choice
-    const buttons = document.querySelectorAll(".codeButton button");
-    // Disable each button in the buttons variable
+    const buttons = document.querySelectorAll(".codeButton");
     buttons.forEach(function(button) {
         button.disabled = true;
     });

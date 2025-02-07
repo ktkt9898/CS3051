@@ -4,35 +4,32 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kyle's Door Code</title> <!-- Change MY TITLE to your own page title -->
+    <title>Kyle's Door Code</title>
     <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="mainContainer">
-        <div class="buttonHolderContainer">
-            <div class="codeButton">
-                <button onclick="buttonClick(this)">1</button>
+        <div class="buttonHolderWrapper">
+            <h2 id="panelMessage" class="mainHeader">Input 9898</h2> <!-- Add your header here -->
+            <div id="entryBox" class="entryBox"></div> <!-- Entry box to display the button sequence -->
+            <div class="buttonHolderContainer">
+                <button class="codeButton" onclick="buttonClick(this)">1</button>
+                <button class="codeButton" onclick="buttonClick(this)">2</button>
+                <button class="codeButton" onclick="buttonClick(this)">3</button>
+                <button class="codeButton" onclick="buttonClick(this)">4</button>
+                <button class="codeButton" onclick="buttonClick(this)">5</button>
+                <button class="codeButton" onclick="buttonClick(this)">6</button>
+                <button class="codeButton" onclick="buttonClick(this)">7</button>
+                <button class="codeButton" onclick="buttonClick(this)">8</button>
+                <button class="codeButton" onclick="buttonClick(this)">9</button>
             </div>
-            <div class="codeButton">
-                <button onclick="buttonClick(this)">2</button>
-            </div>
-            <div class="codeButton">
-                <button onclick="buttonClick(this)">3</button>
-            </div>
-            <div class="codeButton">
-                <button onclick="buttonClick(this)">4</button>
-            </div>
-            <div class="codeButton">
-                <button onclick="buttonClick(this)">5</button>
-            </div>
+            <button class="enterButton" onclick="checkButtons()">Enter</button>
+            <button class="clearButton" onclick="resetButtons()">Reset</button>
         </div>
-    </div>
-    <div class="mainHeader">
-        <h3 id="threeButtons">Enter 3 2 1</h3>
-    </div>
-    <div class="doorImageContainer">
-        <img id="doorImage" src="doorClosed.png" alt="Door Closed">
+        <div class="doorImageContainer">
+            <img id="doorImage" src="doorClosed.png" alt="Door Image">
+        </div>
     </div>
     <script src="script.js" async defer></script>
 </body>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Block/Inline</title>
+
+    <style>
+        /* Colon Root is similar to the HTML tag 
+        
+        Root takes precedence and overrides HTML 
+        
+        Variables can be placed in root with two dashes ( -- )
+
+        The keyword var() is used to call the variable in the root
+
+        In the console, document.documentElement will return an HTML tag, affecting all the CSS in the document
+
+        getComputedStyle(document.documentElement).getPropertyValue('--myBlue') will return the value of the variable
+
+        em means the font size is relative to the parent element character width (height of the letter m, for example)
+        HTML font size is 16px by default, 2em would be 32px
+
+        rem means the font size is relative to the root element (html tag)
+        */
+        :root {
+            /* font-size: 3px; */
+            --myBlue: rgb(81, 81, 255);
+            --myFontSize: 30px;
+        }
+        html {
+            font-size: 30px;
+        }
+        .bigtext {
+            /* font-size: calc(.5 * var(--myFontSize)); */
+            font-size: 2em;
+            color: var(--myBlue);
+        }
+        .myred {
+            color: red;
+            font-size: 2rem;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+            border: solid black 5px;
+            display: inline-block;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bigtext">
+        Lorem ipsum dolor sit amet. <span class="myred">Ut cumque dolorem</span> est quisquam possimus sed recusandae dolore ut omnis explicabo ut
+        sint numquam? Ab omnis atque aut minus inventore eos necessitatibus fugit 33 aspernatur animi aut omnis sunt ut
+        harum placeat qui officia voluptates.
+    </div>
+
+    <div class="box">
+        <h1>Box1</h1>
+    </div>
+    <div class="box">
+        <h1>Box2</h1>
+    </div>
+    <div class="box">
+        <h1>Box3</h1>
+    </div>
+    <div class="box">
+        <h1>Box4</h1>
+    </div>
+    <div class="box">
+        <h1>Box5</h1>
+    </div>
+    <div class="box">
+        <h1>Box6</h1>
+    </div>
+</body>
+</div>
+
+</html>
