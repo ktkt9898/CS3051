@@ -46,13 +46,7 @@ function checkButtons() {
 function resetButtons() {
     // Reset the sequence
     buttonSequence = "";
-
-    // Reset button colors
-    const buttons = document.querySelectorAll(".codeButton");
-    buttons.forEach(function(button) {
-        button.style.backgroundColor = "";
-        button.disabled = false; // Enable the buttons
-    });
+    
     // Reset the entry box
     document.getElementById("entryBox").textContent = buttonSequence;
 
