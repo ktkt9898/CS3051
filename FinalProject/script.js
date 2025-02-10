@@ -76,3 +76,44 @@ function resetScrolling(iframeId, initialScrollSpeed) {
 //         currentScrollSpeed = newScrollSpeed; // Update the current scroll speed
 //     }, speedChangeTime); // Time in milliseconds after which the scroll speed changes
 // }
+
+function startScrollingWithTempoChange(iframeId, initialScrollSpeed, speedChangeTime = 10000, newScrollSpeed = 7) {
+    pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
+
+    const iframe = document.getElementById(iframeId);
+    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    let scrollPosition = currentScrollPosition || iframeDocument.documentElement.scrollTop || iframeDocument.body.scrollTop;
+    let scrollSpeed = currentScrollSpeed || initialScrollSpeed;
+
+    // Function to check if the image is viewable within the iframe
+    function isImageViewable(image) {
+        const rect = image.getBoundingClientRect();
+        const iframeRect = iframe.getBoundingClientRect();
+        return (
+            rect.top >= iframeRect.top &&
+            rect.bottom <= iframeRect.bottom &&
+            rect.left >= iframeRect.left &&
+            rect.right <= iframeRect.right
+        );
+    }
+
+    // Set the interval for scrolling
+    scrollInterval = setInterval(() => {
+        scrollPosition += scrollSpeed; // Increment the scroll position by the current scroll speed
+        iframeDocument.documentElement.scrollTop = scrollPosition;
+        iframeDocument.body.scrollTop = scrollPosition;
+        currentScrollPosition = scrollPosition; // Update the current scroll position
+
+        // Check if the image is viewable and increase the scroll speed
+        const image = iframeDocument.querySelector('img[src="scores/One/One_pg_2.png"]');
+        if (image && isImageViewable(image)) {
+            scrollSpeed += 5; // Increase the scroll speed by 5
+        }
+    }, 10); // Set the interval time to control the refresh rate
+
+    // Change the scroll speed after a specified time
+    speedTimeout = setTimeout(() => {
+        scrollSpeed = newScrollSpeed; // Update the scroll speed
+        currentScrollSpeed = newScrollSpeed; // Update the current scroll speed
+    }, speedChangeTime); // Time in milliseconds after which the scroll speed changes
+}
