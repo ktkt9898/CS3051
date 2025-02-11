@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>MY TITLE</title>
+    <style>
+        #result {
+            margin-top: 1em;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <div id="choices" onchange="showRadio(event)">
+                    What size would you like?
+                    <br>
+                    <input type="radio" id="small" name="size" value="S"> <!-- name ties the inputs together -->
+                    <label for="small">Small</label><br>
+                    <input type="radio" id="medium" name="size" value="M">
+                    <label for="medium">Medium</label><br>
+                    <input type="radio" id="large" name="size" value="L">
+                    <label for="large">Large</label><br>
+                </div>
+            </td>
+            <td>
+                <div id="sizeChoice">&nbsp;</div>
+                <select id="dropdown">
+                    <option disabled selected>Pick a size</option>
+                    <option value="S">Small</option>
+                    <option value="M">Medium</option>
+                    <option value="L">Large</option>
+                </select>
+            <td>
+            </td>
+        </tr>
+    </table>
+
+    <div id="result"></div>
+
+
+    <script>
+
+        const c = document.querySelector("#choices");
+        // c.addEventListener("change", showRadio);
+        // c.addEventListener("change", changeDropDown);
+
+        function changeDropDown(event) {
+            const d = document.querySelector("#dropdown");
+            d.value = event.target.value;
+        }
+
+        function showRadio(event) {
+            const r = document.querySelector("#result");
+            const t = event.target;
+            switch (t.value) {
+                case "S":
+                    r.style.width = "100px";
+                    r.style.height = "100px";
+                    break;
+                case "M":
+                    r.style.width = "200px";
+                    r.style.height = "200px";
+                    break;
+                case "L":
+                    r.style.width = "300px";
+                    r.style.height = "300px";
+                    break;
+            }
+        }
+
+        const sc = document.querySelector("#dropdown");
+        sc.addEventListener("change", showDropdown);
+        function showDropdown(event) {
+            const s = document.querySelector("#sizeChoice");
+            s.innerHTML = `You chose ${event.target.value}`;
+        }
+
+    </script>
+</body>
+
+</html>

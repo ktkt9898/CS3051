@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>MY TITLE</title>
+    <style>
+        #result {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="fname">First name:</label><br>
+    <!-- autofocus makes the first input field active when the page loads -->
+    <input type="text" id="fname" placeholder="First Name" autofocus> <br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" placeholder="Last Name"><br><br>
+    <button onclick="showNames()">Submit</button>
+
+    <div id="result"></div>
+
+
+    <script>
+        function showNames() {
+            console.log("showNames");
+            const fn = document.querySelector("#fname");
+            const ln = document.querySelector("#lname");
+            const r = document.querySelector("#result")
+            ln.value = ln.value.toUpperCase();  // change the lname to uppercase before displaying
+            r.innerHTML = `Hello ${fn.value} ${ln.value}`;
+            // ln.blur();
+        }
+
+        // Capitalize the last name when the user leaves the input field
+        function changeInput(event) {
+            const ln = document.querySelector("#lname");
+            ln.value = ln.value.toUpperCase();
+        }
+        // document.querySelector("#lname").addEventListener("change", changeInput);
+
+        // With a named function, only applies one function to the event
+
+        // Capitalize the last name as the user types
+        document.querySelector("#lname").addEventListener("input", changeInput);
+        document.querySelector("#lname").addEventListener("keydown", handleKeyStroke);
+        function handleKeyStroke(event) {
+            if (event.key == "Enter") {
+                showNames();
+            }
+            else {
+                console.log(event.key, document.querySelector("#lname").value);
+            }
+        }
+
+        window.addEventListener("beforeunload", function(event) {
+            event.returnValue = "You really want to leave?"; // Note that Firefox and Chrome ignore what is set here.
+        });
+
+    </script>
+</body>
+
+</html>

@@ -43,14 +43,10 @@ function startScrolling(iframeId, initialScrollSpeed) {
 }
 
 function pauseScrolling() {
-    if (imageInView) {
-        currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
-    } else {
-        scrollSpeed = 0;
-    }
     clearInterval(scrollInterval);
     clearTimeout(speedTimeout);
     scrolling = false;
+    // Do not reset scrollSpeed to 0 here
 }
 
 function resetScrolling(iframeId, initialScrollSpeed) {
@@ -65,29 +61,6 @@ function resetScrolling(iframeId, initialScrollSpeed) {
     scrolling = false;
     imageInView = false;
 }
-
-// function startScrollingWithTempoChange(iframeId, initialScrollSpeed, speedChangeTime = 10000, newScrollSpeed = 7) {
-//     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
-
-//     const iframe = document.getElementById(iframeId);
-//     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-//     let scrollPosition = currentScrollPosition || iframeDocument.documentElement.scrollTop || iframeDocument.body.scrollTop;
-//     let scrollSpeed = currentScrollSpeed || initialScrollSpeed;
-
-//     // Set the interval for scrolling
-//     scrollInterval = setInterval(() => {
-//         scrollPosition += scrollSpeed; // Increment the scroll position by the current scroll speed
-//         iframeDocument.documentElement.scrollTop = scrollPosition;
-//         iframeDocument.body.scrollTop = scrollPosition;
-//         currentScrollPosition = scrollPosition; // Update the current scroll position
-//     }, 10); // Set the interval time to control the refresh rate
-
-//     // Change the scroll speed after a specified time
-//     speedTimeout = setTimeout(() => {
-//         scrollSpeed = newScrollSpeed; // Update the scroll speed
-//         currentScrollSpeed = newScrollSpeed; // Update the current scroll speed
-//     }, speedChangeTime); // Time in milliseconds after which the scroll speed changes
-// }
 
 function startScrollingWithTempoChange(iframeId, speed) {
     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
