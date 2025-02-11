@@ -2,6 +2,9 @@ let scrollInterval;
 let speedTimeout;
 let currentScrollPosition = 0;
 let currentScrollSpeed = 0;
+let scrolling = false;
+let scrollSpeed;
+let imageInView = false;
 
 function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
     const iframe = document.getElementById(iframeId);
@@ -40,8 +43,14 @@ function startScrolling(iframeId, initialScrollSpeed) {
 }
 
 function pauseScrolling() {
+    if (imageInView) {
+        currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
+    } else {
+        scrollSpeed = 0;
+    }
     clearInterval(scrollInterval);
     clearTimeout(speedTimeout);
+    scrolling = false;
 }
 
 function resetScrolling(iframeId, initialScrollSpeed) {
@@ -52,6 +61,9 @@ function resetScrolling(iframeId, initialScrollSpeed) {
     iframeDocument.body.scrollTop = 0; // Scroll to the top
     currentScrollPosition = 0; // Reset the current scroll position
     currentScrollSpeed = initialScrollSpeed; // Reset the current scroll speed
+    iframe.contentWindow.scrollTo(0, 0);
+    scrolling = false;
+    imageInView = false;
 }
 
 // function startScrollingWithTempoChange(iframeId, initialScrollSpeed, speedChangeTime = 10000, newScrollSpeed = 7) {
@@ -77,43 +89,91 @@ function resetScrolling(iframeId, initialScrollSpeed) {
 //     }, speedChangeTime); // Time in milliseconds after which the scroll speed changes
 // }
 
-function startScrollingWithTempoChange(iframeId, initialScrollSpeed, speedChangeTime = 10000, newScrollSpeed = 7) {
+function startScrollingWithTempoChange(iframeId, speed) {
     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
     const iframe = document.getElementById(iframeId);
     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    let scrollPosition = currentScrollPosition || iframeDocument.documentElement.scrollTop || iframeDocument.body.scrollTop;
-    let scrollSpeed = currentScrollSpeed || initialScrollSpeed;
+    let scrollSpeed = currentScrollSpeed || speed;
 
-    // Function to check if the image is viewable within the iframe
-    function isImageViewable(image) {
-        const rect = image.getBoundingClientRect();
-        const iframeRect = iframe.getBoundingClientRect();
-        return (
-            rect.top >= iframeRect.top &&
-            rect.bottom <= iframeRect.bottom &&
-            rect.left >= iframeRect.left &&
-            rect.right <= iframeRect.right
-        );
+    // Function to increase scroll speed when image is in view
+    function increaseScrollSpeed(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                scrollSpeed = 5;
+                imageInView = true;
+                currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
+            }
+        });
     }
 
-    // Set the interval for scrolling
-    scrollInterval = setInterval(() => {
-        scrollPosition += scrollSpeed; // Increment the scroll position by the current scroll speed
-        iframeDocument.documentElement.scrollTop = scrollPosition;
-        iframeDocument.body.scrollTop = scrollPosition;
-        currentScrollPosition = scrollPosition; // Update the current scroll position
+    // Create an IntersectionObserver
+    const observer = new IntersectionObserver(increaseScrollSpeed, {
+        root: iframeDocument,
+        threshold: 0.1
+    });
 
-        // Check if the image is viewable and increase the scroll speed
-        const image = iframeDocument.querySelector('img[src="scores/One/One_pg_2.png"]');
-        if (image && isImageViewable(image)) {
-            scrollSpeed += 5; // Increase the scroll speed by 5
+    // Observe the target image
+    const targetImage = iframeDocument.getElementById('onePg2');
+    if (targetImage) {
+        observer.observe(targetImage);
+    }
+
+    // Function to scroll the iframe
+    function scrollIframe() {
+        iframe.contentWindow.scrollBy(0, scrollSpeed);
+        if (scrolling) {
+            requestAnimationFrame(scrollIframe);
         }
-    }, 10); // Set the interval time to control the refresh rate
+    }
 
-    // Change the scroll speed after a specified time
-    speedTimeout = setTimeout(() => {
-        scrollSpeed = newScrollSpeed; // Update the scroll speed
-        currentScrollSpeed = newScrollSpeed; // Update the current scroll speed
-    }, speedChangeTime); // Time in milliseconds after which the scroll speed changes
+    // Start scrolling
+    scrolling = true;
+    scrollIframe();
 }
+
+// // Function to start scrolling with tempo change
+// function startScrollingWithTempoChange(iframeId, speed) {
+//     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
+
+//     const iframe = document.getElementById(iframeId);
+//     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+//     let scrollSpeed = currentScrollSpeed || speed;
+
+//     // Function to increase scroll speed when image is in view
+//     function increaseScrollSpeed(entries) {
+//         entries.forEach(entry => {
+//             if (entry.isIntersecting) {
+//                 scrollSpeed = 5;
+//                 imageInView = true;
+//                 currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
+//             } else if (!imageInView) {
+//                 scrollSpeed = speed;
+//             }
+//         });
+//     }
+
+//     // Create an IntersectionObserver
+//     const observer = new IntersectionObserver(increaseScrollSpeed, {
+//         root: iframeDocument,
+//         threshold: 0.1
+//     });
+
+//     // Observe the target image
+//     const targetImage = iframeDocument.getElementById('onePg2');
+//     if (targetImage) {
+//         observer.observe(targetImage);
+//     }
+
+//     // Function to scroll the iframe
+//     function scrollIframe() {
+//         iframe.contentWindow.scrollBy(0, scrollSpeed);
+//         if (scrolling) {
+//             requestAnimationFrame(scrollIframe);
+//         }
+//     }
+
+//     // Start scrolling
+//     scrolling = true;
+//     scrollIframe();
+// }
