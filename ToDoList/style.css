@@ -1,0 +1,11 @@
+.taskListClass {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#taskListID {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}

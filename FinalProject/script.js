@@ -62,7 +62,7 @@ function resetScrolling(iframeId, initialScrollSpeed) {
     imageInView = false;
 }
 
-function startScrollingWithTempoChange(iframeId, speed) {
+function startScrollingWithTempoChange(iframeId, speed, tempoChangePageID, tempoChangeSpeed) {
     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
     const iframe = document.getElementById(iframeId);
@@ -71,9 +71,12 @@ function startScrollingWithTempoChange(iframeId, speed) {
 
     // Function to increase scroll speed when image is in view
     function increaseScrollSpeed(entries) {
+        // The entries parameter is provided by the IntersectionObserver
+        // It contains an array of IntersectionObserverEntry objects, which
+        // represent the elements that are currently intersecting with the observer
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                scrollSpeed = 5;
+                scrollSpeed = tempoChangeSpeed;
                 imageInView = true;
                 currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
             }
@@ -87,7 +90,7 @@ function startScrollingWithTempoChange(iframeId, speed) {
     });
 
     // Observe the target image
-    const targetImage = iframeDocument.getElementById('onePg2');
+    const targetImage = iframeDocument.getElementById(tempoChangePageID);
     if (targetImage) {
         observer.observe(targetImage);
     }
@@ -104,49 +107,3 @@ function startScrollingWithTempoChange(iframeId, speed) {
     scrolling = true;
     scrollIframe();
 }
-
-// // Function to start scrolling with tempo change
-// function startScrollingWithTempoChange(iframeId, speed) {
-//     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
-
-//     const iframe = document.getElementById(iframeId);
-//     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-//     let scrollSpeed = currentScrollSpeed || speed;
-
-//     // Function to increase scroll speed when image is in view
-//     function increaseScrollSpeed(entries) {
-//         entries.forEach(entry => {
-//             if (entry.isIntersecting) {
-//                 scrollSpeed = 5;
-//                 imageInView = true;
-//                 currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
-//             } else if (!imageInView) {
-//                 scrollSpeed = speed;
-//             }
-//         });
-//     }
-
-//     // Create an IntersectionObserver
-//     const observer = new IntersectionObserver(increaseScrollSpeed, {
-//         root: iframeDocument,
-//         threshold: 0.1
-//     });
-
-//     // Observe the target image
-//     const targetImage = iframeDocument.getElementById('onePg2');
-//     if (targetImage) {
-//         observer.observe(targetImage);
-//     }
-
-//     // Function to scroll the iframe
-//     function scrollIframe() {
-//         iframe.contentWindow.scrollBy(0, scrollSpeed);
-//         if (scrolling) {
-//             requestAnimationFrame(scrollIframe);
-//         }
-//     }
-
-//     // Start scrolling
-//     scrolling = true;
-//     scrollIframe();
-// }
