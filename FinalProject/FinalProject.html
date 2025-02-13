@@ -28,15 +28,23 @@
             <img id="albumCoverStairway" src="albumCovers/Led_Zeppelin_IV.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeStairway', 'innerButtonContainerStairway', this)">Lead</button>
-            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeStairway', 'innerButtonContainerStairway', this)">Rhythm</button>
-            <div id="innerButtonContainerStairway" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeStairway', 1.25)">Start</button>
+            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this)">Lead</button>
+            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeStairwayRhythm', 'innerButtonContainerStairwayRhythm', this)">Rhythm</button>
+            <!--Split Lead and Rhythm buttons into 2 containers-->
+            <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
+                <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 0.7)">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeStairway')">Reset</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeStairwayLead')">Reset</button>
+            </div>
+
+            <div id="innerButtonContainerStairwayRhythm" class="containerInnerButtons" style="display: none;">
+                <button class="buttonsInner" onclick="startScrolling('iframeStairwayRhythm', 1.2)">Start</button>
+                <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeStairwayRhythm')">Reset</button>
             </div>
         </div>
-        <iframe id="iframeStairway" class="containerIFrame" src="tabs/Stairway.html" alt="Tab Is Not Available"></iframe>
+        <iframe id="iframeStairwayLead" class="containerIFrame" src="tabs/StairwayLead.html" alt="Tab Is Not Available"></iframe>
+        <iframe id="iframeStairwayRhythm" class="containerIFrame" src="tabs/StairwayRhythm.html" alt="Tab Is Not Available"></iframe>
     </div>
 
     <div class="containerMusicTrack">
@@ -60,13 +68,13 @@
             <div class="containerButton">
                 <!--Split Lead and Rhythm buttons into 2 containers-->
                 <div id="innerButtonContainerOneLead" class="containerInnerButtons" style="display: none;">
-                    <button class="buttonsInner" onclick="startScrollingWithTempoChange('iframeOneLead', 1.1, 'onePg5', 2)">Start</button>
+                    <button class="buttonsInner" onclick="startScrolling('iframeOneLead', 0.7, 'OnePg9', 1.5)">Start</button>
                     <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
                     <button class="buttonsInner" onclick="resetScrolling('iframeOneLead')">Reset</button>
                 </div>
                 
                 <div id="innerButtonContainerOneRhythm" class="containerInnerButtons" style="display: none;">
-                    <button class="buttonsInner" onclick="startScrollingWithTempoChange('iframeOneRhythm', 1.1, 'onePg10', 2)">Start</button>
+                    <button class="buttonsInner" onclick="startScrolling('iframeOneRhythm', 0.7, 'OnePg13', 1.5)">Start</button>
                     <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
                     <button class="buttonsInner" onclick="resetScrolling('iframeOneRhythm')">Reset</button>
                 </div>
@@ -93,22 +101,14 @@
         </div>
         <div class="containerButton">
             <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeParanoidLead', 'innerButtonContainerParanoidLead', this)">Lead</button>
-            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeParanoidRhythm', 'innerButtonContainerParanoidRhythm', this)">Rhythm</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerParanoidLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 1.1)">Start</button>
+                <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 1.5)">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeParanoidLead')">Reset</button>
             </div>
-            
-            <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 1.1)">Start</button>
-                <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeParanoidRhythm')">Reset</button>
-            </div>
         </div>
         <iframe id="iframeParanoidLead" class="containerIFrame" src="tabs/ParanoidLead.html" alt="Tab Is Not Available"></iframe>
-        <iframe id="iframeParanoidRhythm" class="containerIFrame" src="tabs/ParanoidRhythm.html" alt="Tab Is Not Available"></iframe>
     </div>
     <script src="script.js" async defer></script>
 </body>

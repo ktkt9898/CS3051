@@ -49,30 +49,6 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
     }
 }
 
-// Scroll function without tempo change in song
-function startScrolling(iframeId, initialScrollSpeed) {
-    pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
-
-    const iframe = document.getElementById(iframeId);
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    let scrollPosition = iframeDocument.documentElement.scrollTop || iframeDocument.body.scrollTop;
-    let scrollSpeed = initialScrollSpeed || currentScrollSpeed;
-
-    // Set the interval for scrolling
-    scrollInterval = setInterval(() => {
-        scrollPosition += scrollSpeed; // Increment the scroll position by the current scroll speed
-        iframeDocument.documentElement.scrollTop = scrollPosition;
-        iframeDocument.body.scrollTop = scrollPosition;
-    }, 10); // Set the interval time to control the refresh rate
-}
-
-function pauseScrolling() {
-    clearInterval(scrollInterval);
-    clearTimeout(speedTimeout);
-    scrolling = false;
-    // Do not reset scrollSpeed to 0 here
-}
-
 function resetScrolling(iframeId, initialScrollSpeed) {
     pauseScrolling(); // Stop any ongoing scrolling
     const iframe = document.getElementById(iframeId);
@@ -86,22 +62,19 @@ function resetScrolling(iframeId, initialScrollSpeed) {
     imageInView = false;
 }
 
-function startScrollingWithTempoChange(iframeId, speed, tempoChangePageID, tempoChangeSpeed) {
+function startScrolling(iframeId, speed, tempoChangePageID, tempoChangeSpeed) {
     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
     const iframe = document.getElementById(iframeId);
     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
     let scrollSpeed = currentScrollSpeed || speed;
+    let accumulatedScroll = 0;
 
     // Function to increase scroll speed when image is in view
     function increaseScrollSpeed(entries) {
-        // The entries parameter is provided by the IntersectionObserver
-        // It contains an array of IntersectionObserverEntry objects, which
-        // represent the elements that are currently intersecting with the observer
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 scrollSpeed = tempoChangeSpeed;
-                imageInView = true;
                 currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
             }
         });
@@ -121,7 +94,11 @@ function startScrollingWithTempoChange(iframeId, speed, tempoChangePageID, tempo
 
     // Function to scroll the iframe
     function scrollIframe() {
-        iframe.contentWindow.scrollBy(0, scrollSpeed);
+        accumulatedScroll += scrollSpeed;
+        const scrollAmount = Math.floor(accumulatedScroll);
+        accumulatedScroll -= scrollAmount;
+
+        iframe.contentWindow.scrollBy(0, scrollAmount);
         if (scrolling) {
             requestAnimationFrame(scrollIframe);
         }
@@ -130,4 +107,17 @@ function startScrollingWithTempoChange(iframeId, speed, tempoChangePageID, tempo
     // Start scrolling
     scrolling = true;
     scrollIframe();
+}
+
+function pauseScrolling() {
+    scrolling = false;
+}
+
+function resetScrolling(iframeId) {
+    const iframe = document.getElementById(iframeId);
+    const contentWindow = iframe.contentWindow;
+
+    pauseScrolling();
+    contentWindow.scrollTo(0, 0);
+    currentScrollSpeed = null;
 }
