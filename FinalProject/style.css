@@ -68,7 +68,7 @@ html, body {
     height: 725px;
     margin: auto;
     display: none;
-    border: 5px solid black;
+    border: 2px solid black;
     box-sizing: border-box;
     overflow: auto; /* Ensure scroll bars appear */
 }

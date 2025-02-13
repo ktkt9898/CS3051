@@ -10,18 +10,42 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
     const iframe = document.getElementById(iframeId);
     const buttonContainer = document.getElementById(buttonContainerId);
     const containerMusicTrack = button.closest('.containerMusicTrack'); // Get the closest guitarTab container
+    const siblingButtons = containerMusicTrack.querySelectorAll('.buttonShow'); // Get all buttons within the same container
+
+    // Define the IDs of the other iframes and their button containers
+    const otherIframeId = iframeId === 'iframeParanoidLead' ? 'iframeParanoidRhythm' : 'iframeParanoidLead';
+    const otherButtonContainerId = buttonContainerId === 'buttonContainerLead' ? 'buttonContainerRhythm' : 'buttonContainerLead';
+
+    const otherIframe = document.getElementById(otherIframeId);
+    const otherButtonContainer = document.getElementById(otherButtonContainerId);
 
     if (iframe.style.display === "none" || iframe.style.display === "") {
         iframe.style.display = "block";
         buttonContainer.style.display = "flex";
         button.textContent = "Hide";
         buttonContainer.scrollIntoView({ behavior: 'smooth' }); // Scroll to the iframe smoothly
+
+        // Hide sibling buttons
+        siblingButtons.forEach(siblingButton => {
+            if (siblingButton !== button) {
+                siblingButton.style.display = "none";
+            }
+        });
+
+        // Hide the other iframe and its button container
+        otherIframe.style.display = "none";
+        otherButtonContainer.style.display = "none";
     } else {
         resetScrolling(iframeId, 0); // Reset scrolling when the iframe is hidden
         iframe.style.display = "none";
         buttonContainer.style.display = "none";
-        button.textContent = "Show";
+        button.textContent = button.getAttribute('data-original-text'); // Restore original text
         containerMusicTrack.scrollIntoView({ behavior: 'smooth' }); // Scroll to the top of the guitarTab container smoothly
+
+        // Show sibling buttons
+        siblingButtons.forEach(siblingButton => {
+            siblingButton.style.display = "inline-block";
+        });
     }
 }
 
