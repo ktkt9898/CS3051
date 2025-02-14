@@ -65,11 +65,38 @@ html, body {
     for the scroll buttons. */
 .containerIFrame {
     flex-direction: column;
-    width: 725px;
+    width: 1000px;
     height: 725px;
     margin: auto;
     display: none;
     border: 2px solid black;
     box-sizing: border-box;
     overflow: auto; /* Ensure scroll bars appear */
+}
+
+#warning {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    z-index: 1000;
+}
+
+#close-btn {
+    background-color: white;
+    color: red;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
 }

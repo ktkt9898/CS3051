@@ -12,6 +12,11 @@
     <!-- Your web page content goes here -->
     <h1 class="mainHeader"> Guitar Tabs </h1>
 
+    <div id="warning" class="hidden">
+        Your screen dimensions are too small!
+        <button id="close-btn">Close</button>
+    </div>
+
     <div class="containerMusicTrack">
         <h3>Stairway to Heaven</h3>
         <h4>Led Zeppelin</h4>
@@ -103,7 +108,7 @@
             <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeParanoidLead', 'innerButtonContainerParanoidLead', this)">Lead</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerParanoidLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 1.5)">Start</button>
+                <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 1.25)">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeParanoidLead')">Reset</button>
             </div>

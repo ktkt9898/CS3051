@@ -5,6 +5,31 @@ let currentScrollSpeed = 0;
 let scrolling = false;
 let scrollSpeed;
 let imageInView = false;
+let warningClosed = false;
+
+function checkScreenDimensions() {
+    const warning = document.getElementById('warning');
+    if (window.innerWidth < 1040) {
+        if (!warningClosed) {
+            warning.style.display = 'block';
+        }
+    } else {
+        warning.style.display = 'none';
+        warningClosed = false; // Reset the flag when dimensions are greater than 800
+    }
+}
+
+// Check dimensions on load
+checkScreenDimensions();
+
+// Check dimensions on resize
+window.addEventListener('resize', checkScreenDimensions);
+
+// Close button functionality
+document.getElementById('close-btn').addEventListener('click', function() {
+    document.getElementById('warning').style.display = 'none';
+    warningClosed = true; // Set the flag to true when the warning is closed
+});
 
 function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
     const iframe = document.getElementById(iframeId);
@@ -66,7 +91,7 @@ function startScrolling(iframeId, speed, tempoChangePageID, tempoChangeSpeed) {
     if (scrolling) {
         return;
     } 
-    
+
     pauseScrolling(); // Ensure any existing scrolling is stopped before starting a new one
 
     const iframe = document.getElementById(iframeId);
