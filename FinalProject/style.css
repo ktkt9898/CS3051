@@ -64,7 +64,12 @@ html, body {
 /* Container for the music score. Creates a window that can be scrolled and allows functionality
     for the scroll buttons. */
 .containerIFrame {
-    width: 100%;
-    height: 500px;
-    border: none;
+    flex-direction: column;
+    width: 725px;
+    height: 725px;
+    margin: auto;
+    display: none;
+    border: 2px solid black;
+    box-sizing: border-box;
+    overflow: auto; /* Ensure scroll bars appear */
 }
