@@ -1,7 +1,7 @@
 function addTask() {
     let task = document.getElementById('task').value;
     let unorderedList = document.getElementById('taskListID');
-    let listElement = document.createElement('listElement');
+    let listElement = document.createElement('li');
     
     let checkBox = document.createElement('input');
     checkBox.type = 'checkbox';

@@ -1,13 +1,7 @@
-.taskListClass {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
 #taskListID {
     list-style-type: none;
+    display: block;
     padding: 0;
-    margin: 0;
 }
 
 .taskInput {
@@ -21,8 +15,8 @@
 
 .checkBox {
     margin-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .deleteButton {
