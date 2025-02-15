@@ -1,24 +1,31 @@
+/* Ensure list items are stacked vertically 
+and are aligned to the left of the page */
 #taskListID {
     list-style-type: none;
     display: block;
     padding: 0;
+    margin: 0;
 }
 
+/* Syle for the input box */
 .taskInput {
     margin-top: 10px;
     margin-bottom: 5px;
 }
 
+/* Style for the add task button */
 .taskButton {
     margin-top: 5px;
 }
 
+/* Slightly align the checkbox spacing */
 .checkBox {
     margin-right: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
+/* Style for the X button */
 .deleteButton {
     background-color: red;
     color: white;
