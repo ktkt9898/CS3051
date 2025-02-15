@@ -1,14 +1,32 @@
 function addTask() {
     let task = document.getElementById('task').value;
-    let ul = document.getElementById('taskListID');
-    let li = document.createElement('li');
+    let unorderedList = document.getElementById('taskListID');
+    let listElement = document.createElement('listElement');
     
-    let checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+    let checkBox = document.createElement('input');
+    checkBox.type = 'checkbox';
+    checkBox.id = 'checkBox';
+    checkBox.className = 'checkBox';
+    checkBox.onclick = function() {
+        if (checkBox.checked) {
+            listElement.style.textDecoration = 'line-through';
+        } else {
+            listElement.style.textDecoration = 'none';
+        }
+    }
+
+    let deleteButton = document.createElement('button');
+    deleteButton.id = 'deleteButton';
+    deleteButton.className = 'deleteButton';
+    deleteButton.textContent = "X";
+    deleteButton.onclick = function() {
+        unorderedList.removeChild(listElement);
+    }
     
-    li.appendChild(checkbox);
-    li.appendChild(document.createTextNode(task));
-    ul.appendChild(li);
+    listElement.appendChild(checkBox);
+    listElement.appendChild(document.createTextNode(task));
+    listElement.appendChild(deleteButton);
+    unorderedList.appendChild(listElement);
     
     document.getElementById('task').value = '';
 }
