@@ -42,3 +42,10 @@ function addTask() {
     // Autofocus on the input field again
     document.getElementById('task').focus();
 }
+
+document.getElementById('task').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+        addTask();
+    }
+});
