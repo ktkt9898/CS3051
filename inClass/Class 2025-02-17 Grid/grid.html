@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid</title>
+    <style>
+        :root {
+            --my-color: #7f2424;
+        }
+
+        #container {
+            display: grid;
+            /* define a pattern
+            first column is 5 characters plus 5 pixels, third column 100 px, middle column is whatever is left */
+            /* fr is a fraction of the available space */
+            grid-template-columns: calc(5em + 5px) 1fr 100px;
+            /* four characters high, last row is 2 characters high, middle is whatever is left */
+            /* 4em starts at the top, 2em starts at the bottom */
+            grid-template-rows: 4em 1fr 2em;
+            /* easy way to visualize and map a grid */
+            grid-template-areas:
+                "g-header g-header g-header"
+                "g-left g-content g-right"
+                "g-footer g-footer g-footer";
+            justify-items: center;
+            align-items: center;
+
+            border: black solid 1px;
+            resize: both;
+            overflow: auto;
+            column-gap: 10px;
+            row-gap: 10px;
+            height: 50vh;
+            font-size: 20px;
+        }
+
+        /* Link the grid-template-areas to the divs */
+        #header {
+            /* Tie g-header to the header div */
+            grid-area: g-header;
+            /* grid-column: 2 / 3; */
+            /* grid-row: 1 / 2; */
+            background-color: var(--my-color);
+            color: white;
+            justify-self: center;
+            align-self: center;
+            border: black solid 1px;
+            text-align: center;
+        }
+
+        #right {
+            grid-area: g-right;
+            background-color: rgb(235, 193, 247);
+            border: black solid 1px;
+        }
+
+        #left {
+            grid-area: g-left;
+            background-color: lightgreen;
+            border: black solid 1px;
+        }
+
+        #content {
+            grid-area: g-content;
+            background-color: lightyellow;
+            /* width: 50%; */
+            /* justify-self: center; */
+            border: black solid 1px;
+        }
+
+        #footer {
+            grid-area: g-footer;
+            background-color: lightcoral;
+            background-color: var(--my-color);
+            color: white;
+            /* justify-self: stretch;
+            align-self: stretch; */
+            border: black solid 1px;
+        }
+
+        img {
+            width: 100px;
+            height: 800px;
+            max-width: 90%;
+            border: black solid 1px;
+        }
+
+        /* #header div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <!-- To make just the header text in the middle, put a flexbox around the div -->
+        <div id="header">Header</div>
+        <div id="content">
+            <div>
+                <ul>
+                    <li>One</li>
+                    <li>Two</li>
+                    <li>Three</li>
+                </ul>
+                <p>Lorem ipsum dolor sit amet. In laborum laboriosam <strong>Non veritatis in molestias minima ut atque
+                        aspernatur</strong> id rerum distinctio. Aut excepturi quae At deserunt dicta <em>Et
+                        sapiente</em>. Hic veniam sint est recusandae rerumUt commodi. </p>
+                <p>Ex voluptas iusto rem autem illum <strong>Hic sint aut saepe quae ut itaque consequuntur qui
+                        distinctio minima</strong>. Hic soluta maiores et consequuntur dolore <em>Sit unde et harum
+                        nihil in nostrum maxime</em>. Et possimus voluptatem qui minima blanditiisaut neque quo
+                    consequatur magni. Vel vitae sunt id ratione voluptatumEt provident est sint laborum id Quis laborum
+                    vel voluptas quod. </p>
+                <ol>
+                    <li>Est sapiente libero vel commodi quos et numquam delectus est laborum recusandae. </li>
+                    <li>Sit explicabo atque ex repudiandae rerum est perferendis modi. </li>
+                    <li>Nam iure corporis in Quis voluptate qui magnam facilis. </li>
+                </ol>
+                <p>Qui quod delenitiSit explicabo nam quos galisum est consequatur mollitia At doloribus velit. Ut sequi
+                    incidunt <a href="https://www.loremipzum.com" target="_blank">Et illum et nihil dolor non libero
+                        dolores sit nihil numquam</a>. Eos possimus necessitatibus <em>Et dolorem ea molestiae magnam
+                        aut galisum aliquid sit minima perspiciatis</em> nam adipisci blanditiis qui tempore
+                    consequuntur. Aut consequatur autem 33 explicabo errorEa veritatis non deleniti soluta et Quis
+                    repellendus aut odit fugiat aut omnis ullam. </p>
+                <img src="cat.jpg">
+            </div>
+        </div>
+        <div id="right">Right side</div>
+        <div id="footer">Footer</div>
+        <div id="left">This is the Left side</div>
+    </div>
+</body>
+
+</html>

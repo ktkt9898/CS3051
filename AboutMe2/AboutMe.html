@@ -15,73 +15,167 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    #container {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 2fr 1fr 2fr;
+        grid-template-areas: 
+        "header header"
+        "left main"
+        "footer footer";
+    }
+
+    #headerMain {
+        grid-area: header;
+        background-color: darkorange;
+        text-align: center;
+    }
+
+    #headerFavorites {
+        grid-area: header;
+        background-color: darkorange;
+        text-align: center;
+    }
+
+    #headerList {
+        grid-area: header;
+        background-color: darkorange;
+        text-align: center;
+    }
+
+    #leftMenu {
+        grid-area: left;
+        background-color: palegreen;
+        text-align: center;
+    }
+
+    #contentMain {
+        grid-area: main;
+        background-color: burlywood;
+        text-align: center;
+    }
+
+    #contentFavorites {
+        grid-area: main;
+        background-color: burlywood;
+        text-align: center;
+    }
+
+    #contentList {
+        grid-area: main;
+        background-color: burlywood;
+        text-align: center;
+    }
+
+    #footer {
+        grid-area: footer;
+        background-color: darkblue;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+        #container {
+            grid-template-columns: 1fr 3fr;
+            grid-template-rows: auto;
+            grid-template-areas: 
+            "header header" 
+            "left main" 
+            "footer footer";
+        }
+
+        #leftMenu {
+            display: none;
+        }
+    }
 </style>
 
 <body>
-    <!-- Your web page content goes here -->
-    <h1 style="background-color:burlywood;"> About Me </h1>
-    <hr>
-    <p> My name is Kyle and I am a transfer student at AUP.
-        <br> I transferred from Boise State University in Idaho, USA but I am originally from Sacramento, California.
-        <br> I am a junior and I am studying Computer Science and Minoring in French.
-        <br> This is also my <ins>first</ins> time outside of America, and my <ins>first</ins> time in Paris!
-    </p>
-    <br>
-    <div style="text-align:center;">
-        <img src="photo.jpg" width="200" height="200" alt="Me with my guitar">
-    </div>
-    <p style="background-color:burlywood;font-size:150%"> Hobbies
-    </p>
-    <hr>
-    <p>Some of my favorite hobbies are electric guitar, cooking, and building computers.
-    </p>
-    <p style="background-color:burlywood;font-size:150%"> Favorite Websites
-    </p>
-    <hr>
-    <div>
-        <ul>
-            <li> <a href="https://www.sweetwater.com/" target="_blank"> Sweetwater </a> </li>
-            <li> <a href="https://old.reddit.com" target="_blank"> Reddit (Old website) </a> </li>
-            <li> <a href="https://www.youtube.com/" target="_blank"> YouTube </a> </li>
-        </ul>
-    </div>
-    <hr>
-    <p style="background-color:burlywood;font-size:150%"> Places I Have Visited</p>
-    <div>
-        <table class="myTable">
-            <tr>
-                <th>Location</th>
-                <th>Year</th>
-            </tr>
-            <tr>
-                <td>Pennsylvania</td>
-                <td>2005</td>
-            </tr>
-            <tr>
-                <td>Alaska</td>
-                <td>2016</td>
-            </tr>
-            <tr>
-                <td>California</td>
-                <td>2017</td>
-            </tr>
-            <tr>
-                <td>North Carolina</td>
-                <td>2019</td>
-            </tr>
-            <tr>
-                <td>Colorado</td>
-                <td>2023</td>
-            </tr>
-            <tr>
-                <td>Idaho</td>
-                <td>2024</td>
-            </tr>
-            <tr>
-                <td>France</td>
-                <td>2025</td>
-            </tr>
-        </table>
+    <div id="container">
+        <div id="leftMenu">
+            <ul>
+                <li onclick="showContent('main')"> About Me </li>
+                <li onclick="showContent('favorites')"> Favorites </li>
+                <li onclick="showContent('list')"> List </li>
+            </ul>
+        </div>
+
+        <!-- About Me Header -->
+        <div id="headerMain">
+            <h1> About Me </h1>
+        </div>
+
+        <div id="contentMain">
+            <p> My name is Kyle and I am a transfer student at AUP.
+                <br> I transferred from Boise State University in Idaho, USA but I am originally from Sacramento, California.
+                <br> I am a junior and I am studying Computer Science and Minoring in French.
+                <br> This is also my <ins>first</ins> time outside of America, and my <ins>first</ins> time in Paris!
+            </p>
+            <div style="text-align:center;">
+                <img src="photo.jpg" width="200" height="200" alt="Me with my guitar">
+            </div>
+        </div>
+        
+        <!-- Favorite Website Header -->
+        <div id="headerFavorites">	
+            <h1> Favorite Websites </h1>
+        </div>
+        
+        <div id="contentFavorites">
+            <div>
+                <ul>
+                    <li> <a href="https://www.sweetwater.com/" target="_blank"> Sweetwater </a> </li>
+                    <li> <a href="https://old.reddit.com" target="_blank"> Reddit (Old website) </a> </li>
+                    <li> <a href="https://www.youtube.com/" target="_blank"> YouTube </a> </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- List Header -->
+        <div id="headerList">
+            <h1> Places I Have Visited </h1>
+        </div>
+        
+        <div id="contentList">
+            <table class="myTable">
+                <tr>
+                    <th>Location</th>
+                    <th>Year</th>
+                </tr>
+                <tr>
+                    <td>Pennsylvania</td>
+                    <td>2005</td>
+                </tr>
+                <tr>
+                    <td>Alaska</td>
+                    <td>2016</td>
+                </tr>
+                <tr>
+                    <td>California</td>
+                    <td>2017</td>
+                </tr>
+                <tr>
+                    <td>North Carolina</td>
+                    <td>2019</td>
+                </tr>
+                <tr>
+                    <td>Colorado</td>
+                    <td>2023</td>
+                </tr>
+                <tr>
+                    <td>Idaho</td>
+                    <td>2024</td>
+                </tr>
+                <tr>
+                    <td>France</td>
+                    <td>2025</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="footer">
+            <p> Kyle's Website </p>
+        </div>
     </div>
     <script src="script.js" async defer></script>
 </body>
