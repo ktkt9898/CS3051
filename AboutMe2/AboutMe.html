@@ -9,6 +9,12 @@
 </head>
 
 <style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
     .myTable {
         background-color: burlywood;
         border-spacing: 30px;
@@ -18,12 +24,13 @@
 
     #container {
         display: grid;
-        grid-template-columns: 1fr 3fr;
-        grid-template-rows: 2fr 1fr 2fr;
+        grid-template-columns: 10em 1fr;
+        grid-template-rows: auto 1fr auto;
         grid-template-areas: 
         "header header"
         "left main"
         "footer footer";
+        height: 100vh;
     }
 
     #headerMain {
@@ -47,7 +54,10 @@
     #leftMenu {
         grid-area: left;
         background-color: palegreen;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
     }
 
     #contentMain {
@@ -74,6 +84,10 @@
         text-align: center;
     }
 
+    .underlined {
+            text-decoration: underline;
+    }
+
     @media (max-width: 600px) {
         #container {
             grid-template-columns: 1fr 3fr;
@@ -93,11 +107,9 @@
 <body>
     <div id="container">
         <div id="leftMenu">
-            <ul>
-                <li onclick="showContent('main')"> About Me </li>
-                <li onclick="showContent('favorites')"> Favorites </li>
-                <li onclick="showContent('list')"> List </li>
-            </ul>
+            <p onclick="showContent('contentMainCell', event)"> About Me </p>
+            <p onclick="showContent('contentFavoritesCell', event)"> Favorites </p>
+            <p onclick="showContent('contentListCell', event)"> List </p>
         </div>
 
         <!-- About Me Header -->
