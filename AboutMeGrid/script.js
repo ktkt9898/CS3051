@@ -11,6 +11,8 @@ function showContent(contentId) {
 
     // Show the selected content cell and corresponding header
     document.getElementById(contentId + 'Cell').style.display = 'block';
+
+    // Concatenate header + the name of the camel case contentId
     document.getElementById('header' + contentId.replace('content', '')).style.display = 'block';
 
     // Remove underline from all menu items
@@ -18,7 +20,7 @@ function showContent(contentId) {
         menuItem.classList.remove('underlined');
     });
 
-    // Add underline to the selected menu item
+    // Add underline to the selected menu item child from the leftMenu container
     if (contentId === 'contentMain') {
         document.querySelector('#leftMenu p:nth-child(1)').classList.add('underlined');
     } else if (contentId === 'contentFavorites') {
