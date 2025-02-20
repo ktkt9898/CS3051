@@ -9,12 +9,14 @@
 </head>
 
 <style>
+    /* Remove blank space around the page */
     body, html {
         margin: 0;
         padding: 0;
         height: 100%;
     }
 
+    /* Force everything to be hidden on first page load */
     .hidden {
         display: none;
     }
@@ -69,19 +71,19 @@
 
     }
 
-    #contentMain {
+    #contentMainCell {
         grid-area: main;
         background-color: burlywood;
         text-align: center;
     }
 
-    #contentFavorites {
+    #contentFavoritesCell {
         grid-area: main;
         background-color: burlywood;
         text-align: center;
     }
 
-    #contentList {
+    #contentListCell {
         grid-area: main;
         background-color: burlywood;
         text-align: center;
@@ -117,9 +119,9 @@
 <body>
     <div id="container">
         <div id="leftMenu">
-            <p onclick="showContent('contentMainCell', event)"> About Me </p>
-            <p onclick="showContent('contentFavoritesCell', event)"> Favorites </p>
-            <p onclick="showContent('contentListCell', event)"> List </p>
+            <p onclick="showContent('contentMain', event)"> About Me </p>
+            <p onclick="showContent('contentFavorites', event)"> Favorites </p>
+            <p onclick="showContent('contentList', event)"> List </p>
         </div>
 
         <!-- About Me Header -->
@@ -127,7 +129,7 @@
             <h1> About Me </h1>
         </div>
 
-        <div id="contentMain">
+        <div id="contentMainCell">
             <p> My name is Kyle and I am a transfer student at AUP.
                 <br> I transferred from Boise State University in Idaho, USA but I am originally from Sacramento, California.
                 <br> I am a junior and I am studying Computer Science and Minoring in French.
@@ -143,7 +145,7 @@
             <h1> Favorite Websites </h1>
         </div>
         
-        <div id="contentFavorites">
+        <div id="contentFavoritesCell">
             <div>
                 <ul>
                     <li> <a href="https://www.sweetwater.com/" target="_blank"> Sweetwater </a> </li>
@@ -158,7 +160,7 @@
             <h1> Places I Have Visited </h1>
         </div>
         
-        <div id="contentList">
+        <div id="contentListCell">
             <table class="myTable">
                 <tr>
                     <th>Location</th>

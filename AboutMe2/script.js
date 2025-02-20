@@ -3,20 +3,20 @@ function showContent(section, event) {
     document.getElementById('headerMain').style.display = 'none';
     document.getElementById('headerFavorites').style.display = 'none';
     document.getElementById('headerList').style.display = 'none';
-    document.getElementById('contentMain').style.display = 'none';
-    document.getElementById('contentFavorites').style.display = 'none';
-    document.getElementById('contentList').style.display = 'none';
+    document.getElementById('contentMainCell').style.display = 'none';
+    document.getElementById('contentFavoritesCell').style.display = 'none';
+    document.getElementById('contentListCell').style.display = 'none';
 
     // Show the selected header and content section
-    if (section === 'contentMainCell') {
+    if (section === 'contentMain') {
         document.getElementById('headerMain').style.display = 'block';
-        document.getElementById('contentMain').style.display = 'block';
-    } else if (section === 'contentFavoritesCell') {
+        document.getElementById('contentMainCell').style.display = 'block';
+    } else if (section === 'contentFavorites') {
         document.getElementById('headerFavorites').style.display = 'block';
-        document.getElementById('contentFavorites').style.display = 'block';
-    } else if (section === 'contentListCell') {
+        document.getElementById('contentFavoritesCell').style.display = 'block';
+    } else if (section === 'contentList') {
         document.getElementById('headerList').style.display = 'block';
-        document.getElementById('contentList').style.display = 'block';
+        document.getElementById('contentListCell').style.display = 'block';
     }
 
     // Remove underline from all menu items
@@ -29,8 +29,9 @@ function showContent(section, event) {
     }
 }
 
-// Ensure the default content is shown and "About Me" is underlined on page load
 document.addEventListener("DOMContentLoaded", function() {
     const aboutMeMenuItem = document.querySelector("#leftMenu p:first-child");
-    showContent('contentMainCell', { target: aboutMeMenuItem });
+    console.log("DOMContentLoaded event fired");
+    showContent('contentMain', { target: aboutMeMenuItem });
+    aboutMeMenuItem.classList.add('underlined');
 });
