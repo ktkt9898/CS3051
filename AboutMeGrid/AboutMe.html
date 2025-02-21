@@ -75,7 +75,16 @@
     #contentFavoritesCell {
         grid-area: main;
         background-color: burlywood;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
+    }
+
+    #contentFavoritesCell ul{
+        list-style-position: inside;
+        padding: 0;
+        margin: 0;
     }
 
     #contentListCell {
@@ -111,12 +120,12 @@
     }
 </style>
 
-<body>
+<body onload="showContent('contentMain')">
     <div id="container">
         <div id="leftMenu">
-            <p onclick="showContent('contentMain', event)"> About Me </p>
-            <p onclick="showContent('contentFavorites', event)"> Favorites </p>
-            <p onclick="showContent('contentList', event)"> List </p>
+            <p onclick="showContent('contentMain')"> About Me </p>
+            <p onclick="showContent('contentFavorites')"> Favorites </p>
+            <p onclick="showContent('contentList')"> List </p>
         </div>
 
         <!-- About Me Header -->
