@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reluctant Interfaces</title> <!-- Change MY TITLE to your own page title -->
+    <link href="style.css" rel="stylesheet">
+    <style>
+        /* Display Grid for main contianer 
+        By default a server looks for index.html 
+        Class can be used as a main container, but since there is only one
+        main container, an ID could be used
+        */
+        #main-container {
+            display: grid;
+            /* Could use auto or fr */
+            /* 2em provides twice the size of the font */
+            grid-template-rows: 2em auto 100px;
+            /* Repeat three columns */
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-areas:
+            /* Header should span all three rows */
+            "header header header"
+            "side-l mid side-r"
+            /* Footer should span all three rows */
+            "slider slider slider";
+        }
+        #header-container {
+            grid-area: header;
+            text-align: center;
+        }
+        #side-l-container {
+            grid-area: side-l;
+        }
+        #mid-container {
+            /* Position is related to the parent container, main-container */
+            position: relative;
+            grid-area: mid;
+        }
+        #side-r-container {
+            grid-area: side-r;
+        }
+        #slider-container {
+            grid-area: slider;
+        }
+        #clickme {
+            /* Position is related to the parent container, mid-container */
+            position: relative;
+            top: 45%;
+            left: 45%;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div id="main-container">
+        <div id="header-container">
+            Reluctant Interfaces
+        </div>
+        <!-- Not a "1" but a "l" as in left 
+         The ID helps with the label, the name ties them/operates them together-->
+        <div id="side-l-container">
+            These are not your father's radio buttons
+            <input type="radio" id="radio1" name="radio">
+            <label for="radio1">Item 1</label>
+            <input type="radio" id="radio2" name="radio">
+            <label for="radio2">Item 2</label>
+            <input type="radio" id="radio3" name="radio">
+            <label for="radio3">Item 3</label>
+            <input type="radio" id="radio4" name="radio">
+            <label for="radio4">Item 4</label>
+        </div>
+        <div id="mid-container">
+            <button id="clickme">Click me</button>
+        </div>
+        <div id="side-r-container">
+            This is the right side
+        </div>
+        <div id="slider-container">
+            This is the slider
+        </div>
+    </div>
+    <script>
+        /* Brackets indicate an attribute selector, not a class or ID however
+        The attribute is the name= */
+        window.onload = function() {
+            const radioButtons = document.querySelectorAll("input[name='radio']")
+            for (let i = 0; i < radioButtons.length; i++) {
+                /* Listen for any change in the radio button, and also use otherRadioButton as a
+                parameter, NOT a function */
+                radioButtons[i].addEventListener("change", otherRadioButton);
+            }
+            
+            const clickMe = document.getElementById("clickme");
+            button.addEventListener("mouseover", moveButton);
+
+            function otherRadioButton() {
+                const radioButtons = document.querySelectorAll("input[name='radio']")
+                /* Random number up to 4 */
+                const randomButton = Math.floor(Math.random() * radioButtons.length)
+                // Check the radio button, changing the attribute to be checked
+                radioButtons[randomButton].checked = true;
+            }
+
+            function moveButton() {
+                const clickMe = document.getElementById("clickme");
+                clickMe.style.left = Math.floor(Math.random() * 100) + "%";
+                clickMe.style.top = Math.floor(Math.random() * 100) + "%";
+            }
+        }
+    </script>
+</body>
+ 
+</html>
