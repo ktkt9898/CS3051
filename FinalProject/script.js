@@ -87,7 +87,7 @@ function resetScrolling(iframeId, initialScrollSpeed) {
     imageInView = false;
 }
 
-function startScrolling(iframeId, speed, tempoChangePageID, tempoChangeSpeed) {
+function startScrolling(iframeId, speed, tempoChanges) {
     if (scrolling) {
         return;
     } 
@@ -103,8 +103,11 @@ function startScrolling(iframeId, speed, tempoChangePageID, tempoChangeSpeed) {
     function increaseScrollSpeed(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                scrollSpeed = tempoChangeSpeed;
-                currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
+                const tempoChange = tempoChanges.find(change => change.tempoChangePageID === entry.target.id);
+                if (tempoChange) {
+                    scrollSpeed = tempoChange.tempoChangeSpeed;
+                    currentScrollSpeed = scrollSpeed; // Maintain the current scroll speed
+                }
             }
         });
     }
@@ -112,14 +115,16 @@ function startScrolling(iframeId, speed, tempoChangePageID, tempoChangeSpeed) {
     // Create an IntersectionObserver
     const observer = new IntersectionObserver(increaseScrollSpeed, {
         root: iframeDocument,
-        threshold: 0.1
+        threshold: 1.0
     });
 
-    // Observe the target image
-    const targetImage = iframeDocument.getElementById(tempoChangePageID);
-    if (targetImage) {
-        observer.observe(targetImage);
-    }
+    // Observe the target images
+    tempoChanges.forEach(change => {
+        const targetImage = iframeDocument.getElementById(change.tempoChangePageID);
+        if (targetImage) {
+            observer.observe(targetImage);
+        }
+    });
 
     // Function to scroll the iframe
     function scrollIframe() {

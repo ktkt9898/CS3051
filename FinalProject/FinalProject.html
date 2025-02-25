@@ -73,7 +73,10 @@
             <div class="containerButton">
                 <!--Split Lead and Rhythm buttons into 2 containers-->
                 <div id="innerButtonContainerOneLead" class="containerInnerButtons" style="display: none;">
-                    <button class="buttonsInner" onclick="startScrolling('iframeOneLead', 0.7, 'firstTempoChange', 1.5)">Start</button>
+                    <button class="buttonsInner" onclick="startScrolling('iframeOneLead', 0.2, [
+                    { tempoChangePageID: 'firstTempoChange', tempoChangeSpeed: 1.5 },
+                    { tempoChangePageID: 'secondTempoChange', tempoChangeSpeed: 5.0 }
+                ])">Start</button>
                     <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
                     <button class="buttonsInner" onclick="resetScrolling('iframeOneLead')">Reset</button>
                 </div>

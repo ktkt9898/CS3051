@@ -11,14 +11,25 @@
             padding: 0;
             overflow: auto;
         }
+
         img {
             width: 100%; /* Increase the width to ensure scroll bars */
             height: auto;
         }
+
         .image-container {
             position: relative;
         }
+
         #firstTempoChange {
+            position: absolute;
+            top: 1000px;
+            left: 0;
+            width: 100px; /* Adjust the width as needed */
+            height: auto;
+        }
+
+        #secondTempoChange {
             position: absolute;
             top: 500px;
             left: 0;
@@ -28,7 +39,10 @@
     </style>
 </head>
 <body>
-    <img src="scores/One/OneLead-01.png" alt="Tab Not Available">
+    <div class="image-container">
+        <img src="scores/One/OneLead-01.png" alt="Tab Not Available">
+        <img id="firstTempoChange" src="box.png" alt="Overlay Image">
+    </div>
     <img src="scores/One/OneLead-02.png" alt="Tab Not Available">
     <img src="scores/One/OneLead-02.png" alt="Tab Not Available">
     <img src="scores/One/OneLead-03.png" alt="Tab Not Available">
@@ -38,7 +52,7 @@
     <img src="scores/One/OneLead-07.png" alt="Tab Not Available">
     <div class="image-container">
         <img src="scores/One/OneLead-08.png" alt="Tab Not Available">
-        <img id="firstTempoChange" src="box.png" alt="Overlay Image">
+        <img id="secondTempoChange" src="box.png" alt="Overlay Image">
     </div>
     <img src="scores/One/OneLead-09.png" alt="Tab Not Available">
     <img src="scores/One/OneLead-10.png" alt="Tab Not Available">
