@@ -38,7 +38,7 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
     const siblingButtons = containerMusicTrack.querySelectorAll('.buttonShow'); // Get all buttons within the same container
 
     // Define the IDs of the other iframes and their button containers
-    const otherIframeId = iframeId === 'iframeParanoidLead' ? 'iframeParanoidRhythm' : 'iframeParanoidLead';
+    const otherIframeId = iframeId === 'iframeLead' ? 'iframeRhythm' : 'iframeLead';
     const otherButtonContainerId = buttonContainerId === 'buttonContainerLead' ? 'buttonContainerRhythm' : 'buttonContainerLead';
 
     const otherIframe = document.getElementById(otherIframeId);
