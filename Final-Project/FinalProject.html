@@ -74,13 +74,13 @@
                 <!--Split Lead and Rhythm buttons into 2 containers-->
                 <div id="innerButtonContainerOneLead" class="containerInnerButtons" style="display: none;">
                     <button class="buttonsInner" onclick="startScrolling('iframeOneLead', 0.2, [
-                    { tempoChangePageID: 'firstTempoChange', tempoChangeSpeed: 1.5 },
+                    { tempoChangePageID: 'firstTempoChange', tempoChangeSpeed: 1.0 },
                     { tempoChangePageID: 'secondTempoChange', tempoChangeSpeed: 0.5 },
-                    { tempoChangePageID: 'thirdTempoChange', tempoChangeSpeed: 1.5 },
+                    { tempoChangePageID: 'thirdTempoChange', tempoChangeSpeed: 1.0 },
                     { tempoChangePageID: 'fourthTempoChange', tempoChangeSpeed: 0.5 },
-                    { tempoChangePageID: 'fifthTempoChange', tempoChangeSpeed: 1.5 },
-                    { tempoChangePageID: 'sixthTempoChange', tempoChangeSpeed: 2.0 },
-                    { tempoChangePageID: 'seventhTempoChange', tempoChangeSpeed: 3.5 }
+                    { tempoChangePageID: 'fifthTempoChange', tempoChangeSpeed: 1.0 },
+                    { tempoChangePageID: 'sixthTempoChange', tempoChangeSpeed: 1.5 },
+                    { tempoChangePageID: 'seventhTempoChange', tempoChangeSpeed: 3.0 }
                 ])">Start</button>
                     <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
                     <button class="buttonsInner" onclick="resetScrolling('iframeOneLead')">Reset</button>
@@ -113,15 +113,26 @@
             <img id="albumCoverParanoid" src="albumCovers/Black_Sabbath_-_Paranoid.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeParanoidLead', 'innerButtonContainerParanoidLead', this)">Lead</button>
+            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeParanoidRhythm', 'innerButtonContainerParanoidRhythm', this)">Lead</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
-            <div id="innerButtonContainerParanoidLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 1.25)">Start</button>
+            <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
+                <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.5, [
+                    { tempoChangePageID: 'defaultTempo', tempoChangeSpeed: 0.5 },
+                    { tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0 },
+                    { tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.5 },
+                    { tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 1.0 },
+                    { tempoChangePageID: 'fourTempoChange', tempoChangeSpeed: 0.5 },
+                    { tempoChangePageID: 'fiveTempoChange', tempoChangeSpeed: 1.0 },
+                    { tempoChangePageID: 'sixTempoChange', tempoChangeSpeed: 0.5 },
+                    { tempoChangePageID: 'sevenTempoChange', tempoChangeSpeed: 1.0 },
+                    { tempoChangePageID: 'eightTempoChange', tempoChangeSpeed: 0.5 }
+                ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeParanoidLead')">Reset</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeParanoidRhythm')">Reset</button>
             </div>
         </div>
-        <iframe id="iframeParanoidLead" class="containerIFrame" src="tabs/ParanoidLead.html" alt="Tab Is Not Available"></iframe>
+        <iframe id="iframeParanoidRhythm" class="containerIFrame" src="tabs/ParanoidRhythm.html" alt="Tab Is Not Available"></iframe>
+        <audio id = "audioParanoid" src="backing-tracks/Paranoid-No-Lead.wav"></audio>
     </div>
     <script src="script.js" async defer></script>
 </body>

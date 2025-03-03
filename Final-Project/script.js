@@ -99,6 +99,12 @@ function startScrolling(iframeId, speed, tempoChanges) {
     let scrollSpeed = currentScrollSpeed || speed;
     let accumulatedScroll = 0;
 
+    // Play the audio if it exists
+    const audio = document.getElementById('audioParanoid');
+    if (audio) {
+        audio.play();
+    }
+
     // Function to increase scroll speed when image is in view
     function increaseScrollSpeed(entries) {
         entries.forEach(entry => {
@@ -145,6 +151,12 @@ function startScrolling(iframeId, speed, tempoChanges) {
 
 function pauseScrolling() {
     scrolling = false;
+
+    // Pause the audio if it exists
+    const audio = document.getElementById('audioParanoid');
+    if (audio) {
+        audio.pause();
+    }
 }
 
 function resetScrolling(iframeId) {
@@ -154,4 +166,10 @@ function resetScrolling(iframeId) {
     pauseScrolling();
     contentWindow.scrollTo(0, 0);
     currentScrollSpeed = null;
+
+    // Reset the audio if it exists
+    const audio = document.getElementById('audioParanoid');
+    if (audio) {
+        audio.currentTime = 0;
+    }
 }
