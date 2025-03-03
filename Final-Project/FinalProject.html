@@ -68,33 +68,25 @@
             <img id="albumCoverOne" src="albumCovers/Metallica_-_...And_Justice_for_All_cover.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeOneLead', 'innerButtonContainerOneLead', this)">Lead</button>
             <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeOneRhythm', 'innerButtonContainerOneRhythm', this)">Rhythm</button>
             <div class="containerButton">
                 <!--Split Lead and Rhythm buttons into 2 containers-->
-                <div id="innerButtonContainerOneLead" class="containerInnerButtons" style="display: none;">
-                    <button class="buttonsInner" onclick="startScrolling('iframeOneLead', 0.2, [
-                    { tempoChangePageID: 'firstTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'secondTempoChange', tempoChangeSpeed: 0.5 },
-                    { tempoChangePageID: 'thirdTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'fourthTempoChange', tempoChangeSpeed: 0.5 },
-                    { tempoChangePageID: 'fifthTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'sixthTempoChange', tempoChangeSpeed: 1.5 },
-                    { tempoChangePageID: 'seventhTempoChange', tempoChangeSpeed: 3.0 }
-                ])">Start</button>
-                    <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
-                    <button class="buttonsInner" onclick="resetScrolling('iframeOneLead')">Reset</button>
-                </div>
-                
                 <div id="innerButtonContainerOneRhythm" class="containerInnerButtons" style="display: none;">
-                    <button class="buttonsInner" onclick="startScrolling('iframeOneRhythm', 0.7, 'OnePg13', 1.5)">Start</button>
-                    <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
-                    <button class="buttonsInner" onclick="resetScrolling('iframeOneRhythm')">Reset</button>
+                    <button class="buttonsInner" onclick="startScrolling('iframeOneRhythm', 0.8, 'audioOne', [
+                    { tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0 },
+                    { tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.8 },
+                    { tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 1.2 },
+                    { tempoChangePageID: 'fourTempoChange', tempoChangeSpeed: 1.0 },
+                    { tempoChangePageID: 'fiveTempoChange', tempoChangeSpeed: 1.2 },
+                    { tempoChangePageID: 'sixTempoChange', tempoChangeSpeed: 1.0 }
+                ])">Start</button>
+                    <button class="buttonsInner" onclick="pauseScrolling('audioOne')">Pause</button>
+                    <button class="buttonsInner" onclick="resetScrolling('iframeOneRhythm', 'audioOne')">Reset</button>
                 </div>
             </div>
         </div>
-        <iframe id="iframeOneLead" class="containerIFrame" src="tabs/OneLead.html" alt="Tab Is Not Available"></iframe>
         <iframe id="iframeOneRhythm" class="containerIFrame" src="tabs/OneRhythm.html" alt="Tab Is Not Available"></iframe>
+        <audio id="audioOne" src="backing-tracks/One.wav"></audio>
     </div>
 
     <div class="containerMusicTrack">
@@ -116,8 +108,7 @@
             <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeParanoidRhythm', 'innerButtonContainerParanoidRhythm', this)">Rhythm</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.5, [
-                    { tempoChangePageID: 'defaultTempo', tempoChangeSpeed: 0.5 },
+                <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.5, 'rhythmParanoid', [
                     { tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0 },
                     { tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.5 },
                     { tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 1.0 },
@@ -127,12 +118,12 @@
                     { tempoChangePageID: 'sevenTempoChange', tempoChangeSpeed: 1.0 },
                     { tempoChangePageID: 'eightTempoChange', tempoChangeSpeed: 0.5 }
                 ])">Start</button>
-                <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeParanoidRhythm')">Reset</button>
+                <button class="buttonsInner" onclick="pauseScrolling('rhythmParanoid')">Pause</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeParanoidRhythm', 'rhythmParanoid')">Reset</button>
             </div>
         </div>
         <iframe id="iframeParanoidRhythm" class="containerIFrame" src="tabs/ParanoidRhythm.html" alt="Tab Is Not Available"></iframe>
-        <audio id = "audioParanoid" src="backing-tracks/Paranoid-Rhythm.wav"></audio>
+        <audio id="rhythmParanoid" src="backing-tracks/Paranoid-Rhythm.wav"></audio>
     </div>
     <script src="script.js" async defer></script>
 </body>

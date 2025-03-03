@@ -74,20 +74,7 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
     }
 }
 
-function resetScrolling(iframeId, initialScrollSpeed) {
-    pauseScrolling(); // Stop any ongoing scrolling
-    const iframe = document.getElementById(iframeId);
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    iframeDocument.documentElement.scrollTop = 0; // Scroll to the top
-    iframeDocument.body.scrollTop = 0; // Scroll to the top
-    currentScrollPosition = 0; // Reset the current scroll position
-    currentScrollSpeed = initialScrollSpeed; // Reset the current scroll speed
-    iframe.contentWindow.scrollTo(0, 0);
-    scrolling = false;
-    imageInView = false;
-}
-
-function startScrolling(iframeId, speed, tempoChanges) {
+function startScrolling(iframeId, speed, backingTrackId, tempoChanges) {
     if (scrolling) {
         return;
     } 
@@ -100,7 +87,7 @@ function startScrolling(iframeId, speed, tempoChanges) {
     let accumulatedScroll = 0;
 
     // Play the audio if it exists
-    const audio = document.getElementById('audioParanoid');
+    const audio = document.getElementById(backingTrackId);
     if (audio) {
         audio.play();
     }
@@ -149,26 +136,26 @@ function startScrolling(iframeId, speed, tempoChanges) {
     scrollIframe();
 }
 
-function pauseScrolling() {
+function pauseScrolling(backingTrackId) {
     scrolling = false;
 
     // Pause the audio if it exists
-    const audio = document.getElementById('audioParanoid');
+    const audio = document.getElementById(backingTrackId);
     if (audio) {
         audio.pause();
     }
 }
 
-function resetScrolling(iframeId) {
+function resetScrolling(iframeId, backingTrackId) {
     const iframe = document.getElementById(iframeId);
     const contentWindow = iframe.contentWindow;
 
-    pauseScrolling();
+    pauseScrolling(backingTrackId);
     contentWindow.scrollTo(0, 0);
     currentScrollSpeed = null;
 
     // Reset the audio if it exists
-    const audio = document.getElementById('audioParanoid');
+    const audio = document.getElementById(backingTrackId);
     if (audio) {
         audio.currentTime = 0;
     }
