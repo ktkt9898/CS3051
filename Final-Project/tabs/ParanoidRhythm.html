@@ -15,74 +15,62 @@
         img {
             width: 100%; /* Increase the width to ensure scroll bars */
             height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
         }
 
         .image-container {
             position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        .shape {
+            width: 100px; /* Set the width to match the desired size */
+            height: 100px; /* Set the height to match the desired size */
+            background-color: transparent; /* Set the background color to red */
+            position: absolute; /* Ensure the shape is positioned correctly */
         }
 
         #oneTempoChange {
-            position: absolute;
             top: 0px;
             left: 0;
-            width: 100px; /* Adjust the width as needed */
-            height: auto;
         }
 
         #twoTempoChange {
-            position: absolute;
             top: 650px;
             left: 0;
-            width: 100px; /* Adjust the width as needed */
-            height: auto;
         }
 
         #threeTempoChange {
-            position: absolute;
             top: 1300px;
             left: 0;
-            width: 100px; /* Adjust the width as needed */
-            height: auto;
         }
 
         #fourTempoChange {
-            position: absolute;
             top: 650px;
             left: 0;
-            width: 100px; /* Adjust the width as needed */
-            height: auto;
         }
 
         #fiveTempoChange {
-            position: absolute;
             top: 0px;
             left: 0;
-            width: 100px; /* Adjust the width as needed */
-            height: auto;
         }
 
         #sixTempoChange {
-            position: absolute;
             top: 650px;
             left: 0;
-            width: 100px; /* Adjust the width as needed */
-            height: auto;
         }
 
         #sevenTempoChange {
-            position: absolute;
             top: 0px;
             left: 0;
-            width: 100px; /* Adjust the width as needed */
-            height: auto;
         }
 
         #eightTempoChange {
-            position: absolute;
             top: 650px;
             left: 0;
-            width: 100px; /* Adjust the width as needed */
-            height: auto;
         }
     </style>
 </head>
@@ -90,23 +78,23 @@
     <img src="scores/Paranoid/Paranoid-Rhythm-01.png" alt="Tab Not Available">
     <div class="image-container">
         <img src="scores/Paranoid/Paranoid-Rhythm-02.png" alt="Tab Not Available">
-        <img id="oneTempoChange" src="box.png" alt="Overlay Image">
-        <img id="twoTempoChange" src="box.png" alt="Overlay Image">
-        <img id="threeTempoChange" src="box.png" alt="Overlay Image">
+        <div class="shape" id="oneTempoChange"></div>
+        <div class="shape" id="twoTempoChange"></div>
+        <div class="shape" id="threeTempoChange"></div>
     </div>
     <div class="image-container">
         <img src="scores/Paranoid/Paranoid-Rhythm-03.png" alt="Tab Not Available">
-        <img id="fourTempoChange" src="box.png" alt="Overlay Image">
+        <div class="shape" id="fourTempoChange"></div>
     </div>
     <div class="image-container">
         <img src="scores/Paranoid/Paranoid-Rhythm-04.png" alt="Tab Not Available">
-        <img id="fiveTempoChange" src="box.png" alt="Overlay Image">
-        <img id="sixTempoChange" src="box.png" alt="Overlay Image">
+        <div class="shape" id="fiveTempoChange"></div>
+        <div class="shape" id="sixTempoChange"></div>
     </div>
     <div class="image-container">
         <img src="scores/Paranoid/Paranoid-Rhythm-05.png" alt="Tab Not Available">
-        <img id="sevenTempoChange" src="box.png" alt="Overlay Image">
-        <img id="eightTempoChange" src="box.png" alt="Overlay Image">
+        <div class="shape" id="sevenTempoChange"></div>
+        <div class="shape" id="eightTempoChange"></div>
     </div>
 </body>
 </html>
