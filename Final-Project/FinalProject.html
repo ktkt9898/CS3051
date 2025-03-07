@@ -33,23 +33,20 @@
             <img id="albumCoverStairway" src="albumCovers/Led_Zeppelin_IV.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this)">Lead</button>
-            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeStairwayRhythm', 'innerButtonContainerStairwayRhythm', this)">Rhythm</button>
+            <button class="buttonShow" data-original-text="Solo" onclick="toggleIframeAndButtons('iframeStairwaySolo', 'innerButtonContainerStairwaySolo', this)">Solo</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
-            <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 0.7)">Start</button>
-                <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeStairwayLead')">Reset</button>
-            </div>
-
-            <div id="innerButtonContainerStairwayRhythm" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeStairwayRhythm', 1.2)">Start</button>
-                <button class="buttonsInner" onclick="pauseScrolling()">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeStairwayRhythm')">Reset</button>
+            <div id="innerButtonContainerStairwaySolo" class="containerInnerButtons" style="display: none;">
+                <button class="buttonsInner" onclick="startScrolling('iframeStairwaySolo', 0.2, 'audioStairway', [
+                    {tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0},
+                    {tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.2},
+                    {tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 0.8},
+                ])">Start</button>
+                <button class="buttonsInner" onclick="pauseScrolling('audioStairway')">Pause</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeStairwaySolo', 'audioStairway')">Reset</button>
             </div>
         </div>
-        <iframe id="iframeStairwayLead" class="containerIFrame" src="tabs/StairwayLead.html" alt="Tab Is Not Available"></iframe>
-        <iframe id="iframeStairwayRhythm" class="containerIFrame" src="tabs/StairwayRhythm.html" alt="Tab Is Not Available"></iframe>
+        <iframe id="iframeStairwaySolo" class="containerIFrame" src="tabs/StairwaySolo.html" alt="Tab Is Not Available"></iframe>
+        <audio id="audioStairway" src="backing-tracks/Stairway.wav"></audio>
     </div>
 
     <div class="containerMusicTrack">
