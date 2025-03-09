@@ -33,19 +33,19 @@
             <img id="albumCoverStairway" src="albumCovers/Led_Zeppelin_IV.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Solo" onclick="toggleIframeAndButtons('iframeStairwaySolo', 'innerButtonContainerStairwaySolo', this)">Solo</button>
+            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this)">Lead</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
-            <div id="innerButtonContainerStairwaySolo" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeStairwaySolo', 0.2, 'audioStairway', [
+            <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
+                <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 0.2, 'audioStairway', [
                     {tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0},
                     {tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.2},
                     {tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 0.8},
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('audioStairway')">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeStairwaySolo', 'audioStairway')">Reset</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeStairwayLead', 'audioStairway')">Reset</button>
             </div>
         </div>
-        <iframe id="iframeStairwaySolo" class="containerIFrame" src="tabs/StairwaySolo.html" alt="Tab Is Not Available"></iframe>
+        <iframe id="iframeStairwayLead" class="containerIFrame" src="tabs/StairwayLead.html" alt="Tab Is Not Available"></iframe>
         <audio id="audioStairway" src="backing-tracks/Stairway.wav"></audio>
     </div>
 
@@ -113,7 +113,8 @@
         </div>
         <div class="containerButton">
             <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeParanoidRhythm', 'innerButtonContainerParanoidRhythm', this)">Rhythm</button>
-            <!--Split Lead and Rhythm buttons into 2 containers-->
+            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeParanoidLead', 'innerButtonContainerParanoidLead', this)">Lead</button>
+            <!-- Rhythm -->
             <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.5, 'rhythmParanoid', [
                     { tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0 },
@@ -128,9 +129,24 @@
                 <button class="buttonsInner" onclick="pauseScrolling('rhythmParanoid')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeParanoidRhythm', 'rhythmParanoid')">Reset</button>
             </div>
+
+            <!-- Lead -->
+            <div id="innerButtonContainerParanoidLead" class="containerInnerButtons" style="display: none;">
+                <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 0.8, 'leadParanoid', [
+                    { tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 0.8 }
+                ])">Start</button>
+                <button class="buttonsInner" onclick="pauseScrolling('leadParanoid')">Pause</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeParanoidLead', 'leadParanoid')">Reset</button>
+            </div>
         </div>
+
+        <!-- iFrames -->
         <iframe id="iframeParanoidRhythm" class="containerIFrame" src="tabs/ParanoidRhythm.html" alt="Tab Is Not Available"></iframe>
+        <iframe id="iframeParanoidLead" class="containerIFrame" src="tabs/ParanoidLead.html" alt="Tab Is Not Available"></iframe>
+
+        <!-- Audio -->
         <audio id="rhythmParanoid" src="backing-tracks/Paranoid-Rhythm.wav"></audio>
+        <audio id="leadParanoid" src="backing-tracks/Paranoid-Lead.wav"></audio>
     </div>
     <script src="script.js" async defer></script>
 </body>

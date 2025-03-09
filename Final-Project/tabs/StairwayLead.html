@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stairway Lead</title>
+    <link href="style.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+
+        img {
+            width: 100%; /* Increase the width to ensure scroll bars */
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .image-container {
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        .shape {
+            width: 100px; /* Set the width to match the desired size */
+            height: 100px; /* Set the height to match the desired size */
+            background-color: transparent; /* Set the background color to red */
+            position: absolute; /* Ensure the shape is positioned correctly */
+        }
+
+        #oneTempoChange {
+            top: 1000px;
+            left: 0;
+        }
+
+        #twoTempoChange {
+            top: 300px;
+            left: 0;
+        }
+
+        #threeTempoChange {
+            top: 900px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="scores/Stairway/Stairway-Solo-1.png" alt="Tab Not Available">
+        <div class="shape" id="oneTempoChange"></div>
+    </div>
+    <img src="scores/Stairway/Stairway-Solo-2.png" alt="Tab Not Available">
+    <div class="image-container">
+        <img src="scores/Stairway/Stairway-Solo-3.png" alt="Tab Not Available">
+        <div class="shape" id="twoTempoChange"></div>
+        <div class="shape" id="threeTempoChange"></div>
+    </div>
+    <img src="scores/Stairway/Stairway-Solo-4.png" alt="Tab Not Available">
+</body>
+</html>
