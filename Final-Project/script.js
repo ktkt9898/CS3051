@@ -8,6 +8,7 @@ let scrolling = false;
 let scrollSpeed;
 let imageInView = false;
 let warningClosed = false;
+let hasStartedScrolling = false;
 
 function checkScreenDimensions() {
     const warning = document.getElementById('warning');
@@ -110,6 +111,39 @@ Function to automically scroll the iframe, takes in the iframe ID, speed, backin
 Tempo changes are used to increase the scroll speed when a certain part of the sheet music is in view.
 In reality, an observer is used to detect a transparent square that is placed over the sheet music image.
 */
+
+function showCountdown(callback) {
+    const countdownContainer = document.createElement('div');
+    countdownContainer.id = 'countdown-container';
+    countdownContainer.style.position = 'fixed';
+    countdownContainer.style.top = '50%';
+    countdownContainer.style.left = '50%';
+    countdownContainer.style.transform = 'translate(-50%, -50%)';
+    countdownContainer.style.fontSize = '3em';
+    countdownContainer.style.color = 'white';
+    countdownContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    countdownContainer.style.padding = '20px';
+    countdownContainer.style.borderRadius = '10px';
+    countdownContainer.style.textAlign = 'center';
+    document.body.appendChild(countdownContainer);
+
+    let countdown = 3;
+    countdownContainer.textContent = countdown;
+
+    const interval = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+            countdownContainer.textContent = countdown;
+        } else if (countdown === 0) {
+            countdownContainer.textContent = 'GO';
+        } else {
+            clearInterval(interval);
+            document.body.removeChild(countdownContainer);
+            callback();
+        }
+    }, 1000);
+}
+
 function startScrolling(iframeId, originalSpeed, backingTrackId, tempoChanges) {
     /* Safety check to prevent multiple scrolling instances, if true, end the function 
     (return block execute lways ends a function) */
@@ -200,9 +234,12 @@ function startScrolling(iframeId, originalSpeed, backingTrackId, tempoChanges) {
         }
     }
 
-    // Start scrolling
-    scrolling = true;
-    scrollIframe();
+    function startScrollProcess() {
+        scrolling = true;
+        scrollIframe();
+    }
+
+    showCountdown(startScrollProcess);
 }
 
 function pauseScrolling(backingTrackId) {
