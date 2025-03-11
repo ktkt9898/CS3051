@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY TITLE</title> <!-- Change MY TITLE to your own page title -->
+    <link href="style.css" rel="stylesheet">
+    <!-- <style>
+        .colorTest {
+            color:purple;
+            color:rgb(255, 0, 255);
+            color:#A020F0;
+        }
+    </style> -->
+    
+    <!-- <style>
+        #bluebox {
+            background-color: green;
+        }
+    </style> -->
+
+    <!-- <style>
+        #flex-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-around;           
+            border: 1px solid black;
+            height: 500px;
+            background-color: #EEE;
+        }
+        #item1 { width: 200px; }
+        #item2 { width: 100px; }
+        #item3 { width: 300px; }
+        .box {
+            background-color: #888;
+            border: 1px solid black;
+            height: 100px;
+            margin: 20px;
+        }
+    </style> -->
+
+    <style>
+        #my5x4grid {
+            display: grid;
+            grid-template-columns: repeat(5, 5fr);
+            grid-template-rows: repeat(4, 1fr);
+            height: 100px;
+            background-color: #EEE;
+            border: 1px solid black;
+            overflow: auto;
+            resize: both;
+        }
+        .grid-item {
+        border: 1px solid red; /* Added border to visualize grid items */
+        background-color: #ccc;
+    }
+    </style>
+</head>
+ 
+<body>
+    <!-- <ol id="mylist"></ol>
+
+    <script>
+    
+        let ingredients = ["flour", "milk", "butter", "sugar", "eggs"];
+    
+        let mylist = document.querySelector("#mylist");
+    
+        for ( let i = 0; i < ingredients.length; i++ ) {
+    
+            // ingredients[i].appendChild(myList);
+            let li = document.createElement("li");
+            li.textContent = ingredients[i];
+            mylist.appendChild(li);
+        }
+    
+    </script> -->
+
+    <!-- <div id="bluebox" style="width: 100px; height: 100px;"></div>
+    <script>
+        let box = document.getElementById("bluebox");
+        box.style.backgroundColor = "lightblue";
+    </script> -->
+
+    <!-- <input type="text" id="name">
+
+    <button onclick="getname()">Get Name</button>
+
+    <script>
+
+    function getname() {
+
+    let name =  document.getElementById("name").value;
+
+    alert(name);
+
+    } -->
+
+    <!-- <input type="radio" name="singlechoice" value="jpg">jpg<br>
+    <input type="radio" name="singlechoice" value="png">png<br>
+    <input type="radio" name="singlechoice" value="gif">gif<br>
+    <button onclick="imgFormat()">Choose</button>
+    <script>
+        function imgFormat() {
+            let choice = document.querySelector("input[type='radio']:checked").value;
+            alert(choice);
+        }
+    </script> -->
+
+    <!-- <input type="text" id="fname"><br>
+    <input type="text" id="lname"><br>
+    <input type="text" id="city"><br>
+    <button onclick="setaddress()">Submit</button>
+    <script>
+        function setaddress() {
+            let first = document.getElementById("fname").value;
+            let last = document.getElementById("lname").value;
+            let city = document.getElementById("city").value;
+            let address = (first + ", " + last + ", " + city);
+            alert(address)
+        }
+    </script> -->
+
+    <!-- <div id="flex-container">
+        <div id="item1" class="box">Item 1</div>
+        <div id="item2" class="box">Item 2</div>
+        <div id="item3" class="box">Item 3</div>
+    </div> -->
+
+    <div id="my5x4grid">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">13</div>
+        <div class="grid-item">14</div>
+        <div class="grid-item">15</div>
+        <div class="grid-item">16</div>
+        <div class="grid-item">17</div>
+        <div class="grid-item">18</div>
+        <div class="grid-item">19</div>
+        <div class="grid-item">20</div>
+    </div>
+</body>
+ 
+</html>
