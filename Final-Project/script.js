@@ -170,13 +170,7 @@ function startScrolling(iframeId, originalSpeed, backingTrackId, tempoChanges) {
     // Accumulated scroll is used to keep track of the fractional part of the scroll speed
     let accumulatedScroll = 0;
 
-    // Play the audio if it exists
-    const audio = document.getElementById(backingTrackId);
-    if (audio) {
-        audio.play();
-    }
-
-        /*
+    /*
     The observer is used to detect when the transparent square is in view, which is placed over the sheet music image.
     When the square is in view, the scroll speed is increased to the tempo change speed.
     */
@@ -237,6 +231,12 @@ function startScrolling(iframeId, originalSpeed, backingTrackId, tempoChanges) {
     function startScrollProcess() {
         scrolling = true;
         scrollIframe();
+
+        // Play the audio if it exists
+        const audio = document.getElementById(backingTrackId);
+        if (audio) {
+            audio.play();
+        }
     }
 
     showCountdown(startScrollProcess);
