@@ -1,14 +1,12 @@
 let scrollInterval;
-let speedTimeout;
+let speedTimeouts = [];
 let currentScrollPosition = 0;
+let currentSpeed;
+let elapsedTime = 0;
+let scrolling = false;
 
 // Stores the speed adjusted from tempo changes
-let currentScrollSpeed;
-let scrolling = false;
-let scrollSpeed;
-let imageInView = false;
 let warningClosed = false;
-let hasStartedScrolling = false;
 
 function checkScreenDimensions() {
     const warning = document.getElementById('warning');
@@ -144,102 +142,53 @@ function showCountdown(callback) {
     }, 1000);
 }
 
-function startScrolling(iframeId, originalSpeed, backingTrackId, tempoChanges) {
-    /* Safety check to prevent multiple scrolling instances, if true, end the function 
-    (return block execute lways ends a function) */
-    if (scrolling) {
-        return;
-    } 
-
-    /* Ensure any existing scrolling is paused before starting a new one
-    Also pauses any audio */
-    pauseScrolling(); 
-
-    // Retrive the iFrame ID, this is where the sheet music is displayed
+function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
     const iframe = document.getElementById(iframeId);
-    /* 
-    Also retrive the entire DOM of the HTML file, recall the iFrame is a separate HTML file and is located
-    under tabs
-    */
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    const contentWindow = iframe.contentWindow;
+    const audio = document.getElementById(backingTrackId);
 
-    // scrollSpeed will attempt to be assigned to the currentScrollSpeed, as modified from the tempo changes,
-    // But in the instance of the first function call, the original passed in parameter speed is used.
-    let scrollSpeed = currentScrollSpeed || originalSpeed;
+    // Use the current speed if it exists, otherwise use the initial speed
+    currentSpeed = currentSpeed || initialSpeed;
+    let startTime = Date.now();
 
-    // Accumulated scroll is used to keep track of the fractional part of the scroll speed
-    let accumulatedScroll = 0;
-
-    /*
-    The observer is used to detect when the transparent square is in view, which is placed over the sheet music image.
-    When the square is in view, the scroll speed is increased to the tempo change speed.
-    */
-    const observer = new IntersectionObserver(increaseScrollSpeed, {
-        root: iframeDocument,
-
-        // Threshold of 1.0 means the entire target
-        threshold: 1.0
-    });
-
-    tempoChanges.forEach(change => {
-        const targetImage = iframeDocument.getElementById(change.tempoChangePageID);
-        if (targetImage) {
-            observer.observe(targetImage);
-        }
-    });
-
-    /* 
-    Function to increase scroll speed when image is in view
-    entires parameter is provided by the observer API, and is an array of IntersectionObserverEntry objects
-    */
-    function increaseScrollSpeed(entries) {
-        entries.forEach(entry => {
-            // If the transparent square is in view, the conditional block is executed; it is true
-            if (entry.isIntersecting) {
-                /*
-                Tempo change values are stored as an array, with a corresponding ID and speed value
-                Entry.target.id is the ID of the image in the sheet music that the observer API is watching
-                Once intersecting, assign the tempoChangeID array value to the entry.target.id
-                */
-                const tempoChange = tempoChanges.find(change => change.tempoChangePageID === entry.target.id);
-                // If the tempo change is found, true, set the scroll speed to the tempo change speed
-                if (tempoChange) {
-                    scrollSpeed = tempoChange.tempoChangeSpeed;
-                    // currentScrollSpeed is now set to the tempo change speed
-                    currentScrollSpeed = scrollSpeed;
-                }
-            }
-        });
-    }
-
-    // Function to scroll the iframe
-    function scrollIframe() {
-        /*
-        accumulatedScroll is initially zero, but will be updated in accordance with the tempo changes
-        modified from the increaseScrollSpeed function
-        */
-        accumulatedScroll += scrollSpeed;
-        const scrollAmount = Math.floor(accumulatedScroll);
-        accumulatedScroll -= scrollAmount;
-
-        iframe.contentWindow.scrollBy(0, scrollAmount);
+    // Function to perform the scrolling
+    function scrollContent() {
         if (scrolling) {
-            requestAnimationFrame(scrollIframe);
+            currentScrollPosition += currentSpeed;
+            contentWindow.scrollTo(0, currentScrollPosition);
+            requestAnimationFrame(scrollContent);
         }
     }
 
-    function startScrollProcess() {
-        scrolling = true;
-        scrollIframe();
-
-        // Play the audio if it exists
-        const audio = document.getElementById(backingTrackId);
-        if (audio) {
-            audio.play();
-        }
+    // Start the audio if it exists
+    if (audio) {
+        audio.play();
     }
 
-    showCountdown(startScrollProcess);
+    // Start the initial scrolling
+    scrolling = true;
+    requestAnimationFrame(scrollContent);
+
+    // Apply speed changes at specified intervals
+    speedChanges.forEach(change => {
+        const adjustedTime = change.time - elapsedTime;
+        if (adjustedTime > 0) {
+            const timeout = setTimeout(() => {
+                currentSpeed = change.speed;
+            }, adjustedTime);
+            speedTimeouts.push(timeout);
+        }
+    });
+
+    // Update elapsed time
+    function updateElapsedTime() {
+        if (scrolling) {
+            elapsedTime += Date.now() - startTime;
+            startTime = Date.now();
+            requestAnimationFrame(updateElapsedTime);
+        }
+    }
+    updateElapsedTime();
 }
 
 function pauseScrolling(backingTrackId) {
@@ -250,6 +199,11 @@ function pauseScrolling(backingTrackId) {
     if (audio) {
         audio.pause();
     }
+
+    // Clear the scroll interval and speed timeouts
+    clearInterval(scrollInterval);
+    speedTimeouts.forEach(timeout => clearTimeout(timeout));
+    speedTimeouts = [];
 }
 
 function resetScrolling(iframeId, backingTrackId) {
@@ -258,7 +212,9 @@ function resetScrolling(iframeId, backingTrackId) {
 
     pauseScrolling(backingTrackId);
     contentWindow.scrollTo(0, 0);
-    currentScrollSpeed = null;
+    currentScrollPosition = 0;
+    currentSpeed = null;
+    elapsedTime = 0;
 
     // Reset the audio if it exists
     const audio = document.getElementById(backingTrackId);

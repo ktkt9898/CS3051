@@ -18,38 +18,6 @@
     </div>
 
     <div class="containerMusicTrack">
-        <h3>Comfortably Numb</h3>
-        <h4>Pink Floyd</h4>
-        <h4>1979</h4>
-        <style>
-            #albumCoverComfortablyNumb {
-                width: 100px;
-                border: 2px solid black;
-                box-sizing: border-box;
-                float: left
-            }
-        </style>
-        <div class="containerAlbumCover">
-            <img id="albumCoverComfortablyNumb" src="albumCovers/The-Wall.png" alt="Album Cover"></img>
-        </div>
-        <div class="containerButton">
-            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeComfortablyNumbLead', 'innerButtonContainerComfortablyNumbLead', this)">Lead</button>
-            <!--Split Lead and Rhythm buttons into 2 containers-->
-            <div id="innerButtonContainerComfortablyNumbLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeComfortablyNumbLead', 0.2, 'audioComfortablyNumb', [
-                    {tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0},
-                    {tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.2},
-                    {tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 0.8},
-                ])">Start</button>
-                <button class="buttonsInner" onclick="pauseScrolling('audioComfortablyNumb')">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeComfortablyNumbLead', 'audioComfortablyNumb')">Reset</button>
-            </div>
-        </div>
-        <iframe id="iframeComfortablyNumbLead" class="containerIFrame" src="tabs/ComfortablyNumbLead.html" alt="Tab Is Not Available"></iframe>
-        <audio id="audioComfortablyNumbLead" src="backing-tracks/ComfortablyNumb.wav"></audio>
-    </div>
-
-    <div class="containerMusicTrack">
         <h3>Stairway to Heaven</h3>
         <h4>Led Zeppelin</h4>
         <h4>1971</h4>
@@ -68,10 +36,9 @@
             <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this)">Lead</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 0.2, 'audioStairway', [
-                    {tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0},
-                    {tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.2},
-                    {tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 0.8},
+                <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 1, 'audioStairway', [
+                    { time: 2000, speed: 0.5 },
+                    { time: 6000, speed: 2}
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('audioStairway')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeStairwayLead', 'audioStairway')">Reset</button>
@@ -79,85 +46,6 @@
         </div>
         <iframe id="iframeStairwayLead" class="containerIFrame" src="tabs/StairwayLead.html" alt="Tab Is Not Available"></iframe>
         <audio id="audioStairway" src="backing-tracks/Stairway.wav"></audio>
-    </div>
-
-    <div class="containerMusicTrack">
-        <h3>Come As You Are</h3>
-        <h4>Nirvana</h4>
-        <h4>1991</h4>
-        <style>
-            #albumCoverComeAsYouAre {
-                width: 100px;
-                border: 2px solid black;
-                box-sizing: border-box;
-                float: left
-            }
-        </style>
-        <div class="containerAlbumCover">
-            <img id="albumCoverComeAsYouAre" src="albumCovers/Nevermind.jpg" alt="Album Cover"></img>
-        </div>
-        <div class="containerButton">
-            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeComeAsYouAreRhythm', 'innerButtonContainerComeAsYouAreRhythm', this)">Rhythm</button>
-            <!--Split Lead and Rhythm buttons into 2 containers-->
-            <div id="innerButtonContainerComeAsYouAreRhythm" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeComeAsYouAreRhythm', 0.2, 'audioComeAsYouAre', [
-                    {tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0},
-                    {tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.2},
-                    {tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 0.8},
-                ])">Start</button>
-                <button class="buttonsInner" onclick="pauseScrolling('audioComeAsYouAre')">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre')">Reset</button>
-            </div>
-        </div>
-        <iframe id="iframeComeAsYouAreRhythm" class="containerIFrame" src="tabs/ComeAsYouAreRhythm.html" alt="Tab Is Not Available"></iframe>
-        <audio id="audioComeAsYouAre" src="backing-tracks/ComeAsYouAre.wav"></audio>
-    </div>
-
-    <div class="containerMusicTrack">
-        <h3>One</h3>
-        <h4>Metallica</h4>
-        <h4>1988</h4>
-        <style>
-            #albumCoverOne {
-                width: 100px;
-                border: 2px solid black;
-                box-sizing: border-box;
-                float: left
-            }
-        </style>
-        <div class="containerAlbumCover">
-            <img id="albumCoverOne" src="albumCovers/Metallica_-_...And_Justice_for_All_cover.jpg" alt="Album Cover"></img>
-        </div>
-        <div class="containerButton">
-            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeOneRhythm', 'innerButtonContainerOneRhythm', this)">Rhythm</button>
-            <div class="containerButton">
-                <!--Split Lead and Rhythm buttons into 2 containers-->
-                <div id="innerButtonContainerOneRhythm" class="containerInnerButtons" style="display: none;">
-                    <button class="buttonsInner" onclick="startScrolling('iframeOneRhythm', 0.7, 'audioOne', [
-                    { tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.8 },
-                    { tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'fourTempoChange', tempoChangeSpeed: 0.8 },
-                    { tempoChangePageID: 'fiveTempoChange', tempoChangeSpeed: 1.5 },
-                    { tempoChangePageID: 'sixTempoChange', tempoChangeSpeed: 1.1 },
-                    { tempoChangePageID: 'sevenTempoChange', tempoChangeSpeed: 1.2 },
-                    { tempoChangePageID: 'eightTempoChange', tempoChangeSpeed: 0.7 },
-                    { tempoChangePageID: 'nineTempoChange', tempoChangeSpeed: 1.1 },
-                    { tempoChangePageID: 'tenTempoChange', tempoChangeSpeed: 0.6 },
-                    { tempoChangePageID: 'elevenTempoChange', tempoChangeSpeed: 0.9 },
-                    { tempoChangePageID: 'twelveTempoChange', tempoChangeSpeed: 1.2 },
-                    { tempoChangePageID: 'thirteenTempoChange', tempoChangeSpeed: 1.5 },
-                    { tempoChangePageID: 'fourteenTempoChange', tempoChangeSpeed: 0.6 },
-                    { tempoChangePageID: 'fifteenTempoChange', tempoChangeSpeed: 0.9 },
-                    { tempoChangePageID: 'sixteenTempoChange', tempoChangeSpeed: 1.8 }
-                ])">Start</button>
-                    <button class="buttonsInner" onclick="pauseScrolling('audioOne')">Pause</button>
-                    <button class="buttonsInner" onclick="resetScrolling('iframeOneRhythm', 'audioOne')">Reset</button>
-                </div>
-            </div>
-        </div>
-        <iframe id="iframeOneRhythm" class="containerIFrame" src="tabs/OneRhythm.html" alt="Tab Is Not Available"></iframe>
-        <audio id="audioOne" src="backing-tracks/One.wav"></audio>
     </div>
 
     <div class="containerMusicTrack">
