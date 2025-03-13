@@ -36,9 +36,9 @@
             <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this)">Lead</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 1, 'audioStairway', [
-                    { time: 2000, speed: 0.5 },
-                    { time: 6000, speed: 2}
+                <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 0, 'audioStairway', [
+                    { time: 20500, speed: 0.3 },
+                    { time: 40000, speed: 0}
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('audioStairway')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeStairwayLead', 'audioStairway')">Reset</button>
