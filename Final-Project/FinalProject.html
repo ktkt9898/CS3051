@@ -39,7 +39,11 @@
                 <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 0, 'audioStairway', [
                     { time: 20500, speed: 1 },
                     { time: 37000, speed: 5 },
-                    { time: 39000, speed: 1 }
+                    { time: 39000, speed: 1 },
+                    { time: 64000, speed: 5 },
+                    { time: 66000, speed: 1 },
+                    { time: 76000, speed: 0 },
+                    { time: 110000, speed: 1 }
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('audioStairway')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeStairwayLead', 'audioStairway')">Reset</button>
@@ -70,14 +74,7 @@
             <!-- Rhythm -->
             <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.5, 'rhythmParanoid', [
-                    { tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'twoTempoChange', tempoChangeSpeed: 0.5 },
-                    { tempoChangePageID: 'threeTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'fourTempoChange', tempoChangeSpeed: 0.5 },
-                    { tempoChangePageID: 'fiveTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'sixTempoChange', tempoChangeSpeed: 0.5 },
-                    { tempoChangePageID: 'sevenTempoChange', tempoChangeSpeed: 1.0 },
-                    { tempoChangePageID: 'eightTempoChange', tempoChangeSpeed: 0.5 }
+                    { time: 5000, speed: 1 }
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('rhythmParanoid')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeParanoidRhythm', 'rhythmParanoid')">Reset</button>
@@ -85,8 +82,10 @@
 
             <!-- Lead -->
             <div id="innerButtonContainerParanoidLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 0.8, 'leadParanoid', [
-                    { tempoChangePageID: 'oneTempoChange', tempoChangeSpeed: 0.8 }
+                <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 0, 'leadParanoid', [
+                    { time: 5000, speed: 1 },
+                    { time: 15000, speed: 3 },
+                    { time: 17000, speed: 1 }
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('leadParanoid')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeParanoidLead', 'leadParanoid')">Reset</button>
