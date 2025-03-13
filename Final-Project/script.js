@@ -156,7 +156,6 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
         if (scrolling) {
             currentScrollPosition += currentSpeed;
             contentWindow.scrollTo(0, currentScrollPosition);
-            requestAnimationFrame(scrollContent);
         }
     }
 
@@ -167,7 +166,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
 
     // Start the initial scrolling
     scrolling = true;
-    requestAnimationFrame(scrollContent);
+    scrollInterval = setInterval(scrollContent, 1000 / 60); // Cap to 60Hz
 
     // Apply speed changes at specified intervals
     speedChanges.forEach(change => {
