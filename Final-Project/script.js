@@ -142,6 +142,20 @@ function showCountdown(callback) {
     }, 1000);
 }
 
+/*
+The startScrolling function performs the main feature of the automatic scrolling of the sheet music.
+It takes in the iframe ID, initial speed, backing track ID, and speed changes.
+Speed changes are an array of objects that contain the time and speed change.
+
+The main idea is to start with an initial speed and then change the speed at certain times to match 
+the tempo of the backing track.
+
+The three main concepts are scrollContent, updateElapsedTime, and the speed changes.
+scrollContent is the function that performs the scrolling, and is called every 16.67ms to maintain a 60Hz refresh rate.
+updateElapsedTime is a recursive function that keeps track of the elapsed time while scrolling is active.
+    This is used when pausing and resuming the scrolling, so the speed changes are the consistent.
+speedChanges is an array that containts a time and speed change, since some parts of the sheet music may be faster or slower.
+*/
 function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
     const iframe = document.getElementById(iframeId);
     const contentWindow = iframe.contentWindow;
@@ -149,6 +163,8 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
 
     // Use the current speed if it exists, otherwise use the initial speed
     currentSpeed = currentSpeed || initialSpeed;
+
+    // Start keeping track of the elapsed time, so pausing can resume at the same exact position
     let startTime = Date.now();
 
     // Function to perform the scrolling
@@ -156,6 +172,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
         if (scrolling) {
             currentScrollPosition += currentSpeed;
             contentWindow.scrollTo(0, currentScrollPosition);
+            requestAnimationFrame(scrollContent); // Schedule the next scroll
         }
     }
 
@@ -166,20 +183,42 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
 
     // Start the initial scrolling
     scrolling = true;
-    scrollInterval = setInterval(scrollContent, 1000 / 60); // Cap to 60Hz
 
-    // Apply speed changes at specified intervals
+    /*
+    Cap to 60Hz to maintain consistent scrolling speed across devices
+    1000 / 60 is used to approimate 16.67ms which corresponds to 60Hz refresh rate
+    So, set the scrollContent speed interval to update every 16.67ms, or a 60hz refresh rate
+    */
+    requestAnimationFrame(scrollContent);
+
+    /*
+    Speed changes are the array passed in that contains the time interval and associated
+    speed change
+    If the specified time is greater than the elapsed time, set a timeout to change the speed
+    The variable "change" is the element in the array that contains the time and speed change
+    The adjustedTime is the time minus the elapsed time, and if it is greater than 0, set a timeout
+    */
     speedChanges.forEach(change => {
         const adjustedTime = change.time - elapsedTime;
         if (adjustedTime > 0) {
             const timeout = setTimeout(() => {
                 currentSpeed = change.speed;
             }, adjustedTime);
+            // Store the timeout to be cleared later, when pausing or reseting the scrolling
             speedTimeouts.push(timeout);
         }
     });
 
-    // Update elapsed time
+    /*
+    Check if scrolling is active, and ensure the elapsed time is continuously updated
+
+    The global variable "elapsedTime" is updated to keep track of the time when the 
+    scrolling is paused.
+    The new elapsedTime is the current time minus the start time, and is used to update the
+    adjustedTime variable.
+
+    updateElapsedTime is recursively called to keep track of the elapsed time while scrolling is true
+    */
     function updateElapsedTime() {
         if (scrolling) {
             elapsedTime += Date.now() - startTime;
