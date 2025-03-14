@@ -98,9 +98,9 @@
             <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 0, 'audioStairway', [
                     { time: 20500, speed: 1 },
-                    { time: 37000, speed: 5 },
+                    { time: 37000, speed: 3 },
                     { time: 39000, speed: 1 },
-                    { time: 64000, speed: 5 },
+                    { time: 64000, speed: 3 },
                     { time: 66000, speed: 1 },
                     { time: 76000, speed: 0 },
                     { time: 110000, speed: 1 }
@@ -134,7 +134,8 @@
             <!-- Rhythm -->
             <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.5, 'rhythmParanoid', [
-                    { time: 5000, speed: 1 }
+                    { time: 6000, speed: 0.2 },
+                    { time: 12000, speed: 0.5 }
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('rhythmParanoid')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeParanoidRhythm', 'rhythmParanoid')">Reset</button>
