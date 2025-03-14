@@ -18,6 +18,66 @@
     </div>
 
     <div class="containerMusicTrack">
+        <h3>Come as You Are</h3>
+        <h4>Nirvana</h4>
+        <h4>1991</h4>
+        <style>
+            #albumCoverTheWall {
+                width: 100px;
+                border: 2px solid black;
+                box-sizing: border-box;
+                float: left
+            }
+        </style>
+        <div class="containerAlbumCover">
+            <img id="albumCoverTheWall" src="albumCovers/The-Wall.png" alt="Album Cover"></img>
+        </div>
+        <div class="containerButton">
+            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeComfortablyNumbLead', 'innerButtonContainerComfortablyNumbLead', this)">Lead</button>
+            <!--Split Lead and Rhythm buttons into 2 containers-->
+            <div id="innerButtonContainerComfortablyNumbLead" class="containerInnerButtons" style="display: none;">
+                <button class="buttonsInner" onclick="startScrolling('iframeComfortablyNumbLead', 0, 'audioComfortablyNumb', [
+                    { time: 4500, speed: 0.6 },
+                ])">Start</button>
+                <button class="buttonsInner" onclick="pauseScrolling('audioComfortablyNumb')">Pause</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeComfortablyNumbLead', 'audioComfortablyNumb')">Reset</button>
+            </div>
+        </div>
+        <iframe id="iframeComfortablyNumbLead" class="containerIFrame" src="tabs/ComfortablyNumbLead.html" alt="Tab Is Not Available"></iframe>
+        <audio id="audioComfortablyNumb" src="backing-tracks/ComfortablyNumbLead.wav"></audio>
+    </div>
+
+    <div class="containerMusicTrack">
+        <h3>Come as You Are</h3>
+        <h4>Nirvana</h4>
+        <h4>1991</h4>
+        <style>
+            #albumCoverNevermind {
+                width: 100px;
+                border: 2px solid black;
+                box-sizing: border-box;
+                float: left
+            }
+        </style>
+        <div class="containerAlbumCover">
+            <img id="albumCoverNevermind" src="albumCovers/Nevermind.jpg" alt="Album Cover"></img>
+        </div>
+        <div class="containerButton">
+            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeComeAsYouAreRhythm', 'innerButtonContainerComeAsYouAreRhythm', this)">Rhythm</button>
+            <!--Split Lead and Rhythm buttons into 2 containers-->
+            <div id="innerButtonContainerComeAsYouAreRhythm" class="containerInnerButtons" style="display: none;">
+                <button class="buttonsInner" onclick="startScrolling('iframeComeAsYouAreRhythm', 0.2, 'audioComeAsYouAre', [
+                    { time: 5000, speed: 0.2 },
+                ])">Start</button>
+                <button class="buttonsInner" onclick="pauseScrolling('audioComeAsYouAre')">Pause</button>
+                <button class="buttonsInner" onclick="resetScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre')">Reset</button>
+            </div>
+        </div>
+        <iframe id="iframeComeAsYouAreRhythm" class="containerIFrame" src="tabs/ComeAsYouAreRhythm.html" alt="Tab Is Not Available"></iframe>
+        <audio id="audioComeAsYouAre" src="backing-tracks/ComeAsYouAreRhythm.wav"></audio>
+    </div>
+
+    <div class="containerMusicTrack">
         <h3>Stairway to Heaven</h3>
         <h4>Led Zeppelin</h4>
         <h4>1971</h4>
