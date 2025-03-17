@@ -44,7 +44,7 @@ the actual Show/Hide button to toggle the menu
 Each iFrame has an ID that maps to the individual HTML files under tabs. This displays
 the sheet music within a smaller window to be scrolled manually or automatically
 */
-function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
+function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrackId) {
     const iframe = document.getElementById(iframeId);
     const buttonContainer = document.getElementById(buttonContainerId);
 
@@ -103,7 +103,7 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button) {
         stopOperation = true; 
 
         // Reset scrolling when the iFrame is hidden, meaning "Hide" was clicked
-        resetScrolling(iframeId, 0);
+        resetScrolling(iframeId, backingTrackId);
         iframe.style.display = "none";
         buttonContainer.style.display = "none";
         button.textContent = button.getAttribute('data-original-text'); // Restore original text
@@ -288,6 +288,10 @@ function resetScrolling(iframeId, backingTrackId) {
     // Reset the audio if it exists
     const audio = document.getElementById(backingTrackId);
     if (audio) {
+        // Pause the audio
+        audio.pause();
+
+        // And set the audio to the beginning, for the next time it is played
         audio.currentTime = 0;
     }
 }

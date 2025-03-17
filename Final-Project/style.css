@@ -112,3 +112,30 @@ html, body {
     text-align: center;
     z-index: 1000;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute; /* tooltip can overlap other elements */
+    z-index: 2; /* Ensure the tooltip is above the iframe */
+    bottom: 125%; /* Position the tooltip above the button */
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

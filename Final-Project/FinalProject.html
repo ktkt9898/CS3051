@@ -33,7 +33,7 @@
             <img id="albumCoverTheWall" src="albumCovers/The-Wall.png" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeComfortablyNumbLead', 'innerButtonContainerComfortablyNumbLead', this)">Lead</button>
+            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeComfortablyNumbLead', 'innerButtonContainerComfortablyNumbLead', this, 'audioComfortablyNumb')">Lead</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerComfortablyNumbLead" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeComfortablyNumbLead', 0, 'audioComfortablyNumb', [
@@ -69,14 +69,25 @@
             <img id="albumCoverNevermind" src="albumCovers/Nevermind.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeComeAsYouAreRhythm', 'innerButtonContainerComeAsYouAreRhythm', this)">Rhythm</button>
+            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeComeAsYouAreRhythm', 'innerButtonContainerComeAsYouAreRhythm', this, 'audioComeAsYouAre')">Rhythm</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerComeAsYouAreRhythm" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeComeAsYouAreRhythm', 0.2, 'audioComeAsYouAre', [
-                    { time: 5000, speed: 0.2 },
-                ])">Start</button>
-                <button class="buttonsInner" onclick="pauseScrolling('audioComeAsYouAre')">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre')">Reset</button>
+                <div class="tooltip">
+                    <button class="buttonsInner" onclick="startScrolling('iframeComeAsYouAreRhythm', 0.2, 'audioComeAsYouAre', [
+                        { time: 5000, speed: 0.2 },
+                        { time: 13200, speed: 0.05 },
+                        { time: 13800, speed: 0.2 },
+                    ])">Start</button>
+                    <span class="tooltiptext">Starts the track</span>
+                </div>
+                <div class="tooltip">
+                    <button class="buttonsInner" onclick="pauseScrolling('audioComeAsYouAre')">Pause</button>
+                    <span class="tooltiptext">Pauses the track</span>
+                </div>
+                <div class="tooltip">
+                    <button class="buttonsInner" onclick="resetScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre')">Reset</button>
+                    <span class="tooltiptext">Resets the track</span>
+                </div>
             </div>
         </div>
         <iframe id="iframeComeAsYouAreRhythm" class="containerIFrame" src="tabs/ComeAsYouAreRhythm.html" alt="Tab Is Not Available"></iframe>
@@ -99,7 +110,7 @@
             <img id="albumCoverStairway" src="albumCovers/Led_Zeppelin_IV.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this)">Lead</button>
+            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this, 'audioStairway')">Lead</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeStairwayLead', 0, 'audioStairway', [
@@ -135,8 +146,8 @@
             <img id="albumCoverParanoid" src="albumCovers/Black_Sabbath_-_Paranoid.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
-            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeParanoidRhythm', 'innerButtonContainerParanoidRhythm', this)">Rhythm</button>
-            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeParanoidLead', 'innerButtonContainerParanoidLead', this)">Lead</button>
+            <button class="buttonShow" data-original-text="Rhythm" onclick="toggleIframeAndButtons('iframeParanoidRhythm', 'innerButtonContainerParanoidRhythm', this, 'rhythmParanoid')">Rhythm</button>
+            <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeParanoidLead', 'innerButtonContainerParanoidLead', this, 'leadParanoid')">Lead</button>
             <!-- Rhythm -->
             <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.2, 'rhythmParanoid', [
