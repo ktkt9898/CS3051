@@ -253,6 +253,9 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
         }
         updateElapsedTime();
     });
+
+    disableButtons(['manualStartButton', 'increaseButton', 'decreaseButton']);
+    enableButtons(['startButton']);
 }
 
 function pauseScrolling(backingTrackId) {
@@ -294,11 +297,16 @@ function resetScrolling(iframeId, backingTrackId) {
         // And set the audio to the beginning, for the next time it is played
         audio.currentTime = 0;
     }
+
+    disableButtons(['increaseButton', 'decreaseButton']);
+    enableButtons(['startButton', 'manualStartButton']);
 }
 
 // New functions for manual control
 function manualStartScrolling(iframeId, backingTrackId) {
-    startScrolling(iframeId, 0.2, backingTrackId, []);
+    startScrolling(iframeId, 0.1, backingTrackId, []);
+    disableButtons(['startButton']);
+    enableButtons(['manualStartButton', 'increaseButton', 'decreaseButton']);
 }
 
 function increaseSpeed() {
@@ -310,5 +318,36 @@ function increaseSpeed() {
 function decreaseSpeed() {
     if (currentSpeed !== null && currentSpeed > 0.1) {
         currentSpeed -= 0.1;
+    }
+}
+
+function disableButtons(buttonIds) {
+    buttonIds.forEach(id => {
+        const button = document.getElementById(id);
+        if (button) {
+            button.disabled = true;
+        }
+    });
+}
+
+function enableButtons(buttonIds) {
+    buttonIds.forEach(id => {
+        const button = document.getElementById(id);
+        if (button) {
+            button.disabled = false;
+        }
+    });
+}
+
+function toggleMute(backingTrackId) {
+    const audio = document.getElementById(backingTrackId);
+    if (audio) {
+        audio.muted = !audio.muted;
+        const muteButton = document.getElementById('muteButton');
+        if (audio.muted) {
+            muteButton.textContent = 'Unmute';
+        } else {
+            muteButton.textContent = 'Mute';
+        }
     }
 }
