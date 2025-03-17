@@ -15,8 +15,6 @@ html, body {
 
 /* Container for the music track that holds title, artist, year, album cover, and the score. */
 .containerMusicTrack {
-    margin-top: 20px;
-    margin-bottom: 20px;
     padding: 20px;
     background-color: blanchedalmond;
     box-sizing: border-box 

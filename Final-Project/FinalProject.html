@@ -18,9 +18,9 @@
     </div>
 
     <div class="containerMusicTrack">
-        <h3>Come as You Are</h3>
-        <h4>Nirvana</h4>
-        <h4>1991</h4>
+        <h3>Comfortably Numb</h3>
+        <h4>Pink Floyd</h4>
+        <h4>1979</h4>
         <style>
             #albumCoverTheWall {
                 width: 100px;
@@ -37,7 +37,13 @@
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerComfortablyNumbLead" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeComfortablyNumbLead', 0, 'audioComfortablyNumb', [
-                    { time: 4500, speed: 0.6 },
+                    { time: 4500, speed: 0.2 },
+                    { time: 14000, speed: 0.5 },
+                    { time: 16000, speed: 0.2 },
+                    { time: 23000, speed: 0.5 },
+                    { time: 25000, speed: 0.2 },
+                    { time: 35000, speed: 0.5 },
+                    { time: 37000, speed: 0.2 },
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('audioComfortablyNumb')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeComfortablyNumbLead', 'audioComfortablyNumb')">Reset</button>
@@ -133,9 +139,8 @@
             <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeParanoidLead', 'innerButtonContainerParanoidLead', this)">Lead</button>
             <!-- Rhythm -->
             <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.5, 'rhythmParanoid', [
-                    { time: 6000, speed: 0.2 },
-                    { time: 12000, speed: 0.5 }
+                <button class="buttonsInner" onclick="startScrolling('iframeParanoidRhythm', 0.2, 'rhythmParanoid', [
+                    { time: 0, speed: 0.2 },
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('rhythmParanoid')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeParanoidRhythm', 'rhythmParanoid')">Reset</button>
@@ -144,7 +149,7 @@
             <!-- Lead -->
             <div id="innerButtonContainerParanoidLead" class="containerInnerButtons" style="display: none;">
                 <button class="buttonsInner" onclick="startScrolling('iframeParanoidLead', 0, 'leadParanoid', [
-                    { time: 5000, speed: 0.8 }
+                    { time: 5000, speed: 0.5 }
                 ])">Start</button>
                 <button class="buttonsInner" onclick="pauseScrolling('leadParanoid')">Pause</button>
                 <button class="buttonsInner" onclick="resetScrolling('iframeParanoidLead', 'leadParanoid')">Reset</button>
