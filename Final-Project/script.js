@@ -295,3 +295,20 @@ function resetScrolling(iframeId, backingTrackId) {
         audio.currentTime = 0;
     }
 }
+
+// New functions for manual control
+function manualStartScrolling(iframeId, backingTrackId) {
+    startScrolling(iframeId, 0.2, backingTrackId, []);
+}
+
+function increaseSpeed() {
+    if (currentSpeed !== null) {
+        currentSpeed += 0.1;
+    }
+}
+
+function decreaseSpeed() {
+    if (currentSpeed !== null && currentSpeed > 0.1) {
+        currentSpeed -= 0.1;
+    }
+}
