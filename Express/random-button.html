@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY TITLE</title> <!-- Change MY TITLE to your own page title -->
+    <link href="style.css" rel="stylesheet">
+</head>
+ 
+<body>
+    <style>
+        .containerRandomPicture {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        #randomPicture {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+        }
+    </style>
+    <div>
+        <button onclick="getRandomPicture()">Randomize</button>
+    </div>
+    <div class="containerRandomPicture">
+        <img id="randomPicture" src="" alt="Click the button to get a picture!">
+    </div>
+    <!-- Your web page content goes here -->
+    <script>
+        function getRandomPicture() {
+            const pictures = [
+                'random-images/grand-canyon.jpg',
+                'random-images/half-dome.jpg',
+                'random-images/mt-everest.jpg',
+                'random-images/niagara-falls.jpg',
+                'random-images/yellowstone.jpg',
+                'random-images/zion-national-park.jpg'
+            ];
+            const randomIndex = Math.floor(Math.random() * pictures.length);
+            const randomPicture = pictures[randomIndex];
+            document.getElementById('randomPicture').src = randomPicture;
+        }
+    </script>
+</body>
+ 
+</html>
