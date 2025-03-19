@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kyle's Website</title> <!-- Put your own title here -->
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<style>
+    /* Remove blank space around the page */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .myTable {
+        background-color: burlywood;
+        border-spacing: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #container {
+        display: grid;
+        grid-template-columns: 8em 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas: 
+        "header header"
+        "left main"
+        "footer footer";
+        height: 100vh;
+    }
+
+    #headerMain {
+        grid-area: header;
+        background-color: steelblue;
+        text-align: left;
+        padding: 10px;
+    }
+
+    #headerFavorites {
+        grid-area: header;
+        background-color: steelblue;
+        text-align: left;
+        padding: 10px;
+    }
+
+    #headerList {
+        grid-area: header;
+        background-color: steelblue;
+        text-align: left;
+        padding: 10px;
+    }
+
+    #leftMenu {
+        grid-area: left;
+        background-color: skyblue;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 10px;
+
+    }
+
+    #contentMainCell {
+        grid-area: main;
+        background-color: burlywood;
+        text-align: center;
+    }
+
+    #contentFavoritesCell {
+        grid-area: main;
+        background-color: burlywood;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    #contentFavoritesCell ul{
+        list-style-position: inside;
+        padding: 0;
+        margin: 0;
+    }
+
+    #contentListCell {
+        grid-area: main;
+        background-color: burlywood;
+        text-align: center;
+    }
+
+    #footer {
+        grid-area: footer;
+        background-color: steelblue;
+        text-align: right;
+        padding: 10px;
+    }
+
+    .underlined {
+            text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+        #container {
+            grid-template-columns: 10em 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas: 
+            "header header" 
+            "main main" 
+            "footer footer";
+        }
+
+        #leftMenu {
+            display: none;
+        }
+    }
+</style>
+
+<body onload="showContent('contentMain')">
+    <!-- About Me Header, default header -->
+    <div id="container">
+        <div id="headerMain">
+            <h1> About Me </h1>
+        </div>
+
+        <div id="contentMainCell">
+            <p> My name is Kyle and I am a transfer student at AUP.
+                <br> I transferred from Boise State University in Idaho, USA but I am originally from Sacramento, California.
+                <br> I am a junior and I am studying Computer Science and Minoring in French.
+                <br> This is also my <ins>first</ins> time outside of America, and my <ins>first</ins> time in Paris!
+            </p>
+            <div style="text-align:center;">
+                <img src="photo.jpg" width="200" height="200" alt="Me with my guitar">
+            </div>
+        </div>
+
+        <div id="leftMenu">
+            <p onclick="showContent('contentMain')"> About Me </p>
+            <p onclick="showContent('contentFavorites')"> Favorites </p>
+            <p onclick="showContent('contentList')"> List </p>
+        </div>
+
+        <div id="footer">
+            <p> Kyle's Website &copy; </p>
+        </div>
+    </div>
+    <script>
+        function showContent(contentId) {
+            const headers = {
+                contentMain: 'About Me',
+                contentFavorites: 'Favorite Websites',
+                contentList: 'Places that I\'ve visited'
+            };
+
+            const contentCells = {
+                contentMain: 'contentMainCell',
+                contentFavorites: 'contentFavoritesCell',
+                contentList: 'contentListCell'
+            };
+
+            // Update header
+            const headerElement = document.getElementById('header');
+            if (headerElement) {
+                headerElement.innerHTML = `<h1>${headers[contentId]}</h1>`;
+            }
+
+           // Fetch and update content
+            fetch(`${contentId}.html`)
+                .then(response => response.text())
+                .then(data => {
+                    const contentElement = document.querySelector('[id^="content"]');
+                    if (contentElement) {
+                        contentElement.id = contentCells[contentId];
+                        contentElement.innerHTML = data;
+                    }
+                })
+                .catch(error => console.error('Error fetching content:', error));
+        }
+    </script>
+</body>
+
+</html>
