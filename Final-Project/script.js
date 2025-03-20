@@ -5,11 +5,20 @@ let currentSpeed;
 let elapsedTime = 0;
 let scrolling = false;
 
+// Flag to prevent multiple Start button clicks
+let scrollingInProgressStartButton = false;
+
+// Flag to rpevent multiple Manual Start button clicks
+let scrollingInProgressManualButton = false;
+
 // Flag to stop the operation of the scrolling, if Hide is clicked
 let stopOperation = false; 
 
 // Stores the speed adjusted from tempo changes
 let warningClosed = false;
+
+// New global variable to track if scrolling was started manually
+let isManual = false;
 
 function checkScreenDimensions() {
     const warning = document.getElementById('warning');
@@ -174,7 +183,19 @@ updateElapsedTime is a recursive function that keeps track of the elapsed time w
     This is used when pausing and resuming the scrolling, so the speed changes are the consistent.
 speedChanges is an array that containts a time and speed change, since some parts of the sheet music may be faster or slower.
 */
-function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
+function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, isManual) {
+    if (isManual) {
+        if (scrollingInProgressManualButton) {
+            return;
+        }
+        scrollingInProgressManualButton = true;
+    } else {
+        if (scrollingInProgressStartButton) {
+            return;
+        }
+        scrollingInProgressStartButton = true;
+    }
+
     // Reset the flag to false when starting the scrolling operation
     stopOperation = false; 
     showCountdown(() => {
@@ -254,12 +275,21 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges) {
         updateElapsedTime();
     });
 
-    disableButtons(['manualStartButton', 'increaseButton', 'decreaseButton']);
-    enableButtons(['startButton']);
+    disableButtons(['startButton', 'manualStartButton', 'increaseButton', 'decreaseButton']);
 }
 
 function pauseScrolling(backingTrackId) {
     scrolling = false;
+
+    if (scrollingInProgressStartButton) {
+        scrollingInProgressStartButton = false;
+        enableButtons(['startButton']);
+        disableButtons(['manualStartButton']);
+    } else if (scrollingInProgressManualButton) {
+        scrollingInProgressManualButton = false;
+        enableButtons(['manualStartButton']);
+        disableButtons(['startButton']);
+    }
 
     // Pause the audio if it exists
     const audio = document.getElementById(backingTrackId); 
@@ -281,12 +311,17 @@ function resetScrolling(iframeId, backingTrackId) {
     stopOperation = false; 
 
     // Also reset the scrolling flag to false
-    scrolling = false; 
+    scrolling = false;
+
+    // Reset the two flags for the Start and Manual Start buttons
+    scrollingInProgressStartButton = false;
+    scrollingInProgressManualButton = false;
     pauseScrolling(backingTrackId);
     contentWindow.scrollTo(0, 0);
     currentScrollPosition = 0;
     currentSpeed = null;
     elapsedTime = 0;
+    isManual = false;
 
     // Reset the audio if it exists
     const audio = document.getElementById(backingTrackId);
@@ -304,9 +339,14 @@ function resetScrolling(iframeId, backingTrackId) {
 
 // New functions for manual control
 function manualStartScrolling(iframeId, backingTrackId) {
-    startScrolling(iframeId, 0.1, backingTrackId, []);
-    disableButtons(['startButton']);
-    enableButtons(['manualStartButton', 'increaseButton', 'decreaseButton']);
+    if (scrollingInProgressManualButton) {
+        return;
+    }
+    isManual = true;
+
+    startScrolling(iframeId, 0.1, backingTrackId, [], isManual);
+    enableButtons(['increaseButton', 'decreaseButton']);
+    disableButtons(['startButton', 'manualStartButton']);
 }
 
 function increaseSpeed() {
