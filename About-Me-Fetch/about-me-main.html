@@ -139,7 +139,7 @@
         </div>
 
         <div id="leftMenu">
-            <p onclick="showContent('contentMain')"> About Me </p>
+            <p class="underlined" onclick="showContent('contentMain')"> About Me </p>
             <p onclick="showContent('contentFavorites')"> Favorites </p>
             <p onclick="showContent('contentList')"> List </p>
         </div>
@@ -150,6 +150,7 @@
     </div>
     <script>
         function showContent(contentId) {
+            // Using object literals to store headers and content cells
             const headers = {
                 contentMain: 'About Me',
                 contentFavorites: 'Favorite Websites',
@@ -163,8 +164,10 @@
             };
 
             // Update header
-            const headerElement = document.getElementById('header');
+            // Locate and map to the default header ID, headerMain
+            const headerElement = document.querySelector(`#headerMain`);
             if (headerElement) {
+                // Within the headers object, find the key that matches the contentId
                 headerElement.innerHTML = `<h1>${headers[contentId]}</h1>`;
             }
 
@@ -172,14 +175,33 @@
             fetch(`${contentId}.html`)
                 .then(response => response.text())
                 .then(data => {
+                    // All three content cells have an id that starts with 'content'
                     const contentElement = document.querySelector('[id^="content"]');
                     if (contentElement) {
                         contentElement.id = contentCells[contentId];
+                        // Replace the default or previous content with the fetched content
+                        // The header is modified separately, this only modifies the
+                        // div that contains the content
                         contentElement.innerHTML = data;
                     }
                 })
                 .catch(error => console.error('Error fetching content:', error));
+
+            const menuItems = document.querySelectorAll('#leftMenu p');
+            menuItems.forEach(item => {
+                if (item.getAttribute('onclick') === `showContent('${contentId}')`) {
+                    item.classList.add('underlined');
+                }
+                else {
+                    item.classList.remove('underlined');
+                }
+            });  
         }
+
+        // Ensure the default choice is underlined on page load
+        document.addEventListener('DOMContentLoaded', () => {
+        showContent('contentMain');
+        });
     </script>
 </body>
 
