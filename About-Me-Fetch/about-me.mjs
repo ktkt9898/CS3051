@@ -14,3 +14,11 @@ app.use(express.static('.'));
 app.get("/", (req, res) => {
     res.sendFile(path.join(process.cwd(), "about-me-main.html"));
 });
+
+app.get("/favorites", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "contentFavorites.html"));
+});
+
+app.get("/list", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "contentList.html"));
+});
