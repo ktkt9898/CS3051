@@ -12,7 +12,7 @@ let scrollingInProgressStartButton = false;
 let scrollingInProgressManualButton = false;
 
 // Flag to stop the operation of the scrolling, if Hide is clicked
-let stopCountdownOperation = false; 
+let stopCountdownOperation = false;
 
 // Stores the speed adjusted from tempo changes
 let warningClosed = false;
@@ -30,7 +30,7 @@ function checkScreenDimensions() {
         warning.style.display = 'none';
 
         // Reset the flag when dimensions are greater than 800
-        warningClosed = false; 
+        warningClosed = false;
     }
 }
 
@@ -41,7 +41,7 @@ checkScreenDimensions();
 window.addEventListener('resize', checkScreenDimensions);
 
 // Close button functionality
-document.getElementById('close-btn').addEventListener('click', function() {
+document.getElementById('close-btn').addEventListener('click', function () {
     document.getElementById('warning').style.display = 'none';
     warningClosed = true; // Set the flag to true when the warning is closed
 });
@@ -86,14 +86,14 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
     */
     if (iframe.style.display === "none" || iframe.style.display === "") {
         // Reset the countdown operation flag to false when the iframe is shown
-        stopCountdownOperation = false; 
+        stopCountdownOperation = false;
 
         iframe.style.display = "block";
         buttonContainer.style.display = "flex";
         button.textContent = "Hide";
 
         // Scroll to the iframe smoothly
-        buttonContainer.scrollIntoView({ behavior: 'smooth' }); 
+        buttonContainer.scrollIntoView({ behavior: 'smooth' });
 
         /**
         Hide sibling buttons IF not contained from the original button click, from the other Lead or Rhythm 
@@ -114,7 +114,7 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
 
     else {
         // Set the stop countdown operation flag to true when the iframe is hidden
-        stopCountdownOperation = true; 
+        stopCountdownOperation = true;
 
         // Reset scrolling when the iFrame is hidden, meaning "Hide" was clicked
         resetScrolling(iframeId, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId);
@@ -204,7 +204,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, st
     }
     scrollingInProgressStartButton = true;
     scrollingInProgressManualButton = false;
-    
+
     showCountdown(() => {
         const iframe = document.getElementById(iframeId);
         const contentWindow = iframe.contentWindow;
@@ -223,7 +223,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, st
                 contentWindow.scrollTo(0, currentScrollPosition);
 
                 // Schedule the next scroll
-                requestAnimationFrame(scrollContent); 
+                requestAnimationFrame(scrollContent);
             }
         }
 
@@ -296,13 +296,13 @@ function pauseScrolling(backingTrackId, startButtonId, manualStartButtonId) {
     }
 
     // Pause the audio if it exists
-    const audio = document.getElementById(backingTrackId); 
+    const audio = document.getElementById(backingTrackId);
     if (audio) {
         audio.pause();
     }
 
     // Clear the scroll interval and speed timeouts
-    clearInterval(scrollInterval); 
+    clearInterval(scrollInterval);
     speedTimeouts.forEach(timeout => clearTimeout(timeout));
     speedTimeouts = [];
 }
@@ -312,7 +312,7 @@ function resetScrolling(iframeId, backingTrackId, startButtonId, manualStartButt
     const contentWindow = iframe.contentWindow;
 
     // Reset the stop countdown operation flag to true
-    stopCountdownOperation = true; 
+    stopCountdownOperation = true;
 
     // Also reset the scrolling flag to false
     scrolling = false;
@@ -351,7 +351,7 @@ function manualStartScrolling(iframeId, backingTrackId, startButtonId, manualSta
     }
     scrollingInProgressManualButton = true;
     scrollingInProgressStartButton = false;
-    
+
     showCountdown(() => {
         const iframe = document.getElementById(iframeId);
         const contentWindow = iframe.contentWindow;
@@ -370,7 +370,7 @@ function manualStartScrolling(iframeId, backingTrackId, startButtonId, manualSta
                 contentWindow.scrollTo(0, currentScrollPosition);
 
                 // Schedule the next scroll
-                requestAnimationFrame(scrollContent); 
+                requestAnimationFrame(scrollContent);
             }
         }
 
