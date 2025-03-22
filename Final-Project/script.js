@@ -201,7 +201,7 @@ updateElapsedTime is a recursive function that keeps track of the elapsed time w
     This is used when pausing and resuming the scrolling, so the speed changes are the consistent.
 speedChanges is an array that containts a time and speed change, since some parts of the sheet music may be faster or slower.
 */
-function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, isManual) {
+function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, isManual, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     // Once start scrolling is called, set the stop countdown flag to false
     stopCountdownOperation = false;
 
@@ -291,20 +291,20 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, is
         updateElapsedTime();
     });
 
-    disableButtons(['startButton', 'manualStartButton', 'increaseButton', 'decreaseButton']);
+    disableButtons([startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId]);
 }
 
-function pauseScrolling(backingTrackId) {
+function pauseScrolling(backingTrackId, startButtonId, manualStartButtonId) {
     scrolling = false;
 
     if (scrollingInProgressStartButton) {
         scrollingInProgressStartButton = false;
-        enableButtons(['startButton']);
-        disableButtons(['manualStartButton']);
+        enableButtons([startButtonId]);
+        disableButtons([manualStartButtonId]);
     } else if (scrollingInProgressManualButton) {
         scrollingInProgressManualButton = false;
-        enableButtons(['manualStartButton']);
-        disableButtons(['startButton']);
+        enableButtons([manualStartButtonId]);
+        disableButtons([startButtonId]);
     }
 
     // Pause the audio if it exists
@@ -319,7 +319,7 @@ function pauseScrolling(backingTrackId) {
     speedTimeouts = [];
 }
 
-function resetScrolling(iframeId, backingTrackId) {
+function resetScrolling(iframeId, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     const iframe = document.getElementById(iframeId);
     const contentWindow = iframe.contentWindow;
 
@@ -332,7 +332,7 @@ function resetScrolling(iframeId, backingTrackId) {
     // Reset the two flags for the Start and Manual Start buttons
     scrollingInProgressStartButton = false;
     scrollingInProgressManualButton = false;
-    pauseScrolling(backingTrackId);
+    pauseScrolling(backingTrackId, startButtonId, manualStartButtonId);
     contentWindow.scrollTo(0, 0);
     currentScrollPosition = 0;
     currentSpeed = null;
@@ -349,20 +349,20 @@ function resetScrolling(iframeId, backingTrackId) {
         audio.currentTime = 0;
     }
 
-    disableButtons(['increaseButton', 'decreaseButton']);
-    enableButtons(['startButton', 'manualStartButton']);
+    disableButtons([increaseButtonId, decreaseButtonId]);
+    enableButtons([startButtonId, manualStartButtonId]);
 }
 
 // New functions for manual control
-function manualStartScrolling(iframeId, backingTrackId) {
+function manualStartScrolling(iframeId, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     if (scrollingInProgressManualButton) {
         return;
     }
     isManual = true;
 
-    startScrolling(iframeId, 0.1, backingTrackId, [], isManual);
-    enableButtons(['increaseButton', 'decreaseButton']);
-    disableButtons(['startButton', 'manualStartButton']);
+    startScrolling(iframeId, 0.1, backingTrackId, [], isManual, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId);
+    enableButtons([increaseButtonId, decreaseButtonId]);
+    disableButtons([startButtonId, manualStartButtonId]);
 }
 
 function increaseSpeed() {
@@ -399,7 +399,7 @@ function toggleMute(backingTrackId) {
     const audio = document.getElementById(backingTrackId);
     if (audio) {
         audio.muted = !audio.muted;
-        const muteButton = document.getElementById('muteButton');
+        const muteButton = document.querySelector(`[data-button-id="muteButton${backingTrackId.replace('audio', '')}"]`);
         if (audio.muted) {
             muteButton.textContent = 'Unmute';
         } else {

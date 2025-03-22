@@ -36,17 +36,42 @@
             <button class="buttonShow" data-original-text="Lead" onclick="toggleIframeAndButtons('iframeComfortablyNumbLead', 'innerButtonContainerComfortablyNumbLead', this, 'audioComfortablyNumb')">Lead</button>
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerComfortablyNumbLead" class="containerInnerButtons" style="display: none;">
-                <button class="buttonsInner" onclick="startScrolling('iframeComfortablyNumbLead', 0, 'audioComfortablyNumb', [
-                    { time: 4500, speed: 0.2 },
-                    { time: 14000, speed: 0.5 },
-                    { time: 16000, speed: 0.2 },
-                    { time: 23000, speed: 0.5 },
-                    { time: 25000, speed: 0.2 },
-                    { time: 35000, speed: 0.5 },
-                    { time: 37000, speed: 0.2 },
-                ])">Start</button>
-                <button class="buttonsInner" onclick="pauseScrolling('audioComfortablyNumb')">Pause</button>
-                <button class="buttonsInner" onclick="resetScrolling('iframeComfortablyNumbLead', 'audioComfortablyNumb')">Reset</button>
+                <div class="tooltip">
+                    <button id="startButtonComfortablyNumbLead" class="buttonsInner" onclick="startScrolling('iframeComfortablyNumbLead', 0.2, 'audioComfortablyNumb', [
+                        { time: 4500, speed: 0.2 },
+                        { time: 14000, speed: 0.5 },
+                        { time: 16000, speed: 0.2 },
+                        { time: 23000, speed: 0.5 },
+                        { time: 25000, speed: 0.2 },
+                        { time: 35000, speed: 0.5 },
+                        { time: 37000, speed: 0.2 },
+                    ], 'startButtonComfortablyNumbLead', 'manualStartButtonComfortablyNumbLead', 'increaseButtonComfortablyNumbLead', 'decreaseButtonComfortablyNumbLead')">Start</button>
+                    <span class="tooltiptext">Automatically starts the track with tempo changes</span>
+                </div>
+                <div class="tooltip">
+                    <button id="pauseButtonComfortablyNumbLead" class="buttonsInner" onclick="pauseScrolling('audioComfortablyNumb', 'startButtonComfortablyNumbLead', 'manualStartButtonComfortablyNumbLead')">Pause</button>
+                    <span class="tooltiptext">Pauses the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="resetButtonComfortablyNumbLead" class="buttonsInner" onclick="resetScrolling('iframeComfortablyNumbLead', 'audioComfortablyNumb', 'startButtonComfortablyNumbLead', 'manualStartButtonComfortablyNumbLead', 'increaseButtonComfortablyNumbLead', 'decreaseButtonComfortablyNumbLead')">Reset</button>
+                    <span class="tooltiptext">Resets the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="manualStartButtonComfortablyNumbLead" class="buttonsInner" onclick="manualStartScrolling('iframeComfortablyNumbLead', 'audioComfortablyNumb', 'startButtonComfortablyNumbLead', 'manualStartButtonComfortablyNumbLead', 'increaseButtonComfortablyNumbLead', 'decreaseButtonComfortablyNumbLead')">Manual</button>
+                    <span class="tooltiptext">Manually start the track and control using increase and decrease</span>
+                </div>
+                <div class="tooltip">
+                    <button id="increaseButtonComfortablyNumbLead" class="buttonsInner" onclick="increaseSpeed()" disabled>Increase</button>
+                    <span class="tooltiptext">Manually increase speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="decreaseButtonComfortablyNumbLead" class="buttonsInner" onclick="decreaseSpeed()" disabled>Decrease</button>
+                    <span class="tooltiptext">Manually decrease speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="muteButtonComfortablyNumbLead" class="buttonsInner" onclick="toggleMute('audioComfortablyNumb')">Mute</button>
+                    <span class="tooltiptext">Mute/Unmute audio</span>
+                </div>
             </div>
         </div>
         <iframe id="iframeComfortablyNumbLead" class="containerIFrame" src="tabs/ComfortablyNumbLead.html" alt="Tab Is Not Available"></iframe>
@@ -73,35 +98,35 @@
             <!--Split Lead and Rhythm buttons into 2 containers-->
             <div id="innerButtonContainerComeAsYouAreRhythm" class="containerInnerButtons" style="display: none;">
                 <div class="tooltip">
-                    <button id="startButton" class="buttonsInner" onclick="startScrolling('iframeComeAsYouAreRhythm', 0.2, 'audioComeAsYouAre', [
+                    <button id="startButtonComeAsYouAre" class="buttonsInner" onclick="startScrolling('iframeComeAsYouAreRhythm', 0.2, 'audioComeAsYouAre', [
                         { time: 5000, speed: 0.2 },
                         { time: 13200, speed: 0.05 },
                         { time: 13800, speed: 0.2 },
-                    ])">Start</button>
+                    ], 'startButtonComeAsYouAre', 'manualStartButtonComeAsYouAre', 'increaseButtonComeAsYouAre', 'decreaseButtonComeAsYouAre')">Start</button>
                     <span class="tooltiptext">Automatically starts the track with tempo changes</span>
                 </div>
                 <div class="tooltip">
-                    <button id="pauseButton" class="buttonsInner" onclick="pauseScrolling('audioComeAsYouAre')">Pause</button>
+                    <button id="pauseButtonComeAsYouAre" class="buttonsInner" onclick="pauseScrolling('audioComeAsYouAre', 'startButtonComeAsYouAre', 'manualStartButtonComeAsYouAre')">Pause</button>
                     <span class="tooltiptext">Pauses the track</span>
                 </div>
                 <div class="tooltip">
-                    <button id="resetButton" class="buttonsInner" onclick="resetScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre')">Reset</button>
+                    <button id="resetButtonComeAsYouAre" class="buttonsInner" onclick="resetScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre', 'startButtonComeAsYouAre', 'manualStartButtonComeAsYouAre', 'increaseButtonComeAsYouAre', 'decreaseButtonComeAsYouAre')">Reset</button>
                     <span class="tooltiptext">Resets the track</span>
                 </div>
                 <div class="tooltip">
-                    <button id="manualStartButton" class="buttonsInner" onclick="manualStartScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre')">Manual</button>
+                    <button id="manualStartButtonComeAsYouAre" class="buttonsInner" onclick="manualStartScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre', 'startButtonComeAsYouAre', 'manualStartButtonComeAsYouAre', 'increaseButtonComeAsYouAre', 'decreaseButtonComeAsYouAre')">Manual</button>
                     <span class="tooltiptext">Manually start the track and control using increase and decrease</span>
                 </div>
                 <div class="tooltip">
-                    <button id="increaseButton" class="buttonsInner" onclick="increaseSpeed()" disabled>Increase</button>
+                    <button id="increaseButtonComeAsYouAre" class="buttonsInner" onclick="increaseSpeed()" disabled>Increase</button>
                     <span class="tooltiptext">Manually increase speed</span>
                 </div>
                 <div class="tooltip">
-                    <button id="decreaseButton" class="buttonsInner" onclick="decreaseSpeed()" disabled>Decrease</button>
+                    <button id="decreaseButtonComeAsYouAre" class="buttonsInner" onclick="decreaseSpeed()" disabled>Decrease</button>
                     <span class="tooltiptext">Manually decrease speed</span>
                 </div>
                 <div class="tooltip">
-                    <button id="muteButton" class="buttonsInner" onclick="toggleMute('audioComeAsYouAre')">Mute</button>
+                    <button id="muteButtonComeAsYouAre" class="buttonsInner" onclick="toggleMute('audioComeAsYouAre')">Mute</button>
                     <span class="tooltiptext">Mute/Unmute audio</span>
                 </div>
             </div>
