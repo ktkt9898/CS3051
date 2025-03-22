@@ -111,8 +111,11 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
         // Set the flag to stop the operation of the scrolling, if Hide is clicked
         stopOperation = true; 
 
+        console.log("Stop operation flag: " + stopOperation);
+
         // Reset scrolling when the iFrame is hidden, meaning "Hide" was clicked
         resetScrolling(iframeId, backingTrackId);
+        console.log("Reset scrolling function called");
         iframe.style.display = "none";
         buttonContainer.style.display = "none";
         button.textContent = button.getAttribute('data-original-text'); // Restore original text
@@ -132,6 +135,11 @@ Tempo changes are used to increase the scroll speed when a certain part of the s
 In reality, an observer is used to detect a transparent square that is placed over the sheet music image.
 */
 function showCountdown(callback) {
+    // Check if stopOperation is true at the beginning of the function
+    if (stopOperation) {
+        return;
+    }
+
     const countdownContainer = document.createElement('div');
     countdownContainer.id = 'countdown-container';
     countdownContainer.style.position = 'fixed';
@@ -195,9 +203,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, is
         }
         scrollingInProgressStartButton = true;
     }
-
-    // Reset the flag to false when starting the scrolling operation
-    stopOperation = false; 
+    
     showCountdown(() => {
         if (stopOperation) {
             return;
@@ -224,7 +230,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, is
         }
 
         // Start the audio if it exists
-        if (audio) {
+        if (audio && !stopOperation) {
             audio.play();
         }
 
@@ -308,7 +314,7 @@ function resetScrolling(iframeId, backingTrackId) {
     const contentWindow = iframe.contentWindow;
 
     // Reset the flag to false when reseting the scrolling operation
-    stopOperation = false; 
+    stopOperation = true; 
 
     // Also reset the scrolling flag to false
     scrolling = false;
