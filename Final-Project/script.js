@@ -12,7 +12,7 @@ let scrollingInProgressStartButton = false;
 let scrollingInProgressManualButton = false;
 
 // Flag to stop the operation of the scrolling, if Hide is clicked
-let stopOperation = false; 
+let stopCountdownOperation = false; 
 
 // Stores the speed adjusted from tempo changes
 let warningClosed = false;
@@ -85,6 +85,9 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
     Set the button text to "Hide", from Show, and scroll to the iframe smoothly
     */
     if (iframe.style.display === "none" || iframe.style.display === "") {
+        // Reset the countdown operation flag to false when the iframe is shown
+        stopCountdownOperation = false; 
+
         iframe.style.display = "block";
         buttonContainer.style.display = "flex";
         button.textContent = "Hide";
@@ -105,17 +108,23 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
         // Hide the other iFrame, Lead or Rhythm depending on what was chosen, and its button container
         otherIframe.style.display = "none";
         otherButtonContainer.style.display = "none";
+
+        console.log(stopCountdownOperation);
     }
 
     else {
-        // Set the flag to stop the operation of the scrolling, if Hide is clicked
-        stopOperation = true; 
+        // Set the stop countdown operation flag to true when the iframe is hidden
+        stopCountdownOperation = true; 
 
-        console.log("Stop operation flag: " + stopOperation);
+        // // DEBUG
+        // console.log("Stop operation flag: " + stopCountdownOperation);
 
         // Reset scrolling when the iFrame is hidden, meaning "Hide" was clicked
         resetScrolling(iframeId, backingTrackId);
-        console.log("Reset scrolling function called");
+
+        // // DEBUG
+        // console.log("Reset scrolling function called");
+
         iframe.style.display = "none";
         buttonContainer.style.display = "none";
         button.textContent = button.getAttribute('data-original-text'); // Restore original text
@@ -135,8 +144,9 @@ Tempo changes are used to increase the scroll speed when a certain part of the s
 In reality, an observer is used to detect a transparent square that is placed over the sheet music image.
 */
 function showCountdown(callback) {
-    // Check if stopOperation is true at the beginning of the function
-    if (stopOperation) {
+    // Check if stopCountdownOperation is true at the beginning of the function
+    // If true, cancel the operation and return
+    if (stopCountdownOperation) {
         return;
     }
 
@@ -158,8 +168,8 @@ function showCountdown(callback) {
     countdownContainer.textContent = countdown;
 
     const interval = setInterval(() => {
-        // If Hide was clicked, stop the operation and remove the countdown container
-        if (stopOperation) {
+        // Safety check again to see if the countdown operation should be stopped
+        if (stopCountdownOperation) {
             clearInterval(interval);
             document.body.removeChild(countdownContainer);
             return;
@@ -192,6 +202,9 @@ updateElapsedTime is a recursive function that keeps track of the elapsed time w
 speedChanges is an array that containts a time and speed change, since some parts of the sheet music may be faster or slower.
 */
 function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, isManual) {
+    // Once start scrolling is called, set the stop countdown flag to false
+    stopCountdownOperation = false;
+
     if (isManual) {
         if (scrollingInProgressManualButton) {
             return;
@@ -205,9 +218,6 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, is
     }
     
     showCountdown(() => {
-        if (stopOperation) {
-            return;
-        }
         const iframe = document.getElementById(iframeId);
         const contentWindow = iframe.contentWindow;
         const audio = document.getElementById(backingTrackId);
@@ -220,7 +230,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, is
 
         // Function to perform the scrolling
         function scrollContent() {
-            if (scrolling && !stopOperation) {
+            if (scrolling && !stopCountdownOperation) {
                 currentScrollPosition += currentSpeed;
                 contentWindow.scrollTo(0, currentScrollPosition);
 
@@ -230,7 +240,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, is
         }
 
         // Start the audio if it exists
-        if (audio && !stopOperation) {
+        if (audio && !stopCountdownOperation) {
             audio.play();
         }
 
@@ -272,7 +282,7 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, is
         updateElapsedTime is recursively called to keep track of the elapsed time while scrolling is true
         */
         function updateElapsedTime() {
-            if (scrolling && !stopOperation) {
+            if (scrolling && !stopCountdownOperation) {
                 elapsedTime += Date.now() - startTime;
                 startTime = Date.now();
                 requestAnimationFrame(updateElapsedTime);
@@ -313,8 +323,8 @@ function resetScrolling(iframeId, backingTrackId) {
     const iframe = document.getElementById(iframeId);
     const contentWindow = iframe.contentWindow;
 
-    // Reset the flag to false when reseting the scrolling operation
-    stopOperation = true; 
+    // Reset the stop countdown operation flag to true
+    stopCountdownOperation = true; 
 
     // Also reset the scrolling flag to false
     scrolling = false;
