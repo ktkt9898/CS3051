@@ -53,7 +53,7 @@ the actual Show/Hide button to toggle the menu
 Each iFrame has an ID that maps to the individual HTML files under tabs. This displays
 the sheet music within a smaller window to be scrolled manually or automatically
 */
-function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrackId) {
+function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     const iframe = document.getElementById(iframeId);
     const buttonContainer = document.getElementById(buttonContainerId);
 
@@ -116,14 +116,8 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
         // Set the stop countdown operation flag to true when the iframe is hidden
         stopCountdownOperation = true; 
 
-        // // DEBUG
-        // console.log("Stop operation flag: " + stopCountdownOperation);
-
         // Reset scrolling when the iFrame is hidden, meaning "Hide" was clicked
-        resetScrolling(iframeId, backingTrackId);
-
-        // // DEBUG
-        // console.log("Reset scrolling function called");
+        resetScrolling(iframeId, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId);
 
         iframe.style.display = "none";
         buttonContainer.style.display = "none";
@@ -201,21 +195,15 @@ updateElapsedTime is a recursive function that keeps track of the elapsed time w
     This is used when pausing and resuming the scrolling, so the speed changes are the consistent.
 speedChanges is an array that containts a time and speed change, since some parts of the sheet music may be faster or slower.
 */
-function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, isManual, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
+function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     // Once start scrolling is called, set the stop countdown flag to false
     stopCountdownOperation = false;
 
-    if (isManual) {
-        if (scrollingInProgressManualButton) {
-            return;
-        }
-        scrollingInProgressManualButton = true;
-    } else {
-        if (scrollingInProgressStartButton) {
-            return;
-        }
-        scrollingInProgressStartButton = true;
+    if (scrollingInProgressStartButton) {
+        return;
     }
+    scrollingInProgressStartButton = true;
+    scrollingInProgressManualButton = false;
     
     showCountdown(() => {
         const iframe = document.getElementById(iframeId);
@@ -355,14 +343,71 @@ function resetScrolling(iframeId, backingTrackId, startButtonId, manualStartButt
 
 // New functions for manual control
 function manualStartScrolling(iframeId, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
+    // Once manual start scrolling is called, set the stop countdown flag to false
+    stopCountdownOperation = false;
+
     if (scrollingInProgressManualButton) {
         return;
     }
-    isManual = true;
+    scrollingInProgressManualButton = true;
+    scrollingInProgressStartButton = false;
+    
+    showCountdown(() => {
+        const iframe = document.getElementById(iframeId);
+        const contentWindow = iframe.contentWindow;
+        const audio = document.getElementById(backingTrackId);
 
-    startScrolling(iframeId, 0.1, backingTrackId, [], isManual, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId);
-    enableButtons([increaseButtonId, decreaseButtonId]);
-    disableButtons([startButtonId, manualStartButtonId]);
+        // Use the current speed if it exists, otherwise use the initial speed
+        currentSpeed = currentSpeed || 0.1; // Set a default speed for manual scrolling
+
+        // Start keeping track of the elapsed time, so pausing can resume at the same exact position
+        let startTime = Date.now();
+
+        // Function to perform the scrolling
+        function scrollContent() {
+            if (scrolling && !stopCountdownOperation) {
+                currentScrollPosition += currentSpeed;
+                contentWindow.scrollTo(0, currentScrollPosition);
+
+                // Schedule the next scroll
+                requestAnimationFrame(scrollContent); 
+            }
+        }
+
+        // Start the audio if it exists
+        if (audio && !stopCountdownOperation) {
+            audio.play();
+        }
+
+        // Start the initial scrolling
+        scrolling = true;
+
+        /**
+        Cap to 60Hz to maintain consistent scrolling speed across devices
+        1000 / 60 is used to approimate 16.67ms which corresponds to 60Hz refresh rate
+        So, set the scrollContent speed interval to update every 16.67ms, or a 60hz refresh rate
+        */
+        requestAnimationFrame(scrollContent);
+
+        /** 
+        Check if scrolling is active, and ensure the elapsed time is continuously updated
+        The global variable "elapsedTime" is updated to keep track of the time when the 
+        scrolling is paused.
+        The new elapsedTime is the current time minus the start time, and is used to update the
+        adjustedTime variable.
+        updateElapsedTime is recursively called to keep track of the elapsed time while scrolling is true
+        */
+        function updateElapsedTime() {
+            if (scrolling && !stopCountdownOperation) {
+                elapsedTime += Date.now() - startTime;
+                startTime = Date.now();
+                requestAnimationFrame(updateElapsedTime);
+            }
+        }
+        updateElapsedTime();
+    });
+
+    disableButtons([startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId]);
 }
 
 function increaseSpeed() {
