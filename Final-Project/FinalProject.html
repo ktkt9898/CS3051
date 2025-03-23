@@ -163,7 +163,7 @@
             }
         </style>
         <div class="containerAlbumCover">
-            <img id="albumCoverStairway" src="albumCovers/Led_Zeppelin_IV.jpg" alt="Album Cover"></img>
+            <img id="albumCoverStairway" src="albumCovers/Led-Zeppelin-IV.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
             <button class="buttonShow" data-original-text="Lead"
@@ -216,7 +216,73 @@
         </div>
         <iframe id="iframeStairwayLead" class="containerIFrame" src="tabs/StairwayLead.html"
             alt="Tab Is Not Available"></iframe>
-        <audio id="audioStairway" src="backing-tracks/Stairway.wav"></audio>
+        <audio id="audioStairway" src="backing-tracks/StairwayLead.wav"></audio>
+    </div>
+
+    <div class="containerMusicTrack">
+        <h3>Sweet Child O' Mine</h3>
+        <h4>Guns N' Roses</h4>
+        <h4>1987</h4>
+        <style>
+            #albumCoverSweetChildOMine {
+                width: 100px;
+                border: 2px solid black;
+                box-sizing: border-box;
+                float: left
+            }
+        </style>
+        <div class="containerAlbumCover">
+            <img id="albumCoverSweetChildOMine" src="albumCovers/Appetite-for-Destruction.jpg" alt="Album Cover"></img>
+        </div>
+        <div class="containerButton">
+            <button class="buttonShow" data-original-text="Lead"
+                onclick="toggleIframeAndButtons('iframeSweetChildOMineLead', 'innerButtonContainerSweetChildOMineLead', this, 'audioSweetChildOMineLead')">Lead</button>
+            <div id="innerButtonContainerSweetChildOMineLead" class="containerInnerButtons" style="display: none;">
+                <div class="tooltip">
+                    <button id="startButtonSweetChildOMineLead" class="buttonsInner"
+                        onclick="startScrolling('iframeSweetChildOMineLead', 0, 'audioSweetChildOMineLead', [
+                        { time: 6000, speed: 0.1 },
+                        { time: 28000, speed: 0.7 },
+                        { time: 30000, speed: 0.1 },
+                        { time: 120000, speed: 0.2 },
+                    ], 'startButtonSweetChildOMineLead', 'manualStartButtonSweetChildOMineLead', 'increaseButtonSweetChildOMineLead', 'decreaseButtonSweetChildOMineLead')">Start</button>
+                    <span class="tooltiptext">Automatically starts the track with tempo changes</span>
+                </div>
+                <div class="tooltip">
+                    <button id="pauseButtonSweetChildOMineLead" class="buttonsInner"
+                        onclick="pauseScrolling('audioSweetChildOMineLead', 'startButtonSweetChildOMineLead', 'manualStartButtonSweetChildOMineLead')">Pause</button>
+                    <span class="tooltiptext">Pauses the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="resetButtonSweetChildOMineLead" class="buttonsInner"
+                        onclick="resetScrolling('iframeSweetChildOMineLead', 'audioSweetChildOMineLead', 'startButtonSweetChildOMineLead', 'manualStartButtonSweetChildOMineLead', 'increaseButtonSweetChildOMineLead', 'decreaseButtonSweetChildOMineLead')">Reset</button>
+                    <span class="tooltiptext">Resets the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="manualStartButtonSweetChildOMineLead" class="buttonsInner"
+                        onclick="manualStartScrolling('iframeSweetChildOMineLead', 'audioSweetChildOMineLead', 'startButtonSweetChildOMineLead', 'manualStartButtonSweetChildOMineLead', 'increaseButtonSweetChildOMineLead', 'decreaseButtonSweetChildOMineLead')">Manual</button>
+                    <span class="tooltiptext">Manually start the track and control using increase and decrease</span>
+                </div>
+                <div class="tooltip">
+                    <button id="increaseButtonSweetChildOMineLead" class="buttonsInner" onclick="increaseSpeed()"
+                        disabled>Increase</button>
+                    <span class="tooltiptext">Manually increase speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="decreaseButtonSweetChildOMineLead" class="buttonsInner" onclick="decreaseSpeed()"
+                        disabled>Decrease</button>
+                    <span class="tooltiptext">Manually decrease speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="muteButtonSweetChildOMineLead" class="buttonsInner"
+                        onclick="toggleMute('audioSweetChildOMineLead')">Mute</button>
+                    <span class="tooltiptext">Mute/Unmute audio</span>
+                </div>
+            </div>
+        </div>
+        <iframe id="iframeSweetChildOMineLead" class="containerIFrame" src="tabs/SweetChildOMineLead.html"
+            alt="Tab Is Not Available"></iframe>
+        <audio id="audioSweetChildOMineLead" src="backing-tracks/SweetChildOMineLead.wav"></audio>
     </div>
 
     <div class="containerMusicTrack">
@@ -232,7 +298,7 @@
             }
         </style>
         <div class="containerAlbumCover">
-            <img id="albumCoverParanoid" src="albumCovers/Black_Sabbath_-_Paranoid.jpg" alt="Album Cover"></img>
+            <img id="albumCoverParanoid" src="albumCovers/Paranoid.jpg" alt="Album Cover"></img>
         </div>
 
         <div class="containerButton">

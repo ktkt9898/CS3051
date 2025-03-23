@@ -1,23 +1,29 @@
 /* Reset margin and padding for body and html */
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
 
 .mainHeader {
     background-color: burlywood;
-    display: block; /* Ensure the element is a block-level element */
-    width: 100%; /* Set the desired width */
-    margin: auto; /* Center the element horizontally */
-    text-align: center; /* Center the text horizontally */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    display: block;
+    /* Ensure the element is a block-level element */
+    width: 100%;
+    /* Set the desired width */
+    margin: auto;
+    /* Center the element horizontally */
+    text-align: center;
+    /* Center the text horizontally */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
 }
 
 /* Container for the music track that holds title, artist, year, album cover, and the score. */
 .containerMusicTrack {
     padding: 20px;
     background-color: blanchedalmond;
-    box-sizing: border-box 
+    box-sizing: border-box
 }
 
 /* Container for the album cover */
@@ -69,7 +75,8 @@ html, body {
     display: none;
     border: 2px solid black;
     box-sizing: border-box;
-    overflow: auto; /* Ensure scroll bars appear */
+    overflow: auto;
+    /* Ensure scroll bars appear */
 }
 
 #warning {
@@ -126,9 +133,12 @@ html, body {
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-    position: absolute; /* tooltip can overlap other elements */
-    z-index: 2; /* Ensure the tooltip is above the iframe */
-    bottom: 125%; /* Position the tooltip above the button */
+    position: absolute;
+    /* tooltip can overlap other elements */
+    z-index: 2;
+    /* Ensure the tooltip is above the iframe */
+    bottom: 125%;
+    /* Position the tooltip above the button */
     left: 50%;
     margin-left: -60px;
     opacity: 0;

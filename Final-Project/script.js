@@ -407,7 +407,8 @@ function manualStartScrolling(iframeId, backingTrackId, startButtonId, manualSta
         updateElapsedTime();
     });
 
-    disableButtons([startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId]);
+    enableButtons([increaseButtonId, decreaseButtonId]);
+    disableButtons([startButtonId, manualStartButtonId]);
 }
 
 function increaseSpeed() {
