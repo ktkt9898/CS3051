@@ -3,10 +3,27 @@ const app = express();
 const port = 8080;
 import path from "path"; // Set up path
 
-let server = app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-  console.log("To end the server, press 'CTRL+C'");
-});
+import sqlite3 from "sqlite3"; // Set up sqlite3
+sqlite3.verbose(); // Set up verbose
+import { open } from "sqlite"; // Set up open
+
+// Open a new database connection
+async function openDb() {
+    return await open({
+        filename: 'databse.db',
+        driver: sqlite3.Database
+    });
+}
+let database = null;
+openDb()
+    .then((result) => {
+        database = result;
+        console.log("Database opened");
+    })
+    .catch((error) => {
+        console.error(err);
+        return {};
+    });
 
 app.use(express.static('public'));
 
@@ -25,3 +42,8 @@ app.get('/catalog', (req, res) => {
 app.get('/gallery', (req, res) => {
     res.sendFile(path.join(process.cwd(), "public", "gallery.html"));
 });
+
+let server = app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+    console.log("To end the server, press 'CTRL+C'");
+  });
