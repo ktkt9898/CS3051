@@ -10,7 +10,8 @@
 
 <style>
     /* Remove blank space around the page */
-    body, html {
+    body,
+    html {
         margin: 0;
         padding: 0;
         height: 100%;
@@ -27,10 +28,10 @@
         display: grid;
         grid-template-columns: 8em 1fr;
         grid-template-rows: auto 1fr auto;
-        grid-template-areas: 
-        "header header"
-        "left main"
-        "footer footer";
+        grid-template-areas:
+            "header header"
+            "left main"
+            "footer footer";
         height: 100vh;
     }
 
@@ -41,6 +42,7 @@
         padding: 10px;
     }
 
+    /*
     #headerFavorites {
         grid-area: header;
         background-color: steelblue;
@@ -54,6 +56,7 @@
         text-align: left;
         padding: 10px;
     }
+    */
 
     #leftMenu {
         grid-area: left;
@@ -70,8 +73,12 @@
         grid-area: main;
         background-color: burlywood;
         text-align: center;
+        list-style-position: inside;
+        padding: 0;
+        margin: 0;
     }
 
+    /*
     #contentFavoritesCell {
         grid-area: main;
         background-color: burlywood;
@@ -92,7 +99,7 @@
         background-color: burlywood;
         text-align: center;
     }
-
+    */
     #footer {
         grid-area: footer;
         background-color: steelblue;
@@ -101,17 +108,17 @@
     }
 
     .underlined {
-            text-decoration: underline;
+        text-decoration: underline;
     }
 
     @media (max-width: 600px) {
         #container {
             grid-template-columns: 10em 1fr;
             grid-template-rows: auto 1fr auto;
-            grid-template-areas: 
-            "header header" 
-            "main main" 
-            "footer footer";
+            grid-template-areas:
+                "header header"
+                "main main"
+                "footer footer";
         }
 
         #leftMenu {
@@ -127,16 +134,7 @@
             <h1> About Me </h1>
         </div>
 
-        <div id="contentMainCell">
-            <p> My name is Kyle and I am a transfer student at AUP.
-                <br> I transferred from Boise State University in Idaho, USA but I am originally from Sacramento, California.
-                <br> I am a junior and I am studying Computer Science and Minoring in French.
-                <br> This is also my <ins>first</ins> time outside of America, and my <ins>first</ins> time in Paris!
-            </p>
-            <div style="text-align:center;">
-                <img src="photo.jpg" width="200" height="200" alt="Me with my guitar">
-            </div>
-        </div>
+        <div id="contentMainCell"></div>
 
         <div id="leftMenu">
             <p class="underlined" onclick="showContent('contentMain')"> About Me </p>
@@ -150,6 +148,7 @@
     </div>
     <script>
         function showContent(contentId) {
+            /*****
             // Using object literals to store headers and content cells
             const headers = {
                 contentMain: 'About Me',
@@ -170,20 +169,15 @@
                 // Within the headers object, find the key that matches the contentId
                 headerElement.innerHTML = `<h1>${headers[contentId]}</h1>`;
             }
+            *****/
 
-           // Fetch and update content
+            // Fetch and update content
             fetch(`${contentId}.html`)
                 .then(response => response.text())
                 .then(data => {
                     // All three content cells have an id that starts with 'content'
-                    const contentElement = document.querySelector('[id^="content"]');
-                    if (contentElement) {
-                        contentElement.id = contentCells[contentId];
-                        // Replace the default or previous content with the fetched content
-                        // The header is modified separately, this only modifies the
-                        // div that contains the content
-                        contentElement.innerHTML = data;
-                    }
+                    const contentElement = document.querySelector('#contentMainCell');
+                    contentElement.innerHTML = data;
                 })
                 .catch(error => console.error('Error fetching content:', error));
 
@@ -195,12 +189,12 @@
                 else {
                     item.classList.remove('underlined');
                 }
-            });  
+            });
         }
 
         // Ensure the default choice is underlined on page load
         document.addEventListener('DOMContentLoaded', () => {
-        showContent('contentMain');
+            showContent('contentMain');
         });
     </script>
 </body>
