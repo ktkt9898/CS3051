@@ -7,28 +7,24 @@ import sqlite3 from "sqlite3"; // Set up sqlite3
 sqlite3.verbose(); // Set up verbose
 import { open } from "sqlite"; // Set up open
 
-let server = app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-    console.log("To end the server, press 'CTRL+C'");
-  });
+let database; // Declare a global variable for the database connection
 
 // Open a new database connection
 async function openDb() {
-    return await open({
+    const db = await open({
         filename: 'tododatabase.db',
         driver: sqlite3.Database
     });
+
+    console.log("Database connection opened.");
+    return db;
 }
-let database = null;
-openDb()
-    .then((result) => {
-        database = result;
-        console.log("Database opened");
-    })
-    .catch((error) => {
-        console.error(error);
-        return {};
-    });
+
+// Initialize the database connection when the server starts
+(async () => {
+    database = await openDb();
+    console.log("Database connection established.");
+})();
 
 app.use(express.json());
 
@@ -91,4 +87,9 @@ app.get("/get-tasks/:userId", async (req, res) => {
         console.error("Error retrieving tasks:", error);
         res.status(500).json({ error: "Failed to retrieve tasks" });
     }
+});
+
+let server = app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+    console.log("To end the server, press 'CTRL+C'");
 });

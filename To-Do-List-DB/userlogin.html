@@ -1,19 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <link href="style.css" rel="stylesheet">
+    <title>To-Do List</title>
+    <script>
+        async function addUser() {
+            const name = document.getElementById("username").value;
+            const response = await fetch("/add-user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name })
+            });
+            const result = await response.json();
+            alert(result.error || `User added with ID: ${result.id}`);
+        }
+
+        async function listUsers() {
+            const response = await fetch("/list-users");
+            const users = await response.json();
+            const userList = document.getElementById("user-list");
+            userList.innerHTML = ""; // Clear existing list
+            users.forEach(user => {
+                const userItem = document.createElement("li");
+                userItem.textContent = `${user.id}: ${user.name}`;
+                const viewTasksButton = document.createElement("button");
+                viewTasksButton.textContent = "View Tasks";
+                viewTasksButton.onclick = () => viewTasks(user.id);
+                userItem.appendChild(viewTasksButton);
+                userList.appendChild(userItem);
+            });
+        }
+
+        async function viewTasks(userId) {
+            const response = await fetch(`/get-tasks/${userId}`);
+            const tasks = await response.json();
+            const taskList = document.getElementById("task-list");
+            taskList.innerHTML = ""; // Clear existing tasks
+            tasks.forEach(task => {
+                const taskItem = document.createElement("li");
+                taskItem.textContent = task.task;
+                taskList.appendChild(taskItem);
+            });
+
+            document.getElementById("add-task-section").style.display = "block";
+            document.getElementById("task-user-id").value = userId;
+        }
+
+        async function addTask() {
+            const userId = document.getElementById("task-user-id").value;
+            const task = document.getElementById("task").value;
+            const response = await fetch("/add-task", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId, task })
+            });
+            const result = await response.json();
+            alert(result.error || `Task added with ID: ${result.id}`);
+        }
+    </script>
 </head>
-
 <body>
-    <input type="text" id="name" placeholder="Name">
-    <button onclick="addUser()">Add User</button>
-    <div id="users"></div>
-    <div id="tasks"></div>
-    <script src="script.js" async defer></script>
-</body>
+    <h1>To-Do List</h1>
 
+    <section>
+        <h2>Add User</h2>
+        <input type="text" id="username" placeholder="Enter user name">
+        <button onclick="addUser()">Add User</button>
+    </section>
+
+    <section>
+        <h2>Users</h2>
+        <button onclick="listUsers()">List Users</button>
+        <ul id="user-list"></ul>
+    </section>
+
+    <section id="add-task-section" style="display: none;">
+        <h2>Add Task</h2>
+        <input type="hidden" id="task-user-id">
+        <input type="text" id="task" placeholder="Enter task">
+        <button onclick="addTask()">Add Task</button>
+    </section>
+
+    <section>
+        <h2>Tasks</h2>
+        <ul id="task-list"></ul>
+    </section>
+</body>
 </html>
