@@ -33,16 +33,61 @@
         }
 
         async function viewTasks(userId) {
+            // Send a GET request to fetch tasks for the selected user
             const response = await fetch(`/get-tasks/${userId}`);
+
+            // Store the array of tasks for the selected user
             const tasks = await response.json();
+
+            // Direct taskList to the id of task-list
             const taskList = document.getElementById("task-list");
             taskList.innerHTML = ""; // Clear existing tasks
             tasks.forEach(task => {
                 const taskItem = document.createElement("li");
+                // Create a delete button, to be used along with the task
+                let deleteButton = document.createElement('button');
+                deleteButton.id = 'deleteButton';
+                deleteButton.className = 'deleteButton';
+                deleteButton.textContent = "X";
+                deleteButton.onclick = async function () {
+                    try {
+                        // Send a DELETE request to the backend to remove the task from the database
+                        const response = await fetch(`/delete-task/${task.id}`, {
+                            method: "DELETE",
+                        });
+
+                        const result = await response.json();
+                        if (result.error) {
+                            alert(result.error);
+                        } else {
+                            // Remove the task item from the UI if the deletion was successful
+                            taskList.removeChild(taskItem);
+                        }
+                    } catch (error) {
+                        console.error("Error deleting task:", error);
+                        alert("Failed to delete task");
+                    }
+                };
+
+                // Create a checkbox, to be used along with the task
+                let checkBox = document.createElement('input');
+                checkBox.type = 'checkbox';
+                checkBox.id = 'checkBox';
+                checkBox.className = 'checkBox';
+                checkBox.onclick = function() {
+                    if (checkBox.checked) {
+                        taskItem.style.textDecoration = 'line-through';
+                    } else {
+                        taskItem.style.textDecoration = 'none';
+                    }
+                }
                 taskItem.textContent = task.task;
                 taskList.appendChild(taskItem);
+                taskItem.appendChild(checkBox);
+                taskItem.appendChild(deleteButton);
             });
 
+            // Make the add task section visible
             document.getElementById("add-task-section").style.display = "block";
             document.getElementById("task-user-id").value = userId;
         }

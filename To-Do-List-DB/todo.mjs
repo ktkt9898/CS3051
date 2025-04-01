@@ -7,6 +7,11 @@ import sqlite3 from "sqlite3"; // Set up sqlite3
 sqlite3.verbose(); // Set up verbose
 import { open } from "sqlite"; // Set up open
 
+// import mustache from "mustache-express"; // Set up mustache-express
+// import mustacheExpress from "mustache-express";
+// const mustache = mustacheExpress(); // Set up mustache
+// app.engine
+
 let database; // Declare a global variable for the database connection
 
 // Open a new database connection
@@ -92,4 +97,19 @@ app.get("/get-tasks/:userId", async (req, res) => {
 let server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     console.log("To end the server, press 'CTRL+C'");
+});
+
+app.delete("/delete-task/:taskId", async (req, res) => {
+    const { taskId } = req.params;
+
+    try {
+        const result = await database.run("DELETE FROM tasks WHERE id = ?", [taskId]);
+        if (result.changes === 0) {
+            return res.status(404).json({ error: "Task not found" });
+        }
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error deleting task:", error);
+        res.status(500).json({ error: "Failed to delete task" });
+    }
 });
