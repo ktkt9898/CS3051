@@ -1,18 +1,36 @@
-import express from "express"; // Set up express
+// Node Setup
+import express from "express";
 const app = express();
 const port = 8080;
-import path from "path"; // Set up path
+import path from "path";
 
-import sqlite3 from "sqlite3"; // Set up sqlite3
-sqlite3.verbose(); // Set up verbose
-import { open } from "sqlite"; // Set up open
+// SQLite 3 Setup
+import sqlite3 from "sqlite3";
+sqlite3.verbose();
+import { open } from "sqlite";
 
-// import mustache from "mustache-express"; // Set up mustache-express
-// import mustacheExpress from "mustache-express";
-// const mustache = mustacheExpress(); // Set up mustache
-// app.engine
+// Mustache Server Setup
+import mustacheExpress from "mustache-express"; 
+const Mustache = mustacheExpress();
+app.engine('mst', Mustache);
+app.set('views', path.join(process.cwd(), 'templates')) 
+app.set('view engine', 'mst');
 
-let database; // Declare a global variable for the database connection
+// Route to render the task list
+app.get("/tasklist", async (req, res) => {
+    const userId = 1;
+    try {
+        const tasks = await database.all("SELECT task FROM tasks WHERE user_id = ?", [userId]);
+        // Render the task list using Mustache
+        res.render("tasklist", { tasks });
+    } catch (error) {
+        console.error("Error retrieving tasks:", error);
+        res.status(500).send("Failed to load tasks.");
+    }
+});
+
+// Database Render
+let database;
 
 // Open a new database connection
 async function openDb() {
@@ -37,6 +55,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(process.cwd(), "userlogin.html"));
 });
 
+// Functionality to create a new user in the database
 app.post("/add-user", async (req, res) => {
     const { name } = req.body;
     if (!name) {
@@ -55,6 +74,7 @@ app.post("/add-user", async (req, res) => {
     }
 });
 
+// Functionality to retrieve all users from the database
 app.get("/list-users", async (req, res) => {
     try {
         const users = await database.all("SELECT * FROM users");
@@ -99,6 +119,7 @@ let server = app.listen(port, () => {
     console.log("To end the server, press 'CTRL+C'");
 });
 
+// Functionality to delete a task from the database
 app.delete("/delete-task/:taskId", async (req, res) => {
     const { taskId } = req.params;
 

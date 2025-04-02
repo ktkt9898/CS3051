@@ -10,19 +10,22 @@
  
 <body>
     <h1>My To Do List</h1>
-    <div>
-        <form>
-            <ul id="taskListID">
-            </ul>
-        </form>
-    </div>
+    <div id = "taskContainer"></div>
     <div>
         <input type="text" class="taskInput" id="task" placeholder="Enter a task" size="25" autofocus>
     </div>
     <div>
         <button onclick="addTask()" class="taskButton">Add Task</button>
     </div>
-    <script src="script.js" async defer></script>
+    <script id="taskTemplate" type="text/template">
+        <form>
+            <ul id="taskListID">
+                {{#tasks}}
+                <li>{{task}}</li>
+                {{/tasks}}
+            </ul>
+        </form>
+    </script>
 </body>
  
 </html>

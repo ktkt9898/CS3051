@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <script>
+        // Add user function to database, corresponds to /add-user
         async function addUser() {
             const name = document.getElementById("username").value;
             const response = await fetch("/add-user", {
@@ -16,6 +17,7 @@
             alert(result.error || `User added with ID: ${result.id}`);
         }
 
+        // Add user function to database, corresponds to /list-users
         async function listUsers() {
             const response = await fetch("/list-users");
             const users = await response.json();
@@ -32,6 +34,7 @@
             });
         }
 
+        // Function to view tasks for a specific user, corresponds to /get-tasks
         async function viewTasks(userId) {
             // Send a GET request to fetch tasks for the selected user
             const response = await fetch(`/get-tasks/${userId}`);
@@ -92,6 +95,7 @@
             document.getElementById("task-user-id").value = userId;
         }
 
+        // Function to add a task for a specific user, corresponds to /add-task
         async function addTask() {
             const userId = document.getElementById("task-user-id").value;
             const task = document.getElementById("task").value;
