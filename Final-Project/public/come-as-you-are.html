@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comfortably Numb</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <h1 class="mainHeader">Comfortably Numb</h1>
+    <nav class="mainNav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/catalog">Catalog</a></li>
+            <li><a href="/gallery">Guitar Gallery</a></li>
+        </ul>
+    </nav>
+    <div class="containerMusicTrack">
+        <h3>Come as You Are</h3>
+        <h4>Nirvana</h4>
+        <h4>1991</h4>
+        <style>
+            #albumCoverNevermind {
+                width: 100px;
+                border: 2px solid black;
+                box-sizing: border-box;
+                float: left
+            }
+        </style>
+        <div class="containerAlbumCover">
+            <img id="albumCoverNevermind" src="albumCovers/Nevermind.jpg" alt="Album Cover"></img>
+        </div>
+        <div class="containerButton">
+            <button id="buttonShowRhythm" class="buttonShow" data-original-text="Rhythm"
+                onclick="toggleIframeAndButtons('iframeComeAsYouAreRhythm', 'innerButtonContainerComeAsYouAreRhythm', this, 'audioComeAsYouAre')">Rhythm</button>
+            <div id="innerButtonContainerComeAsYouAreRhythm" class="containerInnerButtons" style="display: none;">
+                <div class="tooltip">
+                    <button id="startButtonComeAsYouAre" class="buttonsInner"
+                        onclick="startScrolling('iframeComeAsYouAreRhythm', 0.2, 'audioComeAsYouAre', [
+                        { time: 5000, speed: 0.2 },
+                        { time: 13200, speed: 0.05 },
+                        { time: 13800, speed: 0.2 },
+                    ], 'startButtonComeAsYouAre', 'manualStartButtonComeAsYouAre', 'increaseButtonComeAsYouAre', 'decreaseButtonComeAsYouAre')">Start</button>
+                    <span class="tooltiptext">Automatically starts the track with tempo changes</span>
+                </div>
+                <div class="tooltip">
+                    <button id="pauseButtonComeAsYouAre" class="buttonsInner"
+                        onclick="pauseScrolling('audioComeAsYouAre', 'startButtonComeAsYouAre', 'manualStartButtonComeAsYouAre')">Pause</button>
+                    <span class="tooltiptext">Pauses the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="resetButtonComeAsYouAre" class="buttonsInner"
+                        onclick="resetScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre', 'startButtonComeAsYouAre', 'manualStartButtonComeAsYouAre', 'increaseButtonComeAsYouAre', 'decreaseButtonComeAsYouAre')">Reset</button>
+                    <span class="tooltiptext">Resets the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="manualStartButtonComeAsYouAre" class="buttonsInner"
+                        onclick="manualStartScrolling('iframeComeAsYouAreRhythm', 'audioComeAsYouAre', 'startButtonComeAsYouAre', 'manualStartButtonComeAsYouAre', 'increaseButtonComeAsYouAre', 'decreaseButtonComeAsYouAre')">Manual</button>
+                    <span class="tooltiptext">Manually start the track and control using increase and decrease</span>
+                </div>
+                <div class="tooltip">
+                    <button id="increaseButtonComeAsYouAre" class="buttonsInner" onclick="increaseSpeed()"
+                        disabled>Increase</button>
+                    <span class="tooltiptext">Manually increase speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="decreaseButtonComeAsYouAre" class="buttonsInner" onclick="decreaseSpeed()"
+                        disabled>Decrease</button>
+                    <span class="tooltiptext">Manually decrease speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="muteButtonComeAsYouAre" class="buttonsInner"
+                        onclick="toggleMute('audioComeAsYouAre')">Mute</button>
+                    <span class="tooltiptext">Mute/Unmute audio</span>
+                </div>
+            </div>
+        </div>
+        <iframe id="iframeComeAsYouAreRhythm" class="containerIFrame" src="tabs/ComeAsYouAreRhythm.html"
+            alt="Tab Is Not Available"></iframe>
+        <audio id="audioComeAsYouAre" src="backing-tracks/ComeAsYouAreRhythm.wav"></audio>
+    </div>
+    <script src="script.js" async defer></script>
+</body>
+</html>

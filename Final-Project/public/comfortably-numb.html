@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comfortably Numb</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <h1 class="mainHeader">Comfortably Numb</h1>
+    <nav class="mainNav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/catalog">Catalog</a></li>
+            <li><a href="/gallery">Guitar Gallery</a></li>
+        </ul>
+    </nav>
+    <div class="containerMusicTrack">
+        <h3>Comfortably Numb</h3>
+        <h4>Pink Floyd</h4>
+        <h4>1979</h4>
+        <style>
+            #albumCoverTheWall {
+                width: 100px;
+                border: 2px solid black;
+                box-sizing: border-box;
+                float: left
+            }
+        </style>
+        <div class="containerAlbumCover">
+            <img id="albumCoverTheWall" src="albumCovers/The-Wall.png" alt="Album Cover"></img>
+        </div>
+        <div class="containerButton">
+            <button class="buttonShow" data-original-text="Lead"
+                onclick="toggleIframeAndButtons('iframeComfortablyNumbLead', 'innerButtonContainerComfortablyNumbLead', this, 'audioComfortablyNumb')">Lead</button>
+            <div id="innerButtonContainerComfortablyNumbLead" class="containerInnerButtons" style="display: none;">
+                <div class="tooltip">
+                    <button id="startButtonComfortablyNumbLead" class="buttonsInner"
+                        onclick="startScrolling('iframeComfortablyNumbLead', 0.2, 'audioComfortablyNumb', [
+                        { time: 4500, speed: 0.2 },
+                        { time: 14000, speed: 0.5 },
+                        { time: 16000, speed: 0.2 },
+                        { time: 23000, speed: 0.5 },
+                        { time: 25000, speed: 0.2 },
+                        { time: 35000, speed: 0.5 },
+                        { time: 37000, speed: 0.2 },
+                    ], 'startButtonComfortablyNumbLead', 'manualStartButtonComfortablyNumbLead', 'increaseButtonComfortablyNumbLead', 'decreaseButtonComfortablyNumbLead')">Start</button>
+                    <span class="tooltiptext">Automatically starts the track with tempo changes</span>
+                </div>
+                <div class="tooltip">
+                    <button id="pauseButtonComfortablyNumbLead" class="buttonsInner"
+                        onclick="pauseScrolling('audioComfortablyNumb', 'startButtonComfortablyNumbLead', 'manualStartButtonComfortablyNumbLead')">Pause</button>
+                    <span class="tooltiptext">Pauses the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="resetButtonComfortablyNumbLead" class="buttonsInner"
+                        onclick="resetScrolling('iframeComfortablyNumbLead', 'audioComfortablyNumb', 'startButtonComfortablyNumbLead', 'manualStartButtonComfortablyNumbLead', 'increaseButtonComfortablyNumbLead', 'decreaseButtonComfortablyNumbLead')">Reset</button>
+                    <span class="tooltiptext">Resets the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="manualStartButtonComfortablyNumbLead" class="buttonsInner"
+                        onclick="manualStartScrolling('iframeComfortablyNumbLead', 'audioComfortablyNumb', 'startButtonComfortablyNumbLead', 'manualStartButtonComfortablyNumbLead', 'increaseButtonComfortablyNumbLead', 'decreaseButtonComfortablyNumbLead')">Manual</button>
+                    <span class="tooltiptext">Manually start the track and control using increase and decrease</span>
+                </div>
+                <div class="tooltip">
+                    <button id="increaseButtonComfortablyNumbLead" class="buttonsInner" onclick="increaseSpeed()"
+                        disabled>Increase</button>
+                    <span class="tooltiptext">Manually increase speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="decreaseButtonComfortablyNumbLead" class="buttonsInner" onclick="decreaseSpeed()"
+                        disabled>Decrease</button>
+                    <span class="tooltiptext">Manually decrease speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="muteButtonComfortablyNumbLead" class="buttonsInner"
+                        onclick="toggleMute('audioComfortablyNumb')">Mute</button>
+                    <span class="tooltiptext">Mute/Unmute audio</span>
+                </div>
+            </div>
+        </div>
+        <iframe id="iframeComfortablyNumbLead" class="containerIFrame" src="tabs/ComfortablyNumbLead.html"
+            alt="Tab Is Not Available"></iframe>
+        <audio id="audioComfortablyNumb" src="backing-tracks/ComfortablyNumbLead.wav"></audio>
+    </div>
+    <script src="script.js" async defer></script>
+</body>
+</html>

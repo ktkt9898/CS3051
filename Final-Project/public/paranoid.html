@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comfortably Numb</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <h1 class="mainHeader">Comfortably Numb</h1>
+    <nav class="mainNav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/catalog">Catalog</a></li>
+            <li><a href="/gallery">Guitar Gallery</a></li>
+        </ul>
+    </nav>
+    <div class="containerMusicTrack">
+        <h3>Paranoid</h3>
+        <h4>Black Sabbath</h4>
+        <h4>1970</h4>
+        <style>
+            #albumCoverParanoid {
+                width: 100px;
+                border: 2px solid black;
+                box-sizing: border-box;
+                float: left
+            }
+        </style>
+        <div class="containerAlbumCover">
+            <img id="albumCoverParanoid" src="albumCovers/Paranoid.jpg" alt="Album Cover"></img>
+        </div>
+
+        <div class="containerButton">
+            <button class="buttonShow" data-original-text="Rhythm"
+                onclick="toggleIframeAndButtons('iframeParanoidRhythm', 'innerButtonContainerParanoidRhythm', this, 'rhythmParanoid')">Rhythm</button>
+            <button class="buttonShow" data-original-text="Lead"
+                onclick="toggleIframeAndButtons('iframeParanoidLead', 'innerButtonContainerParanoidLead', this, 'leadParanoid')">Lead</button>
+            <!-- Rhythm -->
+            <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
+                <div class="tooltip">
+                    <button id="startButtonParanoidRhythm" class="buttonsInner"
+                        onclick="startScrolling('iframeParanoidRhythm', 0.2, 'rhythmParanoid', [
+                        { time: 0, speed: 0.2 },
+                    ], 'startButtonParanoidRhythm', 'manualStartButtonParanoidRhythm', 'increaseButtonParanoidRhythm', 'decreaseButtonParanoidRhythm')">Start</button>
+                    <span class="tooltiptext">Automatically starts the track with tempo changes</span>
+                </div>
+                <div class="tooltip">
+                    <button id="pauseButtonParanoidRhythm" class="buttonsInner"
+                        onclick="pauseScrolling('rhythmParanoid', 'startButtonParanoidRhythm', 'manualStartButtonParanoidRhythm')">Pause</button>
+                    <span class="tooltiptext">Pauses the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="resetButtonParanoidRhythm" class="buttonsInner"
+                        onclick="resetScrolling('iframeParanoidRhythm', 'rhythmParanoid', 'startButtonParanoidRhythm', 'manualStartButtonParanoidRhythm', 'increaseButtonParanoidRhythm', 'decreaseButtonParanoidRhythm')">Reset</button>
+                    <span class="tooltiptext">Resets the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="manualStartButtonParanoidRhythm" class="buttonsInner"
+                        onclick="manualStartScrolling('iframeParanoidRhythm', 'rhythmParanoid', 'startButtonParanoidRhythm', 'manualStartButtonParanoidRhythm', 'increaseButtonParanoidRhythm', 'decreaseButtonParanoidRhythm')">Manual</button>
+                    <span class="tooltiptext">Manually start the track and control using increase and decrease</span>
+                </div>
+                <div class="tooltip">
+                    <button id="increaseButtonParanoidRhythm" class="buttonsInner" onclick="increaseSpeed()"
+                        disabled>Increase</button>
+                    <span class="tooltiptext">Manually increase speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="decreaseButtonParanoidRhythm" class="buttonsInner" onclick="decreaseSpeed()"
+                        disabled>Decrease</button>
+                    <span class="tooltiptext">Manually decrease speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="muteButtonParanoidRhythm" class="buttonsInner"
+                        onclick="toggleMute('rhythmParanoid')">Mute</button>
+                    <span class="tooltiptext">Mute/Unmute audio</span>
+                </div>
+            </div>
+
+            <!-- Lead -->
+            <div id="innerButtonContainerParanoidLead" class="containerInnerButtons" style="display: none;">
+                <div class="tooltip">
+                    <button id="startButtonParanoidLead" class="buttonsInner"
+                        onclick="startScrolling('iframeParanoidLead', 0.2, 'leadParanoid', [
+                        { time: 5000, speed: 0.5 },
+                    ], 'startButtonParanoidLead', 'manualStartButtonParanoidLead', 'increaseButtonParanoidLead', 'decreaseButtonParanoidLead')">Start</button>
+                    <span class="tooltiptext">Automatically starts the track with tempo changes</span>
+                </div>
+                <div class="tooltip">
+                    <button id="pauseButtonParanoidLead" class="buttonsInner"
+                        onclick="pauseScrolling('leadParanoid', 'startButtonParanoidLead', 'manualStartButtonParanoidLead')">Pause</button>
+                    <span class="tooltiptext">Pauses the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="resetButtonParanoidLead" class="buttonsInner"
+                        onclick="resetScrolling('iframeParanoidLead', 'leadParanoid', 'startButtonParanoidLead', 'manualStartButtonParanoidLead', 'increaseButtonParanoidLead', 'decreaseButtonParanoidLead')">Reset</button>
+                    <span class="tooltiptext">Resets the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="manualStartButtonParanoidLead" class="buttonsInner"
+                        onclick="manualStartScrolling('iframeParanoidLead', 'leadParanoid', 'startButtonParanoidLead', 'manualStartButtonParanoidLead', 'increaseButtonParanoidLead', 'decreaseButtonParanoidLead')">Manual</button>
+                    <span class="tooltiptext">Manually start the track and control using increase and decrease</span>
+                </div>
+                <div class="tooltip">
+                    <button id="increaseButtonParanoidLead" class="buttonsInner" onclick="increaseSpeed()"
+                        disabled>Increase</button>
+                    <span class="tooltiptext">Manually increase speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="decreaseButtonParanoidLead" class="buttonsInner" onclick="decreaseSpeed()"
+                        disabled>Decrease</button>
+                    <span class="tooltiptext">Manually decrease speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="muteButtonParanoidLead" class="buttonsInner"
+                        onclick="toggleMute('leadParanoid')">Mute</button>
+                    <span class="tooltiptext">Mute/Unmute audio</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- iFrames -->
+        <iframe id="iframeParanoidRhythm" class="containerIFrame" src="tabs/ParanoidRhythm.html"
+            alt="Tab Is Not Available"></iframe>
+        <iframe id="iframeParanoidLead" class="containerIFrame" src="tabs/ParanoidLead.html"
+            alt="Tab Is Not Available"></iframe>
+
+        <!-- Audio -->
+        <audio id="rhythmParanoid" src="backing-tracks/Paranoid-Rhythm.wav"></audio>
+        <audio id="leadParanoid" src="backing-tracks/Paranoid-Lead.wav"></audio>
+    </div>
+    <script src="script.js" async defer></script>
+</body>
+</html>

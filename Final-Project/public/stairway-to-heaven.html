@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comfortably Numb</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <h1 class="mainHeader">Comfortably Numb</h1>
+    <nav class="mainNav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/catalog">Catalog</a></li>
+            <li><a href="/gallery">Guitar Gallery</a></li>
+        </ul>
+    </nav>
+    <div class="containerMusicTrack">
+        <h3>Stairway to Heaven</h3>
+        <h4>Led Zeppelin</h4>
+        <h4>1971</h4>
+        <style>
+            #albumCoverStairway {
+                width: 100px;
+                border: 2px solid black;
+                box-sizing: border-box;
+                float: left
+            }
+        </style>
+        <div class="containerAlbumCover">
+            <img id="albumCoverStairway" src="albumCovers/Led-Zeppelin-IV.jpg" alt="Album Cover"></img>
+        </div>
+        <div class="containerButton">
+            <button class="buttonShow" data-original-text="Lead"
+                onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this, 'audioStairway')">Lead</button>
+            <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
+                <div class="tooltip">
+                    <button id="startButtonStairwayLead" class="buttonsInner"
+                        onclick="startScrolling('iframeStairwayLead', 0.2, 'audioStairway', [
+                        { time: 20500, speed: 1 },
+                        { time: 37000, speed: 3 },
+                        { time: 39000, speed: 1 },
+                        { time: 64000, speed: 3 },
+                        { time: 66000, speed: 1 },
+                        { time: 76000, speed: 0 },
+                        { time: 110000, speed: 1 },
+                    ], 'startButtonStairwayLead', 'manualStartButtonStairwayLead', 'increaseButtonStairwayLead', 'decreaseButtonStairwayLead')">Start</button>
+                    <span class="tooltiptext">Automatically starts the track with tempo changes</span>
+                </div>
+                <div class="tooltip">
+                    <button id="pauseButtonStairwayLead" class="buttonsInner"
+                        onclick="pauseScrolling('audioStairway', 'startButtonStairwayLead', 'manualStartButtonStairwayLead')">Pause</button>
+                    <span class="tooltiptext">Pauses the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="resetButtonStairwayLead" class="buttonsInner"
+                        onclick="resetScrolling('iframeStairwayLead', 'audioStairway', 'startButtonStairwayLead', 'manualStartButtonStairwayLead', 'increaseButtonStairwayLead', 'decreaseButtonStairwayLead')">Reset</button>
+                    <span class="tooltiptext">Resets the track</span>
+                </div>
+                <div class="tooltip">
+                    <button id="manualStartButtonStairwayLead" class="buttonsInner"
+                        onclick="manualStartScrolling('iframeStairwayLead', 'audioStairway', 'startButtonStairwayLead', 'manualStartButtonStairwayLead', 'increaseButtonStairwayLead', 'decreaseButtonStairwayLead')">Manual</button>
+                    <span class="tooltiptext">Manually start the track and control using increase and decrease</span>
+                </div>
+                <div class="tooltip">
+                    <button id="increaseButtonStairwayLead" class="buttonsInner" onclick="increaseSpeed()"
+                        disabled>Increase</button>
+                    <span class="tooltiptext">Manually increase speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="decreaseButtonStairwayLead" class="buttonsInner" onclick="decreaseSpeed()"
+                        disabled>Decrease</button>
+                    <span class="tooltiptext">Manually decrease speed</span>
+                </div>
+                <div class="tooltip">
+                    <button id="muteButtonStairwayLead" class="buttonsInner"
+                        onclick="toggleMute('audioStairway')">Mute</button>
+                    <span class="tooltiptext">Mute/Unmute audio</span>
+                </div>
+            </div>
+        </div>
+        <iframe id="iframeStairwayLead" class="containerIFrame" src="tabs/StairwayLead.html"
+            alt="Tab Is Not Available"></iframe>
+        <audio id="audioStairway" src="backing-tracks/StairwayLead.wav"></audio>
+    </div>
+    <script src="script.js" async defer></script>
+</body>
+</html>
