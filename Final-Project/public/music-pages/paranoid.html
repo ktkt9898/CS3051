@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Comfortably Numb</title>
-    <link href="style.css" rel="stylesheet">
+    <title>Paranoid</title>
+    <link href="../style.css" rel="stylesheet">
 </head>
 <body>
-    <h1 class="mainHeader">Comfortably Numb</h1>
+    <h1 class="mainHeader">Paranoid</h1>
     <nav class="mainNav">
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/catalog">Catalog</a></li>
-            <li><a href="/gallery">Guitar Gallery</a></li>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../catalog.html">Catalog</a></li>
+            <li><a href="../gallery.html">Guitar Gallery</a></li>
         </ul>
     </nav>
     <div class="containerMusicTrack">
@@ -24,11 +24,11 @@
                 width: 100px;
                 border: 2px solid black;
                 box-sizing: border-box;
-                float: left
+                float: left;
             }
         </style>
         <div class="containerAlbumCover">
-            <img id="albumCoverParanoid" src="albumCovers/Paranoid.jpg" alt="Album Cover"></img>
+            <img id="albumCoverParanoid" src="../album-covers/Paranoid.jpg" alt="Album Cover"></img>
         </div>
 
         <div class="containerButton">
@@ -120,15 +120,16 @@
         </div>
 
         <!-- iFrames -->
-        <iframe id="iframeParanoidRhythm" class="containerIFrame" src="tabs/ParanoidRhythm.html"
+        <iframe id="iframeParanoidRhythm" class="containerIFrame" src="../tabs/ParanoidRhythm.html"
             alt="Tab Is Not Available"></iframe>
-        <iframe id="iframeParanoidLead" class="containerIFrame" src="tabs/ParanoidLead.html"
+        <iframe id="iframeParanoidLead" class="containerIFrame" src="../tabs/ParanoidLead.html"
             alt="Tab Is Not Available"></iframe>
 
         <!-- Audio -->
-        <audio id="rhythmParanoid" src="backing-tracks/Paranoid-Rhythm.wav"></audio>
-        <audio id="leadParanoid" src="backing-tracks/Paranoid-Lead.wav"></audio>
+        <audio id="rhythmParanoid" src="../backing-tracks/ParanoidRhythm.wav"></audio>
+        <audio id="leadParanoid" src="../backing-tracks/ParanoidLead.wav"></audio>
     </div>
-    <script src="script.js" async defer></script>
+    <script src="scriptMusicTrack.js" async defer></script>
+    <script src="../scriptScreenError.js" async defer></script>
 </body>
 </html>

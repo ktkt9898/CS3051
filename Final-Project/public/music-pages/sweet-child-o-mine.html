@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Comfortably Numb</title>
-    <link href="style.css" rel="stylesheet">
+    <title>Sweet Child O' Mine</title>
+    <link href="../public/style.css" rel="stylesheet">
 </head>
 <body>
-    <h1 class="mainHeader">Comfortably Numb</h1>
+    <h1 class="mainHeader">Sweet Child O' Mine</h1>
     <nav class="mainNav">
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/catalog">Catalog</a></li>
-            <li><a href="/gallery">Guitar Gallery</a></li>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../catalog.html">Catalog</a></li>
+            <li><a href="../gallery.html">Guitar Gallery</a></li>
         </ul>
     </nav>
     <div class="containerMusicTrack">
@@ -24,11 +24,11 @@
                 width: 100px;
                 border: 2px solid black;
                 box-sizing: border-box;
-                float: left
+                float: left;
             }
         </style>
         <div class="containerAlbumCover">
-            <img id="albumCoverSweetChildOMine" src="albumCovers/Appetite-for-Destruction.jpg" alt="Album Cover"></img>
+            <img id="albumCoverSweetChildOMine" src="../album-covers/Appetite-for-Destruction.jpg" alt="Album Cover"></img>
         </div>
         <div class="containerButton">
             <button class="buttonShow" data-original-text="Lead"
@@ -76,10 +76,11 @@
                 </div>
             </div>
         </div>
-        <iframe id="iframeSweetChildOMineLead" class="containerIFrame" src="tabs/SweetChildOMineLead.html"
+        <iframe id="iframeSweetChildOMineLead" class="containerIFrame" src="../tabs/SweetChildOMineLead.html"
             alt="Tab Is Not Available"></iframe>
-        <audio id="audioSweetChildOMineLead" src="backing-tracks/SweetChildOMineLead.wav"></audio>
+        <audio id="audioSweetChildOMineLead" src="../backing-tracks/SweetChildOMineLead.wav"></audio>
     </div>
-    <script src="script.js" async defer></script>
+    <script src="scriptMusicTrack.js" async defer></script>
+    <script src="../scriptScreenError.js" async defer></script>
 </body>
 </html>
