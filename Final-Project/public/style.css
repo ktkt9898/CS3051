@@ -3,6 +3,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 .mainHeader {
@@ -26,8 +27,18 @@ body {
 /* Container for the music track that holds title, artist, year, album cover, and the score. */
 .containerMusicTrack {
     padding: 20px;
+    height: calc(100% - 600px);
     background-color: blanchedalmond;
-    box-sizing: border-box
+    box-sizing: border-box;
+}
+
+.musicPageBackground {
+    min-height: 100%; /* Occupy the full height of the parent */
+    width: 100%; /* Occupy the full width */
+    background-color: blanchedalmond; /* Set the desired background color */
+    box-sizing: border-box;
+    padding: 20px;
+    overflow: hidden;
 }
 
 /* Container for the album cover */

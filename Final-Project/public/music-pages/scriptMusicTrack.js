@@ -29,16 +29,16 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
     const buttonContainer = document.getElementById(buttonContainerId);
 
     /**
-    Get the containerMusicTrack and sibling buttons, this is retrieved now to later be used for the smooth
+    Get the musicPageBackground and sibling buttons, this is retrieved now to later be used for the smooth
     scrolling effect when the iframe is shown
     */
-    const containerMusicTrack = button.closest('.containerMusicTrack');
+    const musicPageBackground = button.closest('.musicPageBackground');
 
     /**
-    Retrieve all the buttons within the previous containerMusicTrack
+    Retrieve all the buttons within the previous musicPageBackground
     Naming convention is buttonShow because this is the CSS style for all buttons, onced viewable/shown
     */
-    const siblingButtons = containerMusicTrack.querySelectorAll('.buttonShow');
+    const siblingButtons = musicPageBackground.querySelectorAll('.buttonShow');
 
     /**
     Create a new variable for either Rythm or Lead sheet music, and hide the other if one is chosen.
@@ -93,7 +93,7 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
         iframe.style.display = "none";
         buttonContainer.style.display = "none";
         button.textContent = button.getAttribute('data-original-text'); // Restore original text
-        containerMusicTrack.scrollIntoView({ behavior: 'smooth' }); // Scroll to the top of the guitarTab container smoothly
+        musicPageBackground.scrollIntoView({ behavior: 'smooth' }); // Scroll to the top of the guitarTab container smoothly
 
         // Display the Lead or Rhythm options again, previously was hidden when one choice was selected instead of the other
         siblingButtons.forEach(siblingButton => {
