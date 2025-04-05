@@ -16,38 +16,57 @@ const db = new sqlite3.Database('./userdatabase.db', (err) => {
     }
 });
 
-app.use(express.static('public'));
+app.use(express.static(path.join(process.cwd()))); // Serve static files from the current working directory
+
+app.use(express.json()); // Parse JSON request bodies
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(process.cwd(), "public", "index.html"));
+    res.sendFile(path.join(process.cwd(), "index.html"));
 });
 
 app.get("/login", (req, res) => {
-    res.sendFile(path.join(process.cwd(), "public", "login.html"));
+    res.sendFile(path.join(process.cwd(), "login.html"));
 });
 
 app.get('/catalog', (req, res) => {
-    res.sendFile(path.join(process.cwd(), "public", "catalog.html"));
+    res.sendFile(path.join(process.cwd(), "catalog.html"));
 });
 
 app.get('/gallery', (req, res) => {
-    res.sendFile(path.join(process.cwd(), "public", "gallery.html"));
+    res.sendFile(path.join(process.cwd(), "gallery.html"));
 });
 
 // Add a new user
 app.post('/users', (req, res) => {
     const { username } = req.body;
-    addUser(username, (err, user) => {
+
+    if (!username) {
+        console.error('Username is missing in the request body.');
+        return res.status(400).json({ error: 'Username is required' });
+    }
+
+    const query = `INSERT INTO users (username) VALUES (?)`;
+    db.run(query, [username], function (err) {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            console.error('Error inserting user into the database:', err.message);
+            if (err.code === 'SQLITE_CONSTRAINT') {
+                return res.status(400).json({ error: 'Username already exists' });
+            }
+            return res.status(500).json({ error: 'Failed to create account' });
         }
-        res.status(201).json(user);
+        console.log(`User created with ID: ${this.lastID}`);
+        res.status(201).json({ userID: this.lastID, username });
     });
 });
 
 // Add a favorite music track for a user
 app.post('/favorites', (req, res) => {
     const { userID, musictrackID, musictrack } = req.body;
+
+    if (!userID || !musictrackID || !musictrack) {
+        return res.status(400).json({ error: 'Missing required fields: userID, musictrackID, or musictrack' });
+    }
+
     addFavorite(userID, musictrackID, musictrack, (err, favorite) => {
         if (err) {
             return res.status(500).json({ error: err.message });
@@ -56,49 +75,24 @@ app.post('/favorites', (req, res) => {
     });
 });
 
-// Get all favorites for a user
-app.get('/users/:userID/favorites', (req, res) => {
-    const { userID } = req.params;
-    getFavoritesByUser(userID, (err, favorites) => {
+// Get all favorites for a user by username
+app.get('/users/:username/favorites', (req, res) => {
+    const { username } = req.params;
+
+    const query = `
+        SELECT f.musictrackID, f.musictrack
+        FROM favorites f
+        JOIN users u ON f.userID = u.userID
+        WHERE u.username = ?
+    `;
+
+    db.all(query, [username], (err, rows) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
-        res.status(200).json(favorites);
+        res.status(200).json(rows);
     });
 });
-
-// Add a new user
-function addUser(username, callback) {
-    const query = `INSERT INTO users (username) VALUES (?)`;
-    db.run(query, [username], function (err) {
-        if (err) {
-            return callback(err);
-        }
-        callback(null, { userID: this.lastID, username });
-    });
-}
-
-// Add a favorite music track for a user
-function addFavorite(userID, musictrackID, musictrack, callback) {
-    const query = `INSERT INTO favorites (userID, musictrackID, musictrack) VALUES (?, ?, ?)`;
-    db.run(query, [userID, musictrackID, musictrack], function (err) {
-        if (err) {
-            return callback(err);
-        }
-        callback(null, { favoriteID: this.lastID, userID, musictrackID, musictrack });
-    });
-}
-
-// Get all favorites for a user
-function getFavoritesByUser(userID, callback) {
-    const query = `SELECT * FROM favorites WHERE userID = ?`;
-    db.all(query, [userID], (err, rows) => {
-        if (err) {
-            return callback(err);
-        }
-        callback(null, rows);
-    });
-}
 
 let server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -25,23 +25,27 @@
     </nav>
 
     <!-- Login Form -->
+    <form id="login-form">
+        <label for="login-username">Username:</label>
+        <input type="text" id="login-username" name="username" required>
+        <br>
+        <button type="button" id="login-btn">Log In</button>
+    </form>
+
+    <!-- User Registration Form -->
     <form id="user-form">
+        <h2>Create an Account</h2>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <br>
-
-        <label for="musictrack">Favorite Music Track:</label>
-        <input type="text" id="musictrack" name="musictrack">
-        <br>
-
-        <label for="musictrackID">Music Track ID:</label>
-        <input type="number" id="musictrackID" name="musictrackID">
-        <br>
-
-        <button type="button" id="add-user-btn">Add User</button>
-        <button type="button" id="add-favorite-btn">Add Favorite</button>
-        <button type="button" id="get-favorites-btn">Get Favorites</button>
+        <button type="button" id="add-user-btn">Create Account</button>
     </form>
+
+    <!-- List Favorites -->
+    <div id="favorites-section" style="display: none;">
+        <h2>Your Favorites</h2>
+        <ul id="favorites-list"></ul>
+    </div>
 
     <div id="output"></div>
     <script src="scriptLogin.js"></script>

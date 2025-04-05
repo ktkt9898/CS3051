@@ -41,6 +41,8 @@
         <div class="containerButton">
             <button id="buttonShowRhythm" class="buttonShow" data-original-text="Rhythm"
                 onclick="toggleIframeAndButtons('iframeComeAsYouAreRhythm', 'innerButtonContainerComeAsYouAreRhythm', this, 'audioComeAsYouAre')">Rhythm</button>
+                <button class="buttonShow" data-original-text="Favorite" onclick="addToFavorites('come-as-you-are')">Favorite</button>
+
             <div id="innerButtonContainerComeAsYouAreRhythm" class="containerInnerButtons" style="display: none;">
                 <div class="tooltip">
                     <button id="startButtonComeAsYouAre" class="buttonsInner"
@@ -89,6 +91,7 @@
     </div>
 
     <script src="scriptMusicTrack.js" async defer></script>
+    <script src="scriptFavorites.js" async defer></script>
     <script src="../scriptScreenError.js" async defer></script>
 </body>
 
