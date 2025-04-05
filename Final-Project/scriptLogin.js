@@ -6,13 +6,26 @@ document.getElementById('add-user-btn').addEventListener('click', () => {
         return;
     }
 
-    fetch('/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username }),
-    })
+    // Check if the username already exists
+    fetch(`/users/${username}`)
+        .then(response => {
+            if (response.status === 404) {
+                // Username does not exist, proceed to create the user
+                // Response 404 means no user found, so we can create a new one
+                return fetch('/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username }),
+                });
+            } else if (response.ok) {
+                // Username already exists
+                throw new Error('Username already exists');
+            } else {
+                throw new Error('Error checking username');
+            }
+        })
         .then(response => response.json())
         .then(data => {
             if (data.userID) {
@@ -22,8 +35,12 @@ document.getElementById('add-user-btn').addEventListener('click', () => {
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while creating the account.');
+            if (error.message === 'Username already exists') {
+                alert('This username already exists. Please choose a different username.');
+            } else {
+                console.error('Error:', error);
+                alert('An error occurred while creating the account.');
+            }
         });
 });
 

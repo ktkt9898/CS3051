@@ -64,14 +64,18 @@ app.post('/favorites', (req, res) => {
     const { userID, musictrackID, musictrack } = req.body;
 
     if (!userID || !musictrackID || !musictrack) {
+        console.error('Missing required fields in the request body.');
         return res.status(400).json({ error: 'Missing required fields: userID, musictrackID, or musictrack' });
     }
 
-    addFavorite(userID, musictrackID, musictrack, (err, favorite) => {
+    const query = `INSERT INTO favorites (userID, musictrackID, musictrack) VALUES (?, ?, ?)`;
+    db.run(query, [userID, musictrackID, musictrack], function (err) {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            console.error('Error inserting favorite into the database:', err.message);
+            return res.status(500).json({ error: 'Failed to add favorite' });
         }
-        res.status(201).json(favorite);
+        console.log(`Favorite added with ID: ${this.lastID}`);
+        res.status(201).json({ favoriteID: this.lastID });
     });
 });
 

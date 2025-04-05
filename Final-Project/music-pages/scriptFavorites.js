@@ -2,6 +2,8 @@ function addToFavorites(musictrackID) {
     const userID = 1; // Replace with the actual user ID from your authentication system
     const musictrack = "Come as You Are"; // Replace with the actual track name dynamically if needed
 
+    console.log('Sending request to add favorite:', { userID, musictrackID, musictrack });
+
     fetch('http://localhost:8080/favorites', {
         method: 'POST',
         headers: {
