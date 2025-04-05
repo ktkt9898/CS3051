@@ -38,10 +38,12 @@
         <div class="containerAlbumCover">
             <img id="albumCoverTheWall" src="../album-covers/The-Wall.png" alt="Album Cover"></img>
         </div>
+
         <div class="containerButton">
             <button class="buttonShow" data-original-text="Lead"
                 onclick="toggleIframeAndButtons('iframeComfortablyNumbLead', 'innerButtonContainerComfortablyNumbLead', this, 'audioComfortablyNumb')">Lead</button>
-            <button class="buttonShow" data-original-text="Favorite">Favorite</button>
+            <button class="buttonShow" data-original-text="Favorite"
+                onclick="promptForUserIDAndAddToFavorites('comfortably-numb', 'Comfortably Numb')">Favorite</button>
 
             <div id="innerButtonContainerComfortablyNumbLead" class="containerInnerButtons" style="display: none;">
                 <div class="tooltip">

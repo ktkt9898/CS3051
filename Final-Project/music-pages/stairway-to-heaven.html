@@ -38,11 +38,13 @@
         <div class="containerAlbumCover">
             <img id="albumCoverStairway" src="../album-covers/Led-Zeppelin-IV.jpg" alt="Album Cover"></img>
         </div>
+
         <div class="containerButton">
             <button class="buttonShow" data-original-text="Lead"
                 onclick="toggleIframeAndButtons('iframeStairwayLead', 'innerButtonContainerStairwayLead', this, 'audioStairway')">Lead</button>
-            <button class="buttonShow" data-original-text="Favorite">Favorite</button>
-            
+            <button class="buttonShow" data-original-text="Favorite"
+                onclick="promptForUserIDAndAddToFavorites('stairway-to-heaven', 'Stairway to Heaven')">Favorite</button>
+
             <div id="innerButtonContainerStairwayLead" class="containerInnerButtons" style="display: none;">
                 <div class="tooltip">
                     <button id="startButtonStairwayLead" class="buttonsInner"

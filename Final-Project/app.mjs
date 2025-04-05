@@ -59,6 +59,29 @@ app.post('/users', (req, res) => {
     });
 });
 
+app.post('/login', (req, res) => {
+    const { username } = req.body;
+
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
+
+    const query = `SELECT userID FROM users WHERE username = ?`;
+    db.get(query, [username], (err, row) => {
+        if (err) {
+            console.error('Error fetching user:', err.message);
+            return res.status(500).json({ error: 'Failed to log in' });
+        }
+
+        if (!row) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Return the userID as JSON
+        res.json({ userID: row.userID });
+    });
+});
+
 // Add a favorite music track for a user
 app.post('/favorites', (req, res) => {
     const { userID, musictrackID, musictrack } = req.body;
@@ -68,33 +91,71 @@ app.post('/favorites', (req, res) => {
         return res.status(400).json({ error: 'Missing required fields: userID, musictrackID, or musictrack' });
     }
 
-    const query = `INSERT INTO favorites (userID, musictrackID, musictrack) VALUES (?, ?, ?)`;
-    db.run(query, [userID, musictrackID, musictrack], function (err) {
+    // Check if the favorite already exists
+    const checkQuery = `SELECT * FROM favorites WHERE userID = ? AND musictrackID = ?`;
+    db.get(checkQuery, [userID, musictrackID], (err, row) => {
         if (err) {
-            console.error('Error inserting favorite into the database:', err.message);
-            return res.status(500).json({ error: 'Failed to add favorite' });
+            console.error('Error checking for duplicate favorite:', err.message);
+            return res.status(500).json({ error: 'Failed to check for duplicate favorite' });
         }
-        console.log(`Favorite added with ID: ${this.lastID}`);
-        res.status(201).json({ favoriteID: this.lastID });
+
+        if (row) {
+            // Duplicate found
+            return res.status(400).json({ error: 'This track is already in your favorites' });
+        }
+
+        // If no duplicate, insert the new favorite
+        const insertQuery = `INSERT INTO favorites (userID, musictrackID, musictrack) VALUES (?, ?, ?)`;
+        db.run(insertQuery, [userID, musictrackID, musictrack], function (err) {
+            if (err) {
+                console.error('Error inserting favorite into the database:', err.message);
+                return res.status(500).json({ error: 'Failed to add favorite' });
+            }
+            console.log(`Favorite added with ID: ${this.lastID}`);
+            res.status(201).json({ favoriteID: this.lastID });
+        });
     });
 });
 
-// Get all favorites for a user by username
-app.get('/users/:username/favorites', (req, res) => {
-    const { username } = req.params;
+app.get('/users/:userID/favorites', (req, res) => {
+    const { userID } = req.params;
 
     const query = `
-        SELECT f.musictrackID, f.musictrack
-        FROM favorites f
-        JOIN users u ON f.userID = u.userID
-        WHERE u.username = ?
+        SELECT musictrackID, musictrack
+        FROM favorites
+        WHERE userID = ?
     `;
 
-    db.all(query, [username], (err, rows) => {
+    db.all(query, [userID], (err, rows) => {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            console.error('Error fetching favorites:', err.message);
+            return res.status(500).json({ error: 'Failed to fetch favorites' });
         }
-        res.status(200).json(rows);
+
+        console.log('Favorites fetched for userID:', userID, rows); // Debugging
+        res.json(rows); // Send the rows as JSON
+    });
+});
+
+app.delete('/favorites', (req, res) => {
+    const { userID, musictrackID } = req.body;
+
+    if (!userID || !musictrackID) {
+        return res.status(400).json({ error: 'Missing required fields: userID or musictrackID' });
+    }
+
+    const deleteQuery = `DELETE FROM favorites WHERE userID = ? AND musictrackID = ?`;
+    db.run(deleteQuery, [userID, musictrackID], function (err) {
+        if (err) {
+            console.error('Error deleting favorite:', err.message);
+            return res.status(500).json({ error: 'Failed to delete favorite' });
+        }
+
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'Favorite not found' });
+        }
+
+        res.status(200).json({ message: 'Favorite removed successfully' });
     });
 });
 
@@ -102,3 +163,4 @@ let server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     console.log("To end the server, press 'CTRL+C'");
   });
+
