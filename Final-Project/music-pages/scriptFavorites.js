@@ -1,15 +1,28 @@
+/**
+ * addToFavorites function
+ * Adds a music track to the user's favorites list.
+ * @param {*} userID 
+ * @param {*} musictrackID 
+ * @param {*} musictrack 
+ * @returns 
+ */
 function addToFavorites(userID, musictrackID, musictrack) {
+    // Check if all required parameters are provided
+    // If not, alert the user and return
     if (!userID || !musictrackID || !musictrack) {
         alert('All parameters (userID, musictrackID, musictrack) are required.');
         return;
     }
 
-    console.log('Checking if the track is already in favorites:', { userID, musictrackID });
-
     // Check if the track is already in the user's favorites
+    // Fetch request sent to /users/:userID/favorites endpoint to get the user's favorites
+    // The user's favorites is stored in the database from the endpoint
     fetch(`http://localhost:8080/users/${userID}/favorites`)
         .then(response => response.json())
         .then(favorites => {
+            // some() method tests whether at least one element in the array passes the test implemented by the provided function
+            // In this case, it checks if the musictrackID of any favorite matches the one being added
+            // If it is, alert the user and return
             const isDuplicate = favorites.some(favorite => favorite.musictrackID === musictrackID);
 
             if (isDuplicate) {
@@ -18,8 +31,7 @@ function addToFavorites(userID, musictrackID, musictrack) {
             }
 
             // If not a duplicate, proceed to add the favorite
-            console.log('Sending request to add favorite:', { userID, musictrackID, musictrack });
-
+            // Send a POST request to add the favorite to the database
             fetch('http://localhost:8080/favorites', {
                 method: 'POST',
                 headers: {
@@ -50,6 +62,13 @@ function addToFavorites(userID, musictrackID, musictrack) {
         });
 }
 
+/**
+ * promptForUserIDAndAddToFavorites function
+ * Prompts the user for their userID and adds the music track to their favorites.
+ * @param {*} musictrackID 
+ * @param {*} musictrack 
+ * @returns 
+ */
 function promptForUserIDAndAddToFavorites(musictrackID, musictrack) {
     // Prompt the user for their userID
     const userID = prompt('Please enter your User ID:');

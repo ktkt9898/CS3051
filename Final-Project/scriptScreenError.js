@@ -3,6 +3,7 @@ let warningClosed = false;
 
 function checkScreenDimensions() {
     const warning = document.getElementById('warning');
+    // If screen width is less than 1040px, show the warning
     if (window.innerWidth < 1040) {
         if (!warningClosed) {
             warning.style.display = 'block';

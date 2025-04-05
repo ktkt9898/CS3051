@@ -1,8 +1,24 @@
+// This script is used to control the automatic scrolling of sheet music in an iframe.
+// It includes functions to start, pause, and reset the scrolling, as well as to change the speed of the scrolling.
 let scrollInterval;
+
+// Global variable to store the timeouts for speed changes
+// This is used to clear the timeouts when pausing or resetting the scrolling
 let speedTimeouts = [];
+
+// Global variable to track the current scroll position of the iframe
+// This is used to keep track of the current position of the scrolling content
 let currentScrollPosition = 0;
+
+// Global variable to track the current speed of the scrolling
+// This is used to adjust the speed dynamically based on the speed changes
 let currentSpeed;
+
+// Global variable to track the elapsed time for speed changes
+// This is used to ensure that the speed changes are consistent even when pausing and resuming scrolling
 let elapsedTime = 0;
+
+// Flag to indicate if scrolling is in progress, broadly used to prevent multiple clicks
 let scrolling = false;
 
 // Flag to prevent multiple Start button clicks
@@ -18,12 +34,17 @@ let stopCountdownOperation = false;
 let isManual = false;
 
 /**
-Takes in an ID for an iFrame, ID for the button container style, and the "this" parameter for
-the actual Show/Hide button to toggle the menu 
-
-Each iFrame has an ID that maps to the individual HTML files under tabs. This displays
-the sheet music within a smaller window to be scrolled manually or automatically
-*/
+ * toggleIframeAndButtons function
+ * Toggles the visibility of the iframe and button container, and handles the display of buttons.
+ * @param {*} iframeId 
+ * @param {*} buttonContainerId 
+ * @param {*} button 
+ * @param {*} backingTrackId 
+ * @param {*} startButtonId 
+ * @param {*} manualStartButtonId 
+ * @param {*} increaseButtonId 
+ * @param {*} decreaseButtonId 
+ */
 function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     const iframe = document.getElementById(iframeId);
     const buttonContainer = document.getElementById(buttonContainerId);
@@ -103,11 +124,11 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
 }
 
 /**
-Function to automically scroll the iframe, takes in the iframe ID, speed, backing track ID, and tempo changes
-
-Tempo changes are used to increase the scroll speed when a certain part of the sheet music is in view.
-In reality, an observer is used to detect a transparent square that is placed over the sheet music image.
-*/
+ * showCountdown function
+ * Displays a countdown from 3 to 0, and then calls the provided callback function.
+ * @param {*} callback 
+ * @returns 
+ */
 function showCountdown(callback) {
     // Check if stopCountdownOperation is true at the beginning of the function
     // If true, cancel the operation and return
@@ -153,19 +174,18 @@ function showCountdown(callback) {
 }
 
 /**
-The startScrolling function performs the main feature of the automatic scrolling of the sheet music.
-It takes in the iframe ID, initial speed, backing track ID, and speed changes.
-Speed changes are an array of objects that contain the time and speed change.
-
-The main idea is to start with an initial speed and then change the speed at certain times to match 
-the tempo of the backing track.
-
-The three main concepts are scrollContent, updateElapsedTime, and the speed changes.
-scrollContent is the function that performs the scrolling, and is called every 16.67ms to maintain a 60Hz refresh rate.
-updateElapsedTime is a recursive function that keeps track of the elapsed time while scrolling is active.
-    This is used when pausing and resuming the scrolling, so the speed changes are the consistent.
-speedChanges is an array that containts a time and speed change, since some parts of the sheet music may be faster or slower.
-*/
+ * startScrolling function
+ * Starts the scrolling of the iframe content, plays the backing track, and handles speed changes.
+ * @param {*} iframeId 
+ * @param {*} initialSpeed 
+ * @param {*} backingTrackId 
+ * @param {*} speedChanges 
+ * @param {*} startButtonId 
+ * @param {*} manualStartButtonId 
+ * @param {*} increaseButtonId 
+ * @param {*} decreaseButtonId 
+ * @returns 
+ */
 function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     // Once start scrolling is called, set the stop countdown flag to false
     stopCountdownOperation = false;
@@ -253,6 +273,13 @@ function startScrolling(iframeId, initialSpeed, backingTrackId, speedChanges, st
     disableButtons([startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId]);
 }
 
+/**
+ * pauseScrolling function
+ * Pauses the scrolling of the iframe content, stops the backing track, and clears speed timeouts.
+ * @param {*} backingTrackId 
+ * @param {*} startButtonId 
+ * @param {*} manualStartButtonId 
+ */
 function pauseScrolling(backingTrackId, startButtonId, manualStartButtonId) {
     scrolling = false;
 
@@ -278,6 +305,16 @@ function pauseScrolling(backingTrackId, startButtonId, manualStartButtonId) {
     speedTimeouts = [];
 }
 
+/**
+ * resetScrolling function
+ * Resets the scrolling of the iframe content, stops the backing track, and clears speed timeouts.
+ * @param {*} iframeId 
+ * @param {*} backingTrackId 
+ * @param {*} startButtonId 
+ * @param {*} manualStartButtonId 
+ * @param {*} increaseButtonId 
+ * @param {*} decreaseButtonId 
+ */
 function resetScrolling(iframeId, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     const iframe = document.getElementById(iframeId);
     const contentWindow = iframe.contentWindow;
@@ -312,7 +349,17 @@ function resetScrolling(iframeId, backingTrackId, startButtonId, manualStartButt
     enableButtons([startButtonId, manualStartButtonId]);
 }
 
-// New functions for manual control
+/**
+ * manualStartScrolling function
+ * Starts the scrolling of the iframe content with manual speed control, plays the backing track, and handles speed changes.
+ * @param {*} iframeId 
+ * @param {*} backingTrackId 
+ * @param {*} startButtonId 
+ * @param {*} manualStartButtonId 
+ * @param {*} increaseButtonId 
+ * @param {*} decreaseButtonId 
+ * @returns 
+ */
 function manualStartScrolling(iframeId, backingTrackId, startButtonId, manualStartButtonId, increaseButtonId, decreaseButtonId) {
     // Once manual start scrolling is called, set the stop countdown flag to false
     stopCountdownOperation = false;
@@ -382,18 +429,33 @@ function manualStartScrolling(iframeId, backingTrackId, startButtonId, manualSta
     disableButtons([startButtonId, manualStartButtonId]);
 }
 
+/**
+ * increaseSpeed function
+ * Increases the speed of the scrolling content by 0.1 units.
+ * For use with manual scrolling only, as the speed is set to 0.1 units by default
+ */
 function increaseSpeed() {
     if (currentSpeed !== null) {
         currentSpeed += 0.1;
     }
 }
 
+/**
+ * decreaseSpeed function
+ * Decreases the speed of the scrolling content by 0.1 units.
+ * For use with manual scrolling only, as the speed is set to 0.1 units by default
+ */
 function decreaseSpeed() {
     if (currentSpeed !== null && currentSpeed > 0.1) {
         currentSpeed -= 0.1;
     }
 }
 
+/**
+ * disableButtons function
+ * Disables the buttons with the specified IDs.
+ * @param {*} buttonIds 
+ */
 function disableButtons(buttonIds) {
     buttonIds.forEach(id => {
         const button = document.getElementById(id);
@@ -403,6 +465,11 @@ function disableButtons(buttonIds) {
     });
 }
 
+/**
+ * enableButtons function
+ * Enables the buttons with the specified IDs.
+ * @param {*} buttonIds 
+ */
 function enableButtons(buttonIds) {
     buttonIds.forEach(id => {
         const button = document.getElementById(id);
@@ -412,6 +479,12 @@ function enableButtons(buttonIds) {
     });
 }
 
+/**
+ * toggleMute function
+ * Toggles the mute state of the backing track audio element.
+ * Also resumes the audio if it was paused.
+ * @param {*} backingTrackId 
+ */
 function toggleMute(backingTrackId) {
     const audio = document.getElementById(backingTrackId);
     if (audio) {
