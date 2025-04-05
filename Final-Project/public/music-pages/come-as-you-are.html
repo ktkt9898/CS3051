@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Come as You Are</title>
     <link href="../style.css" rel="stylesheet">
 </head>
+
 <body>
+    <div id="warning" class="hidden">
+        Your screen dimensions are too small!
+        <button id="close-btn">Close</button>
+    </div>
+
     <h1 class="mainHeader">Come as You Are</h1>
     <nav class="mainNav">
         <ul>
@@ -15,6 +22,7 @@
             <li><a href="../gallery.html">Guitar Gallery</a></li>
         </ul>
     </nav>
+
     <div class="containerMusicTrack">
         <h3>Come as You Are</h3>
         <h4>Nirvana</h4>
@@ -79,7 +87,9 @@
             alt="Tab Is Not Available"></iframe>
         <audio id="audioComeAsYouAre" src="../backing-tracks/ComeAsYouAreRhythm.wav"></audio>
     </div>
+
     <script src="scriptMusicTrack.js" async defer></script>
     <script src="../scriptScreenError.js" async defer></script>
 </body>
+
 </html>

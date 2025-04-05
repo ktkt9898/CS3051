@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Log In</title>
     <link href="style.css" rel="stylesheet">
 </head>
-    <body>
-        <h1 class="mainHeader"> Log In </h1>
 
-        <div id="warning" style="display: none;">
-            Your screen width is too small for optimal viewing.
-            <button id="close-btn">Close</button>
-        </div>
-        
-        <nav class="mainNav">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/catalog">Catalog</a></li>
-                <li><a href="/gallery">Guitar Gallery</a></li>
-            </ul>
-        </nav>
-        
-        <!-- Login Form -->
-        <form id="user-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br>
+<body>
+    <h1 class="mainHeader"> Log In </h1>
 
-            <label for="musictrack">Favorite Music Track:</label>
-            <input type="text" id="musictrack" name="musictrack">
-            <br>
+    <div id="warning" style="display: none;">
+        Your screen width is too small for optimal viewing.
+        <button id="close-btn">Close</button>
+    </div>
 
-            <label for="musictrackID">Music Track ID:</label>
-            <input type="number" id="musictrackID" name="musictrackID">
-            <br>
+    <nav class="mainNav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/catalog">Catalog</a></li>
+            <li><a href="/gallery">Guitar Gallery</a></li>
+        </ul>
+    </nav>
 
-            <button type="button" id="add-user-btn">Add User</button>
-            <button type="button" id="add-favorite-btn">Add Favorite</button>
-            <button type="button" id="get-favorites-btn">Get Favorites</button>
-        </form>
+    <!-- Login Form -->
+    <form id="user-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
 
-        <div id="output"></div>
-        <script src="loginScript.js"></script>
-    </body>
+        <label for="musictrack">Favorite Music Track:</label>
+        <input type="text" id="musictrack" name="musictrack">
+        <br>
+
+        <label for="musictrackID">Music Track ID:</label>
+        <input type="number" id="musictrackID" name="musictrackID">
+        <br>
+
+        <button type="button" id="add-user-btn">Add User</button>
+        <button type="button" id="add-favorite-btn">Add Favorite</button>
+        <button type="button" id="get-favorites-btn">Get Favorites</button>
+    </form>
+
+    <div id="output"></div>
+    <script src="scriptLogin.js"></script>
+</body>
+
 </html>
