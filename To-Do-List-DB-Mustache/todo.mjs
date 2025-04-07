@@ -13,15 +13,16 @@ import { open } from "sqlite";
 import mustacheExpress from "mustache-express"; 
 const Mustache = mustacheExpress();
 app.engine('mst', Mustache);
-app.set('views', path.join(process.cwd(), 'templates')) 
+app.set('views', (process.cwd())) 
 app.set('view engine', 'mst');
 
 // Route to render the task list
 app.get("/tasklist", async (req, res) => {
-    const userId = 1;
+    const userId = 2;
     try {
         const tasks = await database.all("SELECT task FROM tasks WHERE user_id = ?", [userId]);
         // Render the task list using Mustache
+        console.log(tasks);
         res.render("tasklist", { tasks });
     } catch (error) {
         console.error("Error retrieving tasks:", error);
@@ -77,8 +78,9 @@ app.post("/add-user", async (req, res) => {
 // Functionality to retrieve all users from the database
 app.get("/list-users", async (req, res) => {
     try {
-        const users = await database.all("SELECT * FROM users");
-        res.json(users);
+        const userList = await database.all("SELECT * FROM users");
+        // res.json(users);
+        res.render("userlist", { users : userList });
     } catch (error) {
         console.error("Error retrieving users:", error);
         res.status(500).json({ error: "Failed to retrieve users" });

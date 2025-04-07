@@ -17,15 +17,13 @@
     <div>
         <button onclick="addTask()" class="taskButton">Add Task</button>
     </div>
-    <script id="taskTemplate" type="text/template">
-        <form>
-            <ul id="taskListID">
-                {{#tasks}}
-                <li>{{task}}</li>
-                {{/tasks}}
-            </ul>
-        </form>
-    </script>
+    <form>
+        <ul id="taskListID">
+            {{#tasks}}
+            <li>{{task}}</li>
+            {{/tasks}}
+        </ul>
+    </form>
 </body>
  
 </html>

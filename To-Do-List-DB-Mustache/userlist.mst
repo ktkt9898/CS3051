@@ -1,0 +1,6 @@
+{{#users}}
+    <li> 
+        {{name}} ({{id}})
+        <button onclick="viewTasks('{{id}}')">View Tasks</button>
+    </li>
+{{/users}}
