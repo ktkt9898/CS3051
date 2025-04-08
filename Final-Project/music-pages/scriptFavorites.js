@@ -7,58 +7,70 @@
  * @returns 
  */
 function addToFavorites(userID, musictrackID, musictrack) {
+    // Convert userID to an integer
+    const numericUserID = parseInt(userID, 10);
+
     // Check if all required parameters are provided
-    // If not, alert the user and return
-    if (!userID || !musictrackID || !musictrack) {
+    if (!numericUserID || !musictrackID || !musictrack) {
         alert('All parameters (userID, musictrackID, musictrack) are required.');
         return;
     }
 
-    // Check if the track is already in the user's favorites
-    // Fetch request sent to /users/:userID/favorites endpoint to get the user's favorites
-    // The user's favorites is stored in the database from the endpoint
-    fetch(`http://localhost:8080/users/${userID}/favorites`)
-        .then(response => response.json())
-        .then(favorites => {
-            // some() method tests whether at least one element in the array passes the test implemented by the provided function
-            // In this case, it checks if the musictrackID of any favorite matches the one being added
-            // If it is, alert the user and return
-            const isDuplicate = favorites.some(favorite => favorite.musictrackID === musictrackID);
-
-            if (isDuplicate) {
-                alert('This track is already in your favorites.');
-                return;
+    // Step 1: Check if the user exists in the database
+    fetch(`http://localhost:8080/users/${numericUserID}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('User not found');
             }
+            return response.json();
+        })
+        .then(user => {
+            console.log(`User found: ${user.username}`); // Optional: Log user details for debugging
 
-            // If not a duplicate, proceed to add the favorite
-            // Send a POST request to add the favorite to the database
-            fetch('http://localhost:8080/favorites', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userID: userID,
-                    musictrackID: musictrackID,
-                    musictrack: musictrack,
-                }),
-            })
+            // Step 2: Check if the track is already in the user's favorites
+            fetch(`http://localhost:8080/users/${numericUserID}/favorites`)
                 .then(response => response.json())
-                .then(data => {
-                    if (data.favoriteID) {
-                        alert('Favorite added successfully!');
-                    } else if (data.error) {
-                        alert(`Error: ${data.error}`);
+                .then(favorites => {
+                    const isDuplicate = favorites.some(favorite => favorite.musictrackID === musictrackID);
+
+                    if (isDuplicate) {
+                        alert('This track is already in your favorites.');
+                        return;
                     }
+
+                    // Step 3: Add the track to the user's favorites
+                    fetch('http://localhost:8080/favorites', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userID: numericUserID,
+                            musictrackID: musictrackID,
+                            musictrack: musictrack,
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.favoriteID) {
+                                alert('Favorite added successfully!');
+                            } else if (data.error) {
+                                alert(`Error: ${data.error}`);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while adding to favorites.');
+                        });
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while adding to favorites.');
+                    console.error('Error fetching favorites:', error);
+                    alert('An error occurred while checking favorites.');
                 });
         })
         .catch(error => {
-            console.error('Error fetching favorites:', error);
-            alert('An error occurred while checking favorites.');
+            console.error('Error:', error);
+            alert('The user ID does not exist. Please check and try again.');
         });
 }
 

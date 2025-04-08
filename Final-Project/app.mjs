@@ -132,6 +132,35 @@ app.post('/favorites', (req, res) => {
     });
 });
 
+// Get user details by userID
+app.get('/users/:userID', (req, res) => {
+    const { userID } = req.params;
+
+    // Convert userID to an integer
+    const numericUserID = parseInt(userID, 10);
+
+    // Check if the userID is valid
+    if (isNaN(numericUserID)) {
+        return res.status(400).json({ error: 'Invalid userID' });
+    }
+
+    // Query the database for the user
+    const query = `SELECT * FROM users WHERE userID = ?`;
+    db.get(query, [numericUserID], (err, row) => {
+        if (err) {
+            console.error('Error fetching user:', err.message);
+            return res.status(500).json({ error: 'Failed to fetch user' });
+        }
+
+        if (!row) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Return the user details
+        res.json(row);
+    });
+});
+
 // Get all favorite music tracks for a user
 // This endpoint retrieves all favorite music tracks for a specific user
 app.get('/users/:userID/favorites', (req, res) => {
