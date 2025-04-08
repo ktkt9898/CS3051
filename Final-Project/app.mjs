@@ -7,6 +7,19 @@ import sqlite3 from "sqlite3"; // Set up sqlite3
 sqlite3.verbose(); // Set up verbose
 import { open } from "sqlite"; // Set up open
 
+// Authenticate with JWT
+// Assumes a SQLite database with a users table
+// with name and password_hash columns
+
+import bcrypt from "bcrypt"; // https://www.npmjs.com/package/bcrypt
+import jwt from "jsonwebtoken"; // https://www.npmjs.com/package/jsonwebtoken
+
+// you can create a private key in node with the one-line script: require("crypto").randomBytes(64).toString("hex")
+const algo = 'HS256';
+const privateKey = "25377fdf7ead4a4edc5546c328bcec43a6c5c314339779b89dea9221911ec8947fa01d286793976f115f7d25cada65918557b5fd8ced102ddd4a98c59ce65d34";
+const publicKey = privateKey;  // for symetric encryption, the public key is the same as the private key
+const keyTimeout = "1h";
+
 // Open the SQLite database
 const db = new sqlite3.Database('./userdatabase.db', (err) => {
     if (err) {
@@ -43,43 +56,45 @@ app.get('/gallery', (req, res) => {
 });
 
 // Add a new user
-app.post('/users', (req, res) => {
-    const { username } = req.body;
+app.post('/users', async (req, res) => {
+    const { username, password } = req.body;
 
-    // Check if the username is provided
-    // If not, return a 400 Bad Request response with an error message
-    if (!username) {
-        return res.status(400).json({ error: 'Username is required' });
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    // Check if the username already exists in the database
-    // If it does, return a 400 Bad Request response with an error message
-    const query = `INSERT INTO users (username) VALUES (?)`;
-    db.run(query, [username], function (err) {
-        if (err) {
-            if (err.code === 'SQLITE_CONSTRAINT') {
-                return res.status(400).json({ error: 'Username already exists' });
+    try {
+        // Hash the password
+        const saltRounds = 10;
+        const passwordHash = await bcrypt.hash(password, saltRounds);
+
+        // Insert the user into the database
+        const query = `INSERT INTO users (username, password_hash) VALUES (?, ?)`;
+        db.run(query, [username, passwordHash], function (err) {
+            if (err) {
+                if (err.code === 'SQLITE_CONSTRAINT') {
+                    return res.status(400).json({ error: 'Username already exists' });
+                }
+                return res.status(500).json({ error: 'Failed to create account' });
             }
-            return res.status(500).json({ error: 'Failed to create account' });
-        }
-        res.status(201).json({ userID: this.lastID, username });
-    });
+            res.status(201).json({ userID: this.lastID, username });
+        });
+    } catch (error) {
+        console.error('Error hashing password:', error.message);
+        res.status(500).json({ error: 'Failed to create account' });
+    }
 });
 
 // Log in a user and display their favorites
 app.post('/login', (req, res) => {
-    const { username } = req.body;
+    const { username, password } = req.body;
 
-    // Check if the username is provided
-    // If not, return a 400 Bad Request response with an error message
-    if (!username) {
-        return res.status(400).json({ error: 'Username is required' });
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    // Check if the user exists in the database
-    // If not, return a 404 Not Found response with an error message
-    const query = `SELECT userID FROM users WHERE username = ?`;
-    db.get(query, [username], (err, row) => {
+    const query = `SELECT userID, password_hash FROM users WHERE username = ?`;
+    db.get(query, [username], async (err, row) => {
         if (err) {
             console.error('Error fetching user:', err.message);
             return res.status(500).json({ error: 'Failed to log in' });
@@ -89,25 +104,48 @@ app.post('/login', (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Return the userID as JSON
-        res.json({ userID: row.userID });
+        try {
+            // Verify the password
+            const isPasswordValid = await bcrypt.compare(password, row.password_hash);
+            if (!isPasswordValid) {
+                return res.status(401).json({ error: 'Invalid password' });
+            }
+
+            // Generate a JWT token
+            const token = jwt.sign({ userID: row.userID }, privateKey, { algorithm: algo, expiresIn: keyTimeout });
+            res.json({ token });
+        } catch (error) {
+            console.error('Error verifying password:', error.message);
+            res.status(500).json({ error: 'Failed to log in' });
+        }
     });
 });
 
-// Add a favorite music track for a user
-app.post('/favorites', (req, res) => {
-    const { userID, musictrackID, musictrack } = req.body;
-
-    // Check if the required fields are provided in the request body
-    // If not, return a 400 Bad Request response with an error message
-    if (!userID || !musictrackID || !musictrack) {
-        console.error('Missing required fields in the request body.');
-        return res.status(400).json({ error: 'Missing required fields: userID, musictrackID, or musictrack' });
+function authenticate(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).json({ error: 'Authorization header is missing' });
     }
 
-    // Check if the favorite already exists
-    // If it does, return a 400 Bad Request response with an error message
-    // If not, insert the new favorite into the database
+    const token = authHeader.split(' ')[1];
+    jwt.verify(token, privateKey, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ error: 'Invalid or expired token' });
+        }
+        req.userID = decoded.userID; // Attach userID to the request
+        next();
+    });
+}
+
+// Add a favorite music track for a user
+app.post('/favorites', authenticate, (req, res) => {
+    const { musictrackID, musictrack } = req.body;
+    const userID = req.userID; // Get userID from the authenticated request
+
+    if (!musictrackID || !musictrack) {
+        return res.status(400).json({ error: 'Missing required fields: musictrackID or musictrack' });
+    }
+
     const checkQuery = `SELECT * FROM favorites WHERE userID = ? AND musictrackID = ?`;
     db.get(checkQuery, [userID, musictrackID], (err, row) => {
         if (err) {
@@ -116,11 +154,9 @@ app.post('/favorites', (req, res) => {
         }
 
         if (row) {
-            // Duplicate found
             return res.status(400).json({ error: 'This track is already in your favorites' });
         }
 
-        // If no duplicate, insert the new favorite
         const insertQuery = `INSERT INTO favorites (userID, musictrackID, musictrack) VALUES (?, ?, ?)`;
         db.run(insertQuery, [userID, musictrackID, musictrack], function (err) {
             if (err) {

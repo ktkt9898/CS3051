@@ -1,92 +1,72 @@
 // Add event listener for the create user button
-document.getElementById('add-user-btn').addEventListener('click', () => {
-    // add-user-btn is the ID of the button to create a new user
-    // retrieve the username from the input field
-    const username = document.getElementById('username').value;
+document.getElementById('add-user-btn').addEventListener('click', async () => {
+    const username = document.getElementById('register-username').value;
+    const password = document.getElementById('register-password').value;
 
-    // Check if the username is empty
-    if (!username) {
-        alert('Please enter a username.');
+    if (!username || !password) {
+        document.getElementById('registration-error-message').textContent = 'Username and password are required.';
         return;
     }
 
-    // Check if the username already exists
-    fetch(`/users/${username}`)
-        .then(response => {
-            if (response.status === 404) {
-                // Username does not exist, proceed to create the user
-                // Response 404 means no user found, so we can create a new one
-                // POST request sent to /users endpoint with the username
-                return fetch('/users', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username }),
-                });
-                // If 404 response, meaning OK, username already exists
-            } else if (response.ok) {
-                // Username already exists
-                throw new Error('Username already exists');
-            } else {
-                throw new Error('Error checking username');
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.userID) {
-                alert('Account created successfully!');
-            } else if (data.error) {
-                alert(`Error: ${data.error}`);
-            }
-        })
-        .catch(error => {
-            if (error.message === 'Username already exists') {
-                alert('This username already exists. Please choose a different username.');
-            } else {
-                console.error('Error:', error);
-                alert('An error occurred while creating the account.');
-            }
+    try {
+        const response = await fetch('http://localhost:8080/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
         });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert('Account created successfully!');
+            document.getElementById('register-username').value = '';
+            document.getElementById('register-password').value = '';
+        } else {
+            document.getElementById('registration-error-message').textContent = data.error;
+        }
+    } catch (error) {
+        console.error('Error during registration:', error);
+        document.getElementById('registration-error-message').textContent = 'An error occurred. Please try again.';
+    }
 });
 
-// Add event listener for the login button
-document.getElementById('login-btn').addEventListener('click', () => {
-    const username = document.getElementById('login-username').value;
+document.getElementById('login-form').addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent the form from refreshing the page
 
-    // If not username was inputted, alert the user
-    if (!username) {
-        alert('Please enter your username.');
-        return;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Save the JWT token to localStorage or a cookie
+            localStorage.setItem('token', data.token);
+            alert('Login successful!');
+            window.location.href = '/catalog'; // Redirect to the catalog page
+        } else {
+            document.getElementById('error-message').textContent = data.error;
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        document.getElementById('error-message').textContent = 'An error occurred. Please try again.';
     }
+});
 
-    // POST request sent to /login endpoint with the username
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username }),
-    })
-    // Check if the response is OK (status code 200-299)
-    // If not, throw an error with the response message
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(data => {
-                    throw new Error(data.error || 'Failed to log in');
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.userID) {
-                console.log('Login successful, userID:', data.userID);
-                alert('Login successful!');
-                // Also load the favorites for the logged-in user
-                loadFavorites(data.userID);
-            }
-        })
-        .catch(error => console.error('Error logging in:', error));
+document.getElementById('logout-button').addEventListener('click', () => {
+    localStorage.removeItem('token'); // Clear the JWT token
+    alert('You have been logged out.');
+    window.location.href = '/login'; // Redirect to the login page
 });
 
 /**
