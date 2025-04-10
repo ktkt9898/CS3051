@@ -18,7 +18,7 @@ import jwt from "jsonwebtoken"; // https://www.npmjs.com/package/jsonwebtoken
 const algo = 'HS256';
 const privateKey = "25377fdf7ead4a4edc5546c328bcec43a6c5c314339779b89dea9221911ec8947fa01d286793976f115f7d25cada65918557b5fd8ced102ddd4a98c59ce65d34";
 const publicKey = privateKey;  // for symetric encryption, the public key is the same as the private key
-const keyTimeout = "1h";
+const keyTimeout = "10m"; // 10 minutes
 
 // Open the SQLite database
 const db = new sqlite3.Database('./userdatabase.db', (err) => {
@@ -111,8 +111,12 @@ app.post('/login', (req, res) => {
                 return res.status(401).json({ error: 'Invalid password' });
             }
 
-            // Generate a JWT token
+            // Generate a JWT token with a 10-minute expiration
             const token = jwt.sign({ userID: row.userID }, privateKey, { algorithm: algo, expiresIn: keyTimeout });
+
+            // Log the token to the console
+            console.log(`Generated JWT Token: ${token}`);
+
             res.json({ token });
         } catch (error) {
             console.error('Error verifying password:', error.message);
@@ -121,6 +125,7 @@ app.post('/login', (req, res) => {
     });
 });
 
+// Middleware to authenticate requests
 function authenticate(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -250,4 +255,3 @@ let server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     console.log("To end the server, press 'CTRL+C'");
   });
-

@@ -9,7 +9,9 @@ body {
 
 .mainHeader {
     background-color: burlywood;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     /* Ensure the element is a block-level element */
     width: 100%;
     /* Set the desired width */
@@ -23,6 +25,20 @@ body {
     /* Add padding to the left */
     box-sizing: border-box;
     /* Include padding and border in the element's total width and height */
+}
+
+#logoutButton {
+    margin-left: auto;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#logoutButton:hover {
+    background-color: #d32f2f;
 }
 
 /* Container for the music track that holds title, artist, year, album cover, and the score. */

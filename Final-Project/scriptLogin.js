@@ -32,6 +32,7 @@ document.getElementById('add-user-btn').addEventListener('click', async () => {
     }
 });
 
+// Handle login form submission
 document.getElementById('login-form').addEventListener('submit', async (event) => {
     event.preventDefault(); // Prevent the form from refreshing the page
 
@@ -39,23 +40,23 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:8080/login', {
+        const response = await fetch('/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
         });
 
         const data = await response.json();
 
         if (response.ok) {
-            // Save the JWT token to localStorage or a cookie
+            // Store the token in localStorage
             localStorage.setItem('token', data.token);
-            alert('Login successful!');
-            window.location.href = '/catalog'; // Redirect to the catalog page
+
+            // Redirect to the catalog page
+            window.location.href = '/catalog';
         } else {
-            document.getElementById('error-message').textContent = data.error;
+            // Display error message
+            document.getElementById('error-message').textContent = data.error || 'Login failed';
         }
     } catch (error) {
         console.error('Error during login:', error);
