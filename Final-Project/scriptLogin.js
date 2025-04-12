@@ -117,7 +117,7 @@ function loadFavorites() {
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'X';
                 removeButton.style.marginLeft = '10px';
-                removeButton.onclick = () => removeFavorite(userID, favorite.musictrackID, listItem);
+                removeButton.onclick = () => removeFavorite(favorite.musictrackID, listItem);
 
                 listItem.appendChild(link);
                 listItem.appendChild(removeButton);
@@ -145,17 +145,14 @@ function removeFavorite(musictrackID, listItem) {
         return;
     }
 
-    // Decode the token to extract the user ID (assuming the token is a JWT)
-    const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
-    const userID = payload.userID; // Adjust this based on your token structure
-
     // Send a DELETE request to the server to remove the favorite
     fetch(`/favorites`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
         },
-        body: JSON.stringify({ userID, musictrackID }),
+        body: JSON.stringify({ musictrackID }), // Only send the musictrackID
     })
         .then(response => {
             if (response.ok) {

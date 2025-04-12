@@ -229,17 +229,14 @@ app.get('/users/:userID/favorites', (req, res) => {
 
 // Delete a favorite music track for a user
 // This endpoint deletes a specific favorite music track for a user
-app.delete('/favorites', (req, res) => {
-    const { userID, musictrackID } = req.body;
+app.delete('/favorites', authenticate, (req, res) => {
+    const { musictrackID } = req.body;
+    const userID = req.userID; // Get userID from the authenticated request
 
-    // Check if the required fields are provided in the request body
-    // If not, return a 400 Bad Request response with an error message
-    if (!userID || !musictrackID) {
-        return res.status(400).json({ error: 'Missing required fields: userID or musictrackID' });
+    if (!musictrackID) {
+        return res.status(400).json({ error: 'Missing required field: musictrackID' });
     }
 
-    // Check if the favorite exists
-    // If it does, delete it from the database
     const deleteQuery = `DELETE FROM favorites WHERE userID = ? AND musictrackID = ?`;
     db.run(deleteQuery, [userID, musictrackID], function (err) {
         if (err) {
