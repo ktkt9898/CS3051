@@ -55,8 +55,9 @@
             <div id="innerButtonContainerParanoidRhythm" class="containerInnerButtons" style="display: none;">
                 <div class="tooltip">
                     <button id="startButtonParanoidRhythm" class="buttonsInner"
-                        onclick="startScrolling('iframeParanoidRhythm', 0.2, 'rhythmParanoid', [
-                        { time: 0, speed: 0.2 },
+                        onclick="startScrolling('iframeParanoidRhythm', 0.1, 'rhythmParanoid', [
+                        { time: 0, speed: 0.1 },
+                        { time: 6000, speed: 0.25 },
                     ], 'startButtonParanoidRhythm', 'manualStartButtonParanoidRhythm', 'increaseButtonParanoidRhythm', 'decreaseButtonParanoidRhythm')">Start</button>
                     <span class="tooltiptext">Automatically starts the track with tempo changes</span>
                 </div>
@@ -97,7 +98,7 @@
                 <div class="tooltip">
                     <button id="startButtonParanoidLead" class="buttonsInner"
                         onclick="startScrolling('iframeParanoidLead', 0.2, 'leadParanoid', [
-                        { time: 5000, speed: 0.5 },
+                        { time: 5500, speed: 0.25 },
                     ], 'startButtonParanoidLead', 'manualStartButtonParanoidLead', 'increaseButtonParanoidLead', 'decreaseButtonParanoidLead')">Start</button>
                     <span class="tooltiptext">Automatically starts the track with tempo changes</span>
                 </div>
