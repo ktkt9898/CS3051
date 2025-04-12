@@ -35,9 +35,14 @@ app.use(express.static(path.join(process.cwd())));
 // Parse JSON request bodies
 app.use(express.json()); 
 
-// The default route for the home page
+// The default route
 app.get("/", (req, res) => {
-    res.sendFile(path.join(process.cwd(), "home.html"));
+    res.sendFile(path.join(process.cwd(), "login.html"));
+});
+
+// The route for the login page
+app.get("/favorites", (req, res) => {
+    res.sendFile(path.join(process.cwd(), "favorites.html"));
 });
 
 // The route for the login page

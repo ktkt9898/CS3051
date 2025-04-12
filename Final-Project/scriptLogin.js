@@ -53,7 +53,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
             localStorage.setItem('token', data.token);
 
             // Redirect to the catalog page
-            window.location.href = '/catalog';
+            window.location.href = '/favorites'; // Redirect to the favorites page
         } else {
             // Display error message
             document.getElementById('error-message').textContent = data.error || 'Login failed';
@@ -73,13 +73,24 @@ document.getElementById('logout-button').addEventListener('click', () => {
 /**
  * loadFavorites function
  * Fetches the user's favorite music tracks from the server and displays them in the UI.
- * @param {*} userID 
  */
-function loadFavorites(userID) {
+function loadFavorites() {
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        console.error('No token found. User is not logged in.');
+        document.getElementById('favorites-section').style.display = 'none';
+        return;
+    }
+
+    // Decode the token to extract the user ID (assuming the token is a JWT)
+    const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
+    const userID = payload.userID; // Adjust this based on your token structure
+
     console.log('Loading favorites for userID:', userID); // Debugging
 
     // Fetch request sent to /users/:userID/favorites endpoint to get the user's favorites
-    // The user's favorites is stored in the database from the endpoint
     fetch(`/users/${userID}/favorites`)
         .then(response => {
             if (!response.ok) {
@@ -87,48 +98,32 @@ function loadFavorites(userID) {
             }
             return response.json();
         })
-        // If response is OK, parse the JSON data and display it in the UI
         .then(favorites => {
             const favoritesList = document.getElementById('favorites-list');
             favoritesList.innerHTML = ''; // Clear the list before adding items
 
-            // Check if the favorites array is empty
-            // If empty, hide the favorites section
             if (favorites.length === 0) {
                 document.getElementById('favorites-section').style.display = 'none';
                 return;
             }
 
-            // Iterate over the favorites array and create list items for each favorite
             favorites.forEach(favorite => {
                 const listItem = document.createElement('li');
-
-                // Create a link to the music page and set the track name as the link text
                 const link = document.createElement('a');
                 link.href = `music-pages/${favorite.musictrackID}.html`;
-
-                // Set the track name as the link text
-                link.textContent = favorite.musictrack; 
-
-                // Once clicked, open the link in a new tab
-                // This is done to prevent the user from being redirected away from the favorites page
+                link.textContent = favorite.musictrack;
                 link.target = '_blank';
 
-                // Add a "Remove" button
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'X';
                 removeButton.style.marginLeft = '10px';
                 removeButton.onclick = () => removeFavorite(userID, favorite.musictrackID, listItem);
 
-                // Append the link and remove button to the list item
                 listItem.appendChild(link);
                 listItem.appendChild(removeButton);
-
-                // Append the list item to the favorites list
                 favoritesList.appendChild(listItem);
             });
 
-            // Show the favorites section
             document.getElementById('favorites-section').style.display = 'block';
         })
         .catch(error => console.error('Error loading favorites:', error));
@@ -137,17 +132,26 @@ function loadFavorites(userID) {
 /**
  * removeFavorite function
  * Removes a favorite music track from the user's favorites list.
- * @param {*} userID 
  * @param {*} musictrackID 
  * @param {*} listItem 
  */
-function removeFavorite(userID, musictrackID, listItem) {
+function removeFavorite(musictrackID, listItem) {
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        console.error('No token found. User is not logged in.');
+        alert('You must be logged in to remove favorites.');
+        return;
+    }
+
+    // Decode the token to extract the user ID (assuming the token is a JWT)
+    const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
+    const userID = payload.userID; // Adjust this based on your token structure
+
     // Send a DELETE request to the server to remove the favorite
-    // The request is sent to the /favorites endpoint with the userID and musictrackID in the body
     fetch(`/favorites`, {
         method: 'DELETE',
-        
-        // The request is sent to the /favorites endpoint with the userID and musictrackID in the body
         headers: {
             'Content-Type': 'application/json',
         },

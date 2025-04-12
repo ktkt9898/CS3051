@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kyle's Guitar Tabs</title>
+    <title>Favorites</title>
     <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
     <h1 class="mainHeader">
-        Home
+        Favorites
         <button id="logoutButton" style="display: none;">Logout</button>
     </h1>
 
@@ -26,10 +26,22 @@
             <li><a href="/gallery">Guitar Gallery</a></li>
         </ul>
     </nav>
-    <!-- Add your main content here -->
+
+    <!-- List Favorites -->
+    <div id="favorites-section" style="display: none;">
+        <h2>Your Favorites</h2>
+        <ul id="favorites-list">
+            <!-- Favorites will be dynamically added here -->
+        </ul>
+    </div>
 
     <script src="scriptLogin.js"></script>
     <script src="scriptLogout.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFavorites();
+        });
+    </script>
 </body>
 
 </html>
