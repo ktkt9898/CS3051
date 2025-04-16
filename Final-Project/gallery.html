@@ -11,12 +11,12 @@
 <body>
     <h1 class="mainHeader">
         Gallery
-        <button id="logoutButton" style="display: none;">Logout</button>
+        <button id="buttonLogout" style="display: none;">Logout</button>
     </h1>
 
     <div id="warning" style="display: none;">
         Your screen width is too small for optimal viewing.
-        <button id="close-btn">Close</button>
+        <button id="buttonWarningClose">Close</button>
     </div>
 
     <nav class="mainNav">
@@ -26,7 +26,23 @@
             <li><a href="/catalog">Catalog</a></li>
         </ul>
     </nav>
-    <!-- Add your gallery content here -->
+
+    <!-- Embedded External Link with Image -->
+    <div class="featured-guitar" style="margin: 20px 0; text-align: center;">
+        <h2>Featured Guitar</h2>
+        <!-- Display an image of the guitar -->
+        <a href="https://www.stars-music.fr/evh-frankie-striped-series-eddie-van-halen-mn-red-with-black-white-stripes_173846.html"
+            target="_blank">
+            <img id="guitar-gallery-image" src="guitar-gallery-images/evh.png" alt="Image not found">
+        </a>
+        <!-- Add a clickable link below the image -->
+        <p>
+            <a href="https://www.stars-music.fr/evh-frankie-striped-series-eddie-van-halen-mn-red-with-black-white-stripes_173846.html"
+                target="_blank" style="text-decoration: none; color: blue;">
+                View Details on Stars Music
+            </a>
+        </p>
+    </div>
 
     <script src="scriptLogin.js"></script>
     <script src="scriptLogout.js"></script>

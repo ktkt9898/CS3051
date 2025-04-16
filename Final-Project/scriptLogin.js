@@ -3,11 +3,14 @@ document.getElementById('add-user-btn').addEventListener('click', async () => {
     const username = document.getElementById('register-username').value;
     const password = document.getElementById('register-password').value;
 
+    // Validate input fields
+    // Check if username and password are provided
     if (!username || !password) {
         document.getElementById('registration-error-message').textContent = 'Username and password are required.';
         return;
     }
 
+    // Check if username and password meet the length requirements
     try {
         const response = await fetch('http://localhost:8080/users', {
             method: 'POST',
@@ -39,6 +42,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
+    // Validate input fields
     try {
         const response = await fetch('/login', {
             method: 'POST',
@@ -64,12 +68,6 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     }
 });
 
-document.getElementById('logout-button').addEventListener('click', () => {
-    localStorage.removeItem('token'); // Clear the JWT token
-    alert('You have been logged out.');
-    window.location.href = '/login'; // Redirect to the login page
-});
-
 /**
  * loadFavorites function
  * Fetches the user's favorite music tracks from the server and displays them in the UI.
@@ -78,19 +76,20 @@ function loadFavorites() {
     // Retrieve the token from localStorage
     const token = localStorage.getItem('token');
 
+    // Check if the token exists
+    // If the token does not exist, the user is not logged in
     if (!token) {
         console.error('No token found. User is not logged in.');
         document.getElementById('favorites-section').style.display = 'none';
+        document.getElementById('no-favorites').style.display = 'none';
         return;
     }
 
-    // Decode the token to extract the user ID (assuming the token is a JWT)
-    const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
-    const userID = payload.userID; // Adjust this based on your token structure
+    // Decode the JWT token to get the user ID
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const userID = payload.userID;
 
-    console.log('Loading favorites for userID:', userID); // Debugging
-
-    // Fetch request sent to /users/:userID/favorites endpoint to get the user's favorites
+    // Send a GET request to the server to retrieve the user's favorites
     fetch(`/users/${userID}/favorites`)
         .then(response => {
             if (!response.ok) {
@@ -100,12 +99,20 @@ function loadFavorites() {
         })
         .then(favorites => {
             const favoritesList = document.getElementById('favorites-list');
-            favoritesList.innerHTML = ''; // Clear the list before adding items
+
+            // Clear the previous existing favorites list
+            favoritesList.innerHTML = ''; 
 
             if (favorites.length === 0) {
+                // Show "No Favorites" message if the list is empty
+                document.getElementById('no-favorites').style.display = 'block';
                 document.getElementById('favorites-section').style.display = 'none';
                 return;
             }
+
+            // Hide "No Favorites" message and display the favorites section
+            document.getElementById('no-favorites').style.display = 'none';
+            document.getElementById('favorites-section').style.display = 'block';
 
             favorites.forEach(favorite => {
                 const listItem = document.createElement('li');
@@ -123,8 +130,6 @@ function loadFavorites() {
                 listItem.appendChild(removeButton);
                 favoritesList.appendChild(listItem);
             });
-
-            document.getElementById('favorites-section').style.display = 'block';
         })
         .catch(error => console.error('Error loading favorites:', error));
 }
@@ -139,6 +144,8 @@ function removeFavorite(musictrackID, listItem) {
     // Retrieve the token from localStorage
     const token = localStorage.getItem('token');
 
+    // Check if the token exists
+    // If the token does not exist, the user is not logged in
     if (!token) {
         console.error('No token found. User is not logged in.');
         alert('You must be logged in to remove favorites.');

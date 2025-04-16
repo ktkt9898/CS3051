@@ -50,16 +50,16 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
     const buttonContainer = document.getElementById(buttonContainerId);
 
     /**
-    Get the musicPageBackground and sibling buttons, this is retrieved now to later be used for the smooth
+    Get the backgroundMusicPage and sibling buttons, this is retrieved now to later be used for the smooth
     scrolling effect when the iframe is shown
     */
-    const musicPageBackground = button.closest('.musicPageBackground');
+    const backgroundMusicPage = button.closest('.backgroundMusicPage');
 
     /**
-    Retrieve all the buttons within the previous musicPageBackground
+    Retrieve all the buttons within the previous backgroundMusicPage
     Naming convention is buttonShow because this is the CSS style for all buttons, onced viewable/shown
     */
-    const siblingButtons = musicPageBackground.querySelectorAll('.buttonShow');
+    const siblingButtons = backgroundMusicPage.querySelectorAll('.buttonShow');
 
     /**
     Create a new variable for either Rythm or Lead sheet music, and hide the other if one is chosen.
@@ -114,7 +114,7 @@ function toggleIframeAndButtons(iframeId, buttonContainerId, button, backingTrac
         iframe.style.display = "none";
         buttonContainer.style.display = "none";
         button.textContent = button.getAttribute('data-original-text'); // Restore original text
-        musicPageBackground.scrollIntoView({ behavior: 'smooth' }); // Scroll to the top of the guitarTab container smoothly
+        backgroundMusicPage.scrollIntoView({ behavior: 'smooth' }); // Scroll to the top of the guitarTab container smoothly
 
         // Display the Lead or Rhythm options again, previously was hidden when one choice was selected instead of the other
         siblingButtons.forEach(siblingButton => {
@@ -136,38 +136,38 @@ function showCountdown(callback) {
         return;
     }
 
-    const countdownContainer = document.createElement('div');
-    countdownContainer.id = 'countdown-container';
-    countdownContainer.style.position = 'fixed';
-    countdownContainer.style.top = '50%';
-    countdownContainer.style.left = '50%';
-    countdownContainer.style.transform = 'translate(-50%, -50%)';
-    countdownContainer.style.fontSize = '3em';
-    countdownContainer.style.color = 'white';
-    countdownContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-    countdownContainer.style.padding = '20px';
-    countdownContainer.style.borderRadius = '10px';
-    countdownContainer.style.textAlign = 'center';
-    document.body.appendChild(countdownContainer);
+    const containerCountdown = document.createElement('div');
+    containerCountdown.id = 'countdown-container';
+    containerCountdown.style.position = 'fixed';
+    containerCountdown.style.top = '50%';
+    containerCountdown.style.left = '50%';
+    containerCountdown.style.transform = 'translate(-50%, -50%)';
+    containerCountdown.style.fontSize = '3em';
+    containerCountdown.style.color = 'white';
+    containerCountdown.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    containerCountdown.style.padding = '20px';
+    containerCountdown.style.borderRadius = '10px';
+    containerCountdown.style.textAlign = 'center';
+    document.body.appendChild(containerCountdown);
 
     let countdown = 3;
-    countdownContainer.textContent = countdown;
+    containerCountdown.textContent = countdown;
 
     const interval = setInterval(() => {
         // Safety check again to see if the countdown operation should be stopped
         if (stopCountdownOperation) {
             clearInterval(interval);
-            document.body.removeChild(countdownContainer);
+            document.body.removeChild(containerCountdown);
             return;
         }
         countdown--;
         if (countdown > 0) {
-            countdownContainer.textContent = countdown;
+            containerCountdown.textContent = countdown;
         } else if (countdown === 0) {
-            countdownContainer.textContent = 'GO';
+            containerCountdown.textContent = 'GO';
         } else {
             clearInterval(interval);
-            document.body.removeChild(countdownContainer);
+            document.body.removeChild(containerCountdown);
             callback();
         }
     }, 1000);
