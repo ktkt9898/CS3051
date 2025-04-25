@@ -23,7 +23,7 @@ checkScreenDimensions();
 window.addEventListener('resize', checkScreenDimensions);
 
 // Close button functionality
-document.getElementById('close-btn').addEventListener('click', function () {
+document.getElementById('buttonWarningClose').addEventListener('click', function () {
     document.getElementById('warning').style.display = 'none';
     warningClosed = true; // Set the flag to true when the warning is closed
 });

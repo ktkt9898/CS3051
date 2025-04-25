@@ -236,3 +236,77 @@ body {
     border-color: solid black;
     border-width: 2px;
 }
+
+/* Container for both forms */
+.forms-container {
+    display: flex;
+    justify-content: center; /* Center the forms horizontally */
+    align-items: center; /* Align the forms vertically */
+    gap: 20px; /* Space between the forms */
+    height: 100vh; /* Full viewport height */
+}
+
+/* Style for each form container */
+.form-container {
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 300px; /* Fixed width */
+    text-align: center; /* Center text inside the form */
+}
+
+/* Style the input fields */
+.form-container input {
+    width: 100%; /* Full width */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Style the buttons */
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Blue background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Style for the favorites container */
+.favorites-container {
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 80%; /* Adjust width as needed */
+    max-width: 600px; /* Limit the maximum width */
+    margin: 20px auto; /* Center the box and add vertical spacing */
+    text-align: left; /* Align text to the left */
+}
+
+/* Style for the favorites list */
+#favorites-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+#favorites-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Add a divider between items */
+}
+
+#favorites-list li:last-child {
+    border-bottom: none; /* Remove the divider for the last item */
+}

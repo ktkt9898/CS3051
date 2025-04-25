@@ -140,6 +140,7 @@ function authenticate(req, res, next) {
 
 // Add a favorite music track for a user
 app.post('/favorites', authenticate, (req, res) => {
+    // Get the musictrackID and musictrack from the request body
     const { musictrackID, musictrack } = req.body;
 
     // Check if the user is authenticated
