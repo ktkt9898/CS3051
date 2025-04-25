@@ -101,7 +101,7 @@ function loadFavorites() {
             const favoritesList = document.getElementById('favorites-list');
 
             // Clear the previous existing favorites list
-            favoritesList.innerHTML = ''; 
+            favoritesList.innerHTML = '';
 
             if (favorites.length === 0) {
                 // Show "No Favorites" message if the list is empty
