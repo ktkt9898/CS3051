@@ -1,0 +1,1 @@
+npm install -express -sqlite -sqlite3 -bcrypt -jsonwebtoken
